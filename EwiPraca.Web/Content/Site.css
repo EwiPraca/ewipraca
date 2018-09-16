@@ -1,0 +1,149 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+@media screen and (min-width: 768px) {
+    .popup-modal {
+        width: 50% !important;
+    }
+}
+
+.panel-primary > .panel-heading {
+    background-color: #808080;
+    border-color: #808080;
+}
+
+.panel-primary {
+    margin-top: 20px;
+    border-color: #808080;
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+    background-color: #808080;
+    border-color: #808080;
+}
+
+.inline-row {
+    display: inline-block;
+}
+
+.modal-dialog {
+    padding-top: 20vh !important;
+}
+
+.modal-header {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    width: 98% !important;
+}
+
+@media (min-width: 992px) {
+    .modal .col-md-offset-11 {
+        margin-left: 88%;
+    }
+}
+
+.modal-row{
+    margin-bottom: 10px !important;
+    margin-left: 0px !important;
+}
+
+/*Loader*/
+.loader-container {
+  position: fixed;
+    top: 40%;
+    right: 0;
+    bottom: 0;
+    left: 45%;
+    z-index: 1040;
+    overflow: auto;
+    overflow-y: scroll;
+    display:none;
+}
+
+.loader {
+  max-width: 15%;
+  width: 100%;
+  height: auto;
+  stroke-linecap: round;
+}
+
+circle {
+  fill: none;
+  stroke-width: 3.5;
+  -webkit-animation-name: preloader;
+          animation-name: preloader;
+  -webkit-animation-duration: 3s;
+          animation-duration: 3s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+  -webkit-transform-origin: 170px 170px;
+          transform-origin: 170px 170px;
+  will-change: transform;
+}
+circle:nth-of-type(1) {
+  stroke-dasharray: 550;
+}
+circle:nth-of-type(2) {
+  stroke-dasharray: 500;
+}
+circle:nth-of-type(3) {
+  stroke-dasharray: 450;
+}
+circle:nth-of-type(4) {
+  stroke-dasharray: 300;
+}
+circle:nth-of-type(1) {
+  -webkit-animation-delay: -0.15s;
+          animation-delay: -0.15s;
+}
+circle:nth-of-type(2) {
+  -webkit-animation-delay: -0.3s;
+          animation-delay: -0.3s;
+}
+circle:nth-of-type(3) {
+  -webkit-animation-delay: -0.45s;
+  -moz-animation-delay:  -0.45s;
+          animation-delay: -0.45s;
+}
+circle:nth-of-type(4) {
+  -webkit-animation-delay: -0.6s;
+  -moz-animation-delay: -0.6s;
+          animation-delay: -0.6s;
+}
+
+@-webkit-keyframes preloader {
+  50% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes preloader {
+  50% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+/*End loader*/

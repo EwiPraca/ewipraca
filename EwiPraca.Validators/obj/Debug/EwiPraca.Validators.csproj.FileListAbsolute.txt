@@ -1,0 +1,5 @@
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Validators\bin\Debug\EwiPraca.Validators.dll
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Validators\bin\Debug\EwiPraca.Validators.pdb
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Validators\obj\Debug\EwiPraca.Validators.csprojResolveAssemblyReference.cache
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Validators\obj\Debug\EwiPraca.Validators.dll
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Validators\obj\Debug\EwiPraca.Validators.pdb

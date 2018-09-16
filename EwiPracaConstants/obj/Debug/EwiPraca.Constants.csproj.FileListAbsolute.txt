@@ -1,0 +1,4 @@
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPracaConstants\bin\Debug\EwiPracaConstants.dll
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPracaConstants\bin\Debug\EwiPracaConstants.pdb
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPracaConstants\obj\Debug\EwiPracaConstants.dll
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPracaConstants\obj\Debug\EwiPracaConstants.pdb

@@ -1,0 +1,35 @@
+﻿<script type="text/javascript">
+    $("#open-edit-user-modal").click(function () {
+        showLoader();
+        var options = { "backdrop": "static", keyboard: true };
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("EditProfile", "Manage")",
+            contentType: "application/json",
+            datatype: "json",
+            success: function (data) {
+                $('#edit-user-modal-content').html(data);
+                $('#edit-user-modal').modal(options);
+                $('#edit-user-modal').modal('show');
+                hideLoader();
+            },
+            error: function () {
+                hideLoader();
+                alert("Dynamic content load failed.");
+            }
+        });
+    });
+
+    $("#closbtn").click(function () {
+        $('#edit-user-modal').modal('hide');
+    });
+
+</script>
+
+<div id='edit-user-modal' class='modal'>
+    <div class="modal-dialog popup-modal">
+        <div class="modal-content">
+            <div id='edit-user-modal-content'></div>
+        </div>
+    </div>
+</div>

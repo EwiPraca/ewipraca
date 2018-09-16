@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EwiPraca.Model", "EwiPraca.Model\EwiPraca.Model.csproj", "{2850AE3F-AA71-4269-B740-FACCC4CFF9A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EwiPraca.Data", "EwiPraca.Data\EwiPraca.Data.csproj", "{AE691EC9-0EFD-4FEF-A200-EEE5153C6F37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EwiPraca.Web", "EwiPraca.Web\EwiPraca.Web.csproj", "{B90A696C-7CC1-4C7B-9CD6-6C71DEAFA790}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EwiPraca.Constants", "EwiPracaConstants\EwiPraca.Constants.csproj", "{DA82AEC2-26CE-4F43-AAA7-A9EFF315E035}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EwiPraca.Services", "EwiPraca.Services\EwiPraca.Services.csproj", "{A48688A3-06A0-4FF5-BBE9-065FF1B16F73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EwiPraca.Encryptor", "EwiPraca.Encryptor\EwiPraca.Encryptor.csproj", "{87110F43-35B3-48AA-8AEF-CF898D58F512}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EwiPraca.Validators", "EwiPraca.Validators\EwiPraca.Validators.csproj", "{37D6A551-C988-4A2B-A45D-EE06D6D138C1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2850AE3F-AA71-4269-B740-FACCC4CFF9A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2850AE3F-AA71-4269-B740-FACCC4CFF9A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2850AE3F-AA71-4269-B740-FACCC4CFF9A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2850AE3F-AA71-4269-B740-FACCC4CFF9A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE691EC9-0EFD-4FEF-A200-EEE5153C6F37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE691EC9-0EFD-4FEF-A200-EEE5153C6F37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE691EC9-0EFD-4FEF-A200-EEE5153C6F37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE691EC9-0EFD-4FEF-A200-EEE5153C6F37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B90A696C-7CC1-4C7B-9CD6-6C71DEAFA790}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B90A696C-7CC1-4C7B-9CD6-6C71DEAFA790}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B90A696C-7CC1-4C7B-9CD6-6C71DEAFA790}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B90A696C-7CC1-4C7B-9CD6-6C71DEAFA790}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA82AEC2-26CE-4F43-AAA7-A9EFF315E035}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA82AEC2-26CE-4F43-AAA7-A9EFF315E035}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA82AEC2-26CE-4F43-AAA7-A9EFF315E035}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA82AEC2-26CE-4F43-AAA7-A9EFF315E035}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A48688A3-06A0-4FF5-BBE9-065FF1B16F73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A48688A3-06A0-4FF5-BBE9-065FF1B16F73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A48688A3-06A0-4FF5-BBE9-065FF1B16F73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A48688A3-06A0-4FF5-BBE9-065FF1B16F73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87110F43-35B3-48AA-8AEF-CF898D58F512}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87110F43-35B3-48AA-8AEF-CF898D58F512}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87110F43-35B3-48AA-8AEF-CF898D58F512}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87110F43-35B3-48AA-8AEF-CF898D58F512}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37D6A551-C988-4A2B-A45D-EE06D6D138C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37D6A551-C988-4A2B-A45D-EE06D6D138C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37D6A551-C988-4A2B-A45D-EE06D6D138C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37D6A551-C988-4A2B-A45D-EE06D6D138C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

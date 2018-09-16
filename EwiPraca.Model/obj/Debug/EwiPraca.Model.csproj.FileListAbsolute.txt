@@ -1,0 +1,14 @@
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Model\bin\Debug\EwiPraca.Model.dll.config
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Model\bin\Debug\EwiPraca.Model.dll
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Model\bin\Debug\EwiPraca.Model.pdb
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Model\bin\Debug\EntityFramework.dll
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Model\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Model\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Model\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Model\bin\Debug\EntityFramework.xml
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Model\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Model\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Model\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Model\obj\Debug\EwiPraca.Model.csprojResolveAssemblyReference.cache
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Model\obj\Debug\EwiPraca.Model.dll
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Model\obj\Debug\EwiPraca.Model.pdb

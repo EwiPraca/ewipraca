@@ -1,0 +1,96 @@
+﻿@model EwiPraca.Models.UserCompanyViewModel
+
+<div>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="myModalLabel">Dodaj dane Twojej firmy</h4>
+    </div>
+    @using (Ajax.BeginForm("AddUserCompany", "Manage", new AjaxOptions() { HttpMethod = "POST", OnSuccess = "onUserCompanyAddSuccess", OnFailure = "onFailureModalEdit" })) // { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(x => x.Id)
+        <div class="row modal-row">
+            @Html.LabelFor(m => m.CompanyName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.CompanyName)
+            </div>
+        </div>
+        <div class="row modal-row">
+            @Html.LabelFor(m => m.NIP, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.NIP, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.NIP)
+            </div>
+        </div>
+        <div class="row modal-row">
+            @Html.LabelFor(m => m.REGON, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.REGON, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.REGON)
+            </div>
+        </div>
+        <div class="row modal-row">
+            @Html.LabelFor(m => m.KRS, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.KRS, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.KRS)
+            </div>
+        </div>
+        @Html.EditorFor(m => m.UserCompanyAddress)
+        <div class="row modal-row">
+            <div class="col-md-offset-11 col-md-12">
+                <input type="submit" class="btn btn-default" value="Zapisz" />
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    function onUserCompanyAddSuccess(e) {
+        if (e.Success == "true") {
+            $('#edit-add-company-modal').modal('hide');
+            window.location.reload();
+        }
+        else {
+            BootstrapDialog.show({
+                title: 'Informacja',
+                message: e.Message
+            });
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    $("#open-add-company-modal").click(function () {
+        var options = { "backdrop": "static", keyboard: true };
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("AddUserCompany", "Manage")",
+            contentType: "application/json",
+            datatype: "json",
+            success: function (data) {
+                $('#edit-add-company-modal-content').html(data);
+                $('#edit-add-company-modal').modal(options);
+                $('#edit-add-company-modal').modal('show');
+
+            },
+            error: function () {
+                alert("Dynamic content load failed.");
+            }
+        });
+    });
+
+    $("#closbtn").click(function () {
+        $('#edit-add-company-modal').modal('hide');
+    });
+
+</script>
+
+<div id='edit-add-company-modal' class='modal'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='edit-add-company-modal-content'></div>
+        </div>
+    </div>
+</div>

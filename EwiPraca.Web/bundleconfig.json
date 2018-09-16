@@ -1,0 +1,20 @@
+[
+  {
+    "outputFileName": "Content/Site.min.css",
+    "inputFiles": [
+      "Content/Site.css"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/bootstrap-dialog.min.js",
+    "inputFiles": [
+      "Scripts/bootstrap-dialog.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/ewi-praca.min.js",
+    "inputFiles": [
+      "Scripts/ewi-praca.js"
+    ]
+  }
+]

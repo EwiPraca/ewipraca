@@ -1,0 +1,65 @@
+﻿@model EwiPraca.Models.UserViewModel
+@{
+    ViewBag.Title = "Mój profil";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>Mój profil</h1>
+        <div class="row">
+            @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DisplayFor(m => m.FirstNameDecrypted, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.FirstNameDecrypted)
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.SurnameDecrypted, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DisplayFor(m => m.SurnameDecrypted, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.SurnameDecrypted)
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.EmailDecrypted, new { @class = "col-md-2 control-label" })
+            <div class="col-md-9">
+                @Html.DisplayFor(m => m.EmailDecrypted, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.EmailDecrypted)
+            </div>
+            <div class="col-md-1">
+                <a href="#" id="open-edit-user-modal" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Edytuj</a>
+            </div>
+        </div>
+    </div>
+    <hr />
+</div>
+
+@Html.Partial("_EditUserData")
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>Moje firmy</h1>
+        @if(Model != null && Model.UserCompanies != null)
+        {
+            foreach(var company in Model.UserCompanies)
+            {
+                <p><a>@Html.Raw(company.CompanyName)</a> </p>
+            }
+        }
+
+        <a href="#" id="open-add-company-modal" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Dodaj</a>
+    </div>
+</div>
+
+@Html.Partial("_AddUserCompanyData")
+
+<script>
+    function onFailureModalEdit(e) {
+        BootstrapDialog.show({
+            title: 'Informacja',
+            message: e.Message
+        });
+    }
+</script>
