@@ -262,6 +262,7 @@
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Validators\UserCompanyAddressValidator.cs" />
     <Compile Include="Validators\UserCompanyValidator.cs" />
     <Compile Include="WebResources.Designer.cs">
       <AutoGen>True</AutoGen>

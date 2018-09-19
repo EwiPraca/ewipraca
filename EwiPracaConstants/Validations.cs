@@ -6,5 +6,15 @@
         {
             public const int PasswordLength = 6;
         }
+
+        public class MaximumLength
+        {
+            public const int CompanyNameLength = 100;
+            public const int CityNameLength = 100;
+            public const int StreetNameLength = 100;
+            public const int PlaceNumberLength = 10;
+            public const int StreetNumberLength = 10;
+            public const int ZIPCodeLength = 10;
+        }
     }
 }

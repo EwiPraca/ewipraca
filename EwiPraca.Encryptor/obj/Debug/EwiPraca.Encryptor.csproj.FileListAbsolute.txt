@@ -1,4 +1,0 @@
-C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Encryptor\bin\Debug\EwiPraca.Encryptor.dll
-C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Encryptor\bin\Debug\EwiPraca.Encryptor.pdb
-C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Encryptor\obj\Debug\EwiPraca.Encryptor.dll
-C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\EwiPraca.Encryptor\obj\Debug\EwiPraca.Encryptor.pdb
