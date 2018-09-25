@@ -1,0 +1,85 @@
+﻿@model EwiPraca.Models.UserCompanyViewModel
+@{
+    ViewBag.Title = "Dane firmy";
+}
+
+@section navigation{
+    @Html.Partial("_Menu", new MenuViewModel() { MyProfileSelected = true })
+}
+@section scripts{
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" media="screen" />
+}
+
+<header class="page-header">
+    <h1 class="page-title">@Model.CompanyName</h1>
+</header>
+
+<span class="acc-trigger">
+    <a href="#">Adres</a>
+</span>
+
+<div class="acc-container">
+    <div class="content">
+        <div class="row">
+            @Html.LabelFor(m => m.UserCompanyAddress.StreetName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DisplayFor(m => m.UserCompanyAddress.StreetName, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.UserCompanyAddress.StreetNumber, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DisplayFor(m => m.UserCompanyAddress.StreetNumber, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.UserCompanyAddress.PlaceNumber, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DisplayFor(m => m.UserCompanyAddress.PlaceNumber, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.UserCompanyAddress.City, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DisplayFor(m => m.UserCompanyAddress.City, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.UserCompanyAddress.ZIPCode, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DisplayFor(m => m.UserCompanyAddress.ZIPCode, new { @class = "form-control" })
+            </div>
+        </div>
+        <div>
+            <a href="#" id="open-edit-user-modal" class="button"><span class="glyphicon glyphicon-pencil"></span> Edytuj</a>
+        </div>
+    </div>
+</div>
+
+<span class="acc-trigger">
+    <a href="#">Inne dane</a>
+</span>
+
+<div class="acc-container">
+    <div class="content">
+        <div class="row">
+            @Html.LabelFor(m => m.NIP, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DisplayFor(m => m.NIP, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.REGON, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DisplayFor(m => m.REGON, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.KRS, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DisplayFor(m => m.KRS, new { @class = "form-control" })
+            </div>
+        </div>
+        <a href="#" id="open-add-company-modal" class="button"><span class="glyphicon glyphicon-plus"></span> Edytuj</a>
+    </div>
+</div>

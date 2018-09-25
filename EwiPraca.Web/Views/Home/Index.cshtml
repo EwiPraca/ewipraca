@@ -1,13 +1,88 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+@section navigation{
 
+    @Html.Partial("_Menu", new MenuViewModel() { HomeSelected = true })
 
+}
+    <h2 class="slogan align-center">
+        We are a group of experienced designers and developers.<br />
+        We set new standards in user experience &amp; make future happen.
+    </h2>
 
-<h1>Strona główna</h1>
+    <section id="features-slider" class="ss-slider">
 
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean semper ut diam ut vehicula. Mauris molestie odio neque. Maecenas semper dolor felis, ut condimentum metus eleifend in. Aliquam vitae lobortis lacus. Duis faucibus imperdiet placerat. Cras aliquet elit quis turpis ultricies, quis molestie felis dictum. Vivamus ultricies lorem metus, at finibus nunc ultrices ac. Pellentesque at enim placerat, eleifend lacus eget, venenatis neque. Donec magna ligula, volutpat a elementum quis, varius vel magna. Nullam lobortis erat at risus tristique molestie. Vivamus at semper lacus, eu tincidunt dolor. Fusce id laoreet tellus. Pellentesque vestibulum pellentesque rutrum. Nunc ut fermentum tellus. Cras eu mauris nunc.
+        <article class="slide">
 
-Donec vel lorem sit amet risus tempor dignissim vel eget nunc. Mauris non semper nisi, vitae laoreet dolor. Vivamus nisi sem, lacinia in condimentum quis, hendrerit accumsan diam. Donec est ligula, tincidunt ut lorem non, ornare vulputate turpis. Vestibulum in condimentum ante. Morbi interdum feugiat arcu ultricies ullamcorper. Cras volutpat velit nec mollis porttitor. Mauris in dignissim justo. Donec ac vulputate leo, non efficitur quam.
+            <img src="~/Content/img/slider-photos/slider-slide-1.jpg" alt="" class="slide-bg-image" />
 
-Aliquam nec ullamcorper dolor, et hendrerit leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rutrum molestie dui et pretium. Praesent nisl turpis, feugiat varius dolor vitae, ultrices rutrum arcu. Praesent mauris dui, tristique efficitur egestas non, ullamcorper nec libero. Curabitur condimentum malesuada arcu, nec eleifend dolor tincidunt id. Integer ornare tortor eu mi auctor, dapibus pellentesque nunc sollicitudin. Phasellus pharetra sagittis tempus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc fringilla leo non euismod pulvinar. Fusce facilisis ullamcorper elit eu luctus. Vestibulum ullamcorper nisi nec vehicula euismod. In eget diam fermentum, maximus est non, porta ligula. Ut sed mauris nec leo sagittis consectetur.</p>
+            <div class="slide-button">
+                <span class="dropcap">1</span>
+                <h5>Responsive Layout</h5>
+                <span class="description">From desktop to mobile</span>
+            </div>
+
+            <div class="slide-content">
+                <h2>Responsive Layout</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec purus justo.</p>
+                <p><a class="button" href="#">Read More</a></p>
+            </div>
+
+        </article><!-- end .slide (Responsive Layout) -->
+
+        <article class="slide">
+
+            <img src="~/Content/img/slider-photos/slider-slide-2.jpg" alt="" class="slide-bg-image" />
+
+            <div class="slide-button">
+                <span class="dropcap">2</span>
+                <h5>HTML5 / CSS3</h5>
+                <span class="description">For today and tomorrow</span>
+            </div>
+
+            <div class="slide-content">
+                <h2>HTML5 / CSS3</h2>
+                <p>Hendrerit eleifend condimentum quis, varius at lacus. Donec ultrices justo scelerisque erat feugiat sed mattis justo volutpat.</p>
+                <p><a class="button" href="#">Read More</a></p>
+            </div>
+
+        </article><!-- end .slide (HTML5 / CSS3) -->
+
+        <article class="slide">
+
+            <img src="~/Content/img/slider-photos/slider-slide-3.jpg" alt="" class="slide-bg-image" />
+
+            <div class="slide-button">
+                <span class="dropcap">3</span>
+                <h5>Easily Customisable</h5>
+                <span class="description">Build the way you want!</span>
+            </div>
+
+            <div class="slide-content">
+                <h2>Easily Customisable</h2>
+                <p>Etiam at nunc felis, vitae gravida libero. Morbi molestie elit eget metus volutpat vitae bibendum quam lacinia. Maecenas porttitor blandit nisl sit amet blandit. Phasellus porta sodales accumsan.</p>
+                <p><a class="button" href="#">Read More</a></p>
+            </div>
+
+        </article><!-- end .slide (Easily Customisable) -->
+
+        <article class="slide">
+
+            <img src="~/Content/img/slider-photos/slider-slide-4.jpg" alt="" class="slide-bg-image" />
+
+            <div class="slide-button">
+                <span class="dropcap">4</span>
+                <h5>Unique &amp; Clean</h5>
+                <span class="description">Stand out from the crowd!</span>
+            </div>
+
+            <div class="slide-content">
+                <h2>Unique &amp; Clean</h2>
+                <p>Fusce porta elit quis nunc mollis ut lacinia eros accumsan. Aenean consequat egestas diam, vel pharetra tellus venenatis in.</p>
+                <p><a class="button" href="#">Read More</a></p>
+            </div>
+
+        </article><!-- end .slide (Unique & Clean) -->
+
+    </section><!-- end #features-slider -->

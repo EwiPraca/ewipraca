@@ -1,5 +1,9 @@
 ﻿@model List<EwiPraca.Models.UserViewModel>
+@section navigation{
 
+    @Html.Partial("_Menu", new MenuViewModel() { AdministrationSelected = true })
+
+}
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-primary list-panel" id="list-panel">
@@ -33,26 +37,27 @@
 
 @section Scripts
 {
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" media="screen" />
     <script type="text/javascript">
 
-     $(document).ready(function () {
+        $(document).ready(function () {
 
-         $('#users-data-table').DataTable({
-             responsive: true,
-             "oLanguage": {
-                 "sSearch": "Szukaj: ",
-                 "sEmptyTable": "Brak danych do wyświetlenia",
-                 "sInfo": "_START_ do _END_ z _TOTAL_ wierszy",
-                 "sInfoEmpty": "0 z 0 z 0 wierszy",
-                 "oPaginate": {
-                     "sNext": "Następna",
-                     "sPrevious": "Poprzednia"
-                 },
-                 "sLengthMenu": "Pokaż na stronę: _MENU_",
-             }
-         });
-     });
+            $('#users-data-table').DataTable({
+                responsive: true,
+                "oLanguage": {
+                    "sSearch": "Szukaj: ",
+                    "sEmptyTable": "Brak danych do wyświetlenia",
+                    "sInfo": "_START_ do _END_ z _TOTAL_ wierszy",
+                    "sInfoEmpty": "0 z 0 z 0 wierszy",
+                    "oPaginate": {
+                        "sNext": "Następna",
+                        "sPrevious": "Poprzednia"
+                    },
+                    "sLengthMenu": "Pokaż na stronę: _MENU_",
+                }
+            });
+        });
     </script>
 
 }
-  
+

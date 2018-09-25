@@ -16,5 +16,143 @@
     "inputFiles": [
       "Scripts/ewi-praca.js"
     ]
+  },
+  {
+    "outputFileName": "Content/fancybox.min.css",
+    "inputFiles": [
+      "Content/fancybox.css"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/custom.min.js",
+    "inputFiles": [
+      "Scripts/custom.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery.jcarousel.min.js",
+    "inputFiles": [
+      "Scripts/jquery.jcarousel.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery.isotope.min.js",
+    "inputFiles": [
+      "Scripts/jquery.isotope.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery.gmap.min.js",
+    "inputFiles": [
+      "Scripts/jquery.gmap.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery.fancybox.min.js",
+    "inputFiles": [
+      "Scripts/jquery.fancybox.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery.easing.1.3.min.js",
+    "inputFiles": [
+      "Scripts/jquery.easing.1.3.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery.cycle.all.min.js",
+    "inputFiles": [
+      "Scripts/jquery.cycle.all.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery.smartStartSlider.min.js",
+    "inputFiles": [
+      "Scripts/jquery.smartStartSlider.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery.touchSwipe.min.js",
+    "inputFiles": [
+      "Scripts/jquery.touchSwipe.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery.unobtrusive-ajax.min.js",
+    "inputFiles": [
+      "Scripts/jquery.unobtrusive-ajax.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery.validate.min.js",
+    "inputFiles": [
+      "Scripts/jquery.validate.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/respond.min.js",
+    "inputFiles": [
+      "Scripts/respond.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery.validate-vsdoc.min.js",
+    "inputFiles": [
+      "Scripts/jquery.validate-vsdoc.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/modernizr.custom.min.js",
+    "inputFiles": [
+      "Scripts/modernizr.custom.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery.validate.unobtrusive.min.js",
+    "inputFiles": [
+      "Scripts/jquery.validate.unobtrusive.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/TwitterBootstrapMvcJs.min.js",
+    "inputFiles": [
+      "Scripts/TwitterBootstrapMvcJs.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery.fancybox.pack.min.js",
+    "inputFiles": [
+      "Scripts/jquery.fancybox.pack.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/bootstrap.min.js",
+    "inputFiles": [
+      "Scripts/bootstrap.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery-3.3.1.intellisense.min.js",
+    "inputFiles": [
+      "Scripts/jquery-3.3.1.intellisense.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery-3.3.1.min.js",
+    "inputFiles": [
+      "Scripts/jquery-3.3.1.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery-3.3.1.slim.min.js",
+    "inputFiles": [
+      "Scripts/jquery-3.3.1.slim.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery.easing.compatible.min.js",
+    "inputFiles": [
+      "Scripts/jquery.easing.compatible.js"
+    ]
   }
 ]

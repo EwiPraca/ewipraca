@@ -1,23 +1,20 @@
 ﻿@using EwiPraca.Encryptor
 @using Microsoft.AspNet.Identity
+@model string
+
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Witaj " + EncryptionService.DecryptEmail(User.Identity.GetUserName()) + "!", "MyProfile", "Manage", routeValues: null, htmlAttributes: new { title = "Mój profil" })
-        </li>
+        <li class="@Model">@Html.ActionLink("Mój profil", "MyProfile", "Manage", routeValues: null, htmlAttributes: new { title = "Mój profil" })</li>
+
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a></li>
-    </ul>
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Zarejestruj się", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+    <li>@Html.ActionLink("Zarejestruj się", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Zaloguj", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
 }

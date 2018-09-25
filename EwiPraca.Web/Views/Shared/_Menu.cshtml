@@ -1,0 +1,27 @@
+﻿@using EwiPraca.Constants
+@model MenuViewModel
+@{ 
+    string homeSelected = Model.HomeSelected ? "current" : string.Empty;
+    string aboutSelected = Model.AboutSelected ? "current" : string.Empty;
+    string administrationSelected = Model.AdministrationSelected ? "current" : string.Empty;
+    string contactSelected = Model.ContactSelected ? "current" : string.Empty;
+    string myProfileSelected = Model.MyProfileSelected ? "current" : string.Empty;
+}
+<nav id="main-nav">
+
+    <ul>
+        <li class="@homeSelected">
+            @Html.ActionLink("Home", "Index", "Home")
+        </li>
+        <li class="@aboutSelected">@Html.ActionLink("O aplikacji", "About", "Home")</li>
+        <li class="@contactSelected">
+            @Html.ActionLink("Kontakt", "Contact", "Home")
+        </li>
+        @if (Request.IsAuthenticated && User.IsInRole(RolesNames.Administrator))
+        {
+            <li class="@administrationSelected">@Html.ActionLink("Administracja", "Index", "Administration")</li>
+        }
+        @Html.Partial("_LoginPartial", (object)myProfileSelected)
+    </ul>
+
+</nav><!-- end #main-nav -->

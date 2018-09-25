@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace EwiPraca
 {
@@ -8,8 +7,8 @@ namespace EwiPraca
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+            //            "~/Scripts/jquery-1.7.1.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -22,8 +21,9 @@ namespace EwiPraca
                       "~/Scripts/respond.min.js",
                       "~/Scripts/bootstrap-dialog.min.js",
                       "~/Scripts/ewi-praca.min.js"));
+            
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.min.css",
+                     // "~/Content/bootstrap.min.css",
                       "~/Content/Site.min.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
