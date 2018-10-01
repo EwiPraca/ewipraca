@@ -1,7 +1,6 @@
 ﻿using EwiPraca.Data.Interfaces;
 using EwiPraca.Model.UserArea;
 using EwiPraca.Services.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,10 +9,10 @@ namespace EwiPraca.Services.Services
     public class UserCompanyService : IUserCompanyService
     {
         private readonly IRepository<UserCompany> _userCompanyRepository;
-        private readonly IRepository<UserCompanyAddress> _userCompanyAddressRepository;
+        private readonly IRepository<Address> _userCompanyAddressRepository;
 
         public UserCompanyService(IRepository<UserCompany> userCompanyRepository,
-            IRepository<UserCompanyAddress> userCompanyAddressRepository)
+            IRepository<Address> userCompanyAddressRepository)
         {
             _userCompanyRepository = userCompanyRepository;
             _userCompanyAddressRepository = userCompanyAddressRepository;
@@ -31,11 +30,16 @@ namespace EwiPraca.Services.Services
             return entity.Id;
         }
 
-        public int CreateCompanyAddress(UserCompanyAddress entity)
+        public int CreateCompanyAddress(Address entity)
         {
             _userCompanyAddressRepository.Insert(entity);
 
             return entity.Id;
+        }
+
+        private void UpdateCompanyAddress(Address entity)
+        {
+            _userCompanyAddressRepository.Update(entity);
         }
 
         public void Delete(UserCompany entity)
@@ -50,6 +54,7 @@ namespace EwiPraca.Services.Services
 
         public void Update(UserCompany entity)
         {
+            UpdateCompanyAddress(entity.UserCompanyAddress);
             _userCompanyRepository.Update(entity);
         }
 

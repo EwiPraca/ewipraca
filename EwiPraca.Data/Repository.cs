@@ -85,7 +85,11 @@ namespace EwiPraca.Data
 
         public virtual TEntity Update(TEntity entityToUpdate)
         {
-            return Update(entityToUpdate, "Id");
+            var entity = Update(entityToUpdate, "Id");
+
+            _context.SaveChanges();
+
+            return entity;
         }
 
         public virtual TEntity Update(TEntity entityToUpdate, string primaryKeyName)
@@ -106,7 +110,8 @@ namespace EwiPraca.Data
                 }
             }
 
-            entry.State = EntityState.Modified; // attach the entity and return
+            entry.State = EntityState.Modified;
+
             return entityToUpdate;
 
         }

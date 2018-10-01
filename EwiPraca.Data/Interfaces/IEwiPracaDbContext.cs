@@ -7,6 +7,6 @@ namespace EwiPraca.Data.Interfaces
     public interface IEwiPracaDbContext : IDisposable
     {
         IDbSet<UserCompany> UserCompanies { get; set; }
-        IDbSet<UserCompanyAddress> UserCompanyAdresses { get; set; }
+        IDbSet<Address> UserCompanyAdresses { get; set; }
     }
 }

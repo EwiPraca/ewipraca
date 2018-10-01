@@ -64,15 +64,11 @@
     <Compile Include="Interfaces\IEwiPracaDbContext.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IRepositoryTransaction.cs" />
-    <Compile Include="Migrations\201808302026237_UserCompanyData.cs" />
-    <Compile Include="Migrations\201808302026237_UserCompanyData.Designer.cs">
-      <DependentUpon>201808302026237_UserCompanyData.cs</DependentUpon>
+    <Compile Include="Migrations\201810012039527_InitialMigration.cs" />
+    <Compile Include="Migrations\201810012039527_InitialMigration.Designer.cs">
+      <DependentUpon>201810012039527_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="RepositoryTransaction.cs" />
-    <Compile Include="Migrations\201808041107541_InitialMigration.cs" />
-    <Compile Include="Migrations\201808041107541_InitialMigration.Designer.cs">
-      <DependentUpon>201808041107541_InitialMigration.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="EwiPracaDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,6 +83,10 @@
       <Project>{87110F43-35B3-48AA-8AEF-CF898D58F512}</Project>
       <Name>EwiPraca.Encryptor</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EwiPraca.Enumerations\EwiPraca.Enumerations.csproj">
+      <Project>{41BD3FF4-F94E-44FE-A070-7E1EDB64FEDC}</Project>
+      <Name>EwiPraca.Enumerations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EwiPraca.Model\EwiPraca.Model.csproj">
       <Project>{2850AE3F-AA71-4269-B740-FACCC4CFF9A8}</Project>
       <Name>EwiPraca.Model</Name>
@@ -100,11 +100,8 @@
     <Content Include="MigrationsReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808041107541_InitialMigration.resx">
-      <DependentUpon>201808041107541_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808302026237_UserCompanyData.resx">
-      <DependentUpon>201808302026237_UserCompanyData.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201810012039527_InitialMigration.resx">
+      <DependentUpon>201810012039527_InitialMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -5,7 +5,7 @@ namespace EwiPraca.Services.Interfaces
 {
     public interface IUserCompanyService : IService<UserCompany>
     {
-        int CreateCompanyAddress(UserCompanyAddress entity);
+        int CreateCompanyAddress(Address entity);
         List<UserCompany> GetUserCompanies(string userId);
     }
 }

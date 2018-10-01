@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace EwiPraca.Models
 {
     [Validator(typeof(UserCompanyValidator))]
-    public class UserCompanyViewModel
+    public class UserCompanyViewModel : BaseViewModel
     {
         public int Id { get; set; }
 
@@ -20,6 +20,12 @@ namespace EwiPraca.Models
         
         [Display(Name = "Numer NIP")]
         public string NIP { get; set; }
+
+        public string ApplicationUserID { get; set; }
+
+        [Display(Name = "Notatki")]
+        [DataType(DataType.MultilineText)]
+        public string Notes { get; set; }
 
         public UserCompanyAddressViewModel UserCompanyAddress {get;set;}
     }

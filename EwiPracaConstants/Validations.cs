@@ -10,6 +10,7 @@
         public class MaximumLength
         {
             public const int CompanyNameLength = 100;
+            public const int CompanyNotesLength = 1000;
             public const int CityNameLength = 100;
             public const int StreetNameLength = 100;
             public const int PlaceNumberLength = 10;

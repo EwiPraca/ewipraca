@@ -16,7 +16,7 @@ namespace EwiPraca.Data
         }
 
         public IDbSet<UserCompany> UserCompanies { get; set; }
-        public IDbSet<UserCompanyAddress> UserCompanyAdresses { get; set; }
+        public IDbSet<Address> UserCompanyAdresses { get; set; }
 
         public static EwiPracaDbContext Create()
         {

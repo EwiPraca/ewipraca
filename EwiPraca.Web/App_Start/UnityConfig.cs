@@ -39,7 +39,7 @@ namespace EwiPraca
 
             container.RegisterType<IRepository<ApplicationUser>, Repository<ApplicationUser>>();
             container.RegisterType<IRepository<UserCompany>, Repository<UserCompany>>();
-            container.RegisterType<IRepository<UserCompanyAddress>, Repository<UserCompanyAddress>>();
+            container.RegisterType<IRepository<Address>, Repository<Address>>();
 
 
             container.RegisterType<IUserCompanyService, UserCompanyService>();

@@ -77,5 +77,14 @@ namespace EwiPraca {
                 return ResourceManager.GetString("IncorrectREGONMessage", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pole Notatki może mieć maksymalnie 1000 znaków..
+        /// </summary>
+        internal static string TooLongCompanyNotesMessage {
+            get {
+                return ResourceManager.GetString("TooLongCompanyNotesMessage", resourceCulture);
+            }
+        }
     }
 }

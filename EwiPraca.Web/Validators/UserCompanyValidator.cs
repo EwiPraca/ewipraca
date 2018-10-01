@@ -28,6 +28,11 @@ namespace EwiPraca.Validators
                 .WithMessage("Numer REGON nie może być pusty.")
                 .Must(x => x.IsValidREGON()).
                 WithMessage(WebResources.IncorrectREGONMessage);
+
+            RuleFor(x => x.Notes)
+               .Cascade(CascadeMode.StopOnFirstFailure)
+               .Length(0, Validations.MaximumLength.CompanyNotesLength)
+               .WithMessage(WebResources.TooLongCompanyNotesMessage);
         }
     }
 }

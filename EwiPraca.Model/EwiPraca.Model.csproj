@@ -58,10 +58,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\BaseModel.cs" />
+    <Compile Include="EmployeeArea\Contract.cs" />
+    <Compile Include="EmployeeArea\Employee.cs" />
     <Compile Include="Identity\ApplicationUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserArea\AddressType.cs" />
     <Compile Include="UserArea\UserCompany.cs" />
-    <Compile Include="UserArea\UserCompanyAddress.cs" />
+    <Compile Include="UserArea\Address.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

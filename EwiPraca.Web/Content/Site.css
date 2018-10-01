@@ -737,6 +737,8 @@ input, select {
 textarea {
     padding: 10px;
     resize: both;
+    width: 50%;
+    height: 200px;
 }
 
     input:hover, textarea:hover, select:hover {
@@ -3766,7 +3768,9 @@ x:-o-prefocus, .not-ie #footer:before {
 
 /* Smaller than standard 960 (devices and browsers) */
 @media only screen and (max-width: 959px) {
-
+    textarea {
+        width: 90%;
+    }
     /* -------------------------------------------------- */
     /*	Home > Slider
 	/* -------------------------------------------------- */
@@ -3929,8 +3933,8 @@ x:-o-prefocus, .not-ie #footer:before {
     }
 }
 
-@media only screen and (min-width: 786px){
-      .navbar-right{
+@media only screen and (min-width: 786px) {
+    .navbar-right {
         display: inline-block;
     }
 }
@@ -4022,18 +4026,18 @@ x:-o-prefocus, .not-ie #footer:before {
         display: inline-block;
     }
 
-    #main-nav a {
-        padding: 26px 20px;
-    }
-
-        #main-nav a:after {
-            content: '';
-            display: none;
+        #main-nav a {
+            padding: 26px 20px;
         }
 
-    .no-js #main-nav li:hover > ul, #main-nav ul ul {
-        top: 78px;
-    }
+            #main-nav a:after {
+                content: '';
+                display: none;
+            }
+
+        .no-js #main-nav li:hover > ul, #main-nav ul ul {
+            top: 78px;
+        }
 
     /* -------------------------------------------------- */
     /*	Home
@@ -4671,6 +4675,9 @@ x:-o-prefocus, .not-ie #footer:before {
     /* -------------------------------------------------- */
     /*	Header > Main Navigation
 	/* -------------------------------------------------- */
+    textarea {
+        width: 90%;
+    }
 
     #main-nav li {
         width: 100%;
@@ -4892,18 +4899,17 @@ x:-o-prefocus, .not-ie #footer:before {
 }
 
 
-.panel-primary >.panel-heading{
+.panel-primary > .panel-heading {
     background-color: #f15a23 !important;
     border-color: #f15a23 !important;
-   
 }
 
-.panel-primary{
+.panel-primary {
     border-color: #f15a23 !important;
 }
 
-.panel-title.list-panel-title{
-     color: #ffffff !important;
+.panel-title.list-panel-title {
+    color: #ffffff !important;
 }
 
 .button {

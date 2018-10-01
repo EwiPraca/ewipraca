@@ -12,12 +12,13 @@ namespace EwiPraca
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<ApplicationUser, UserViewModel>();
+                cfg.CreateMap<UserCompanyAddressViewModel, Address>();
+                cfg.CreateMap<Address, UserCompanyAddressViewModel>();
                 cfg.CreateMap<UserCompany, UserCompanyViewModel>().ForMember(d => d.UserCompanyAddress,
-                 opt => opt.MapFrom(x => x.UserCompanyAdress));
-                cfg.CreateMap<UserCompanyViewModel, UserCompany>();
+                 opt => opt.MapFrom(x => x.UserCompanyAddress));
+                cfg.CreateMap<UserCompanyViewModel, UserCompany>().ForMember(d => d.UserCompanyAddress,
+                 opt => opt.MapFrom(x => x.UserCompanyAddress));
                 cfg.CreateMap<UserViewModel, ApplicationUser>();
-                cfg.CreateMap<UserCompanyAddressViewModel, UserCompanyAddress>();
-                cfg.CreateMap<UserCompanyAddress, UserCompanyAddressViewModel>();
             }
             );
         }

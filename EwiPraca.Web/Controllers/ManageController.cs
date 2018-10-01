@@ -104,12 +104,6 @@ namespace EwiPraca.Controllers
 
                 newCompany.ApplicationUserID = User.Identity.GetUserId();
 
-                var companyAddress = Mapper.Map<UserCompanyAddress>(model.UserCompanyAddress);
-
-                int userCompanyAdressId = _userCompanyService.CreateCompanyAddress(companyAddress);
-
-                newCompany.UserCompanyAdressId = userCompanyAdressId;
-
                 _userCompanyService.Create(newCompany);
 
                 return Json(result, JsonRequestBehavior.AllowGet);

@@ -13,7 +13,7 @@ namespace EwiPraca.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201808041107541_InitialMigration"; }
+            get { return "201810012039527_InitialMigration"; }
         }
         
         string IMigrationMetadata.Source

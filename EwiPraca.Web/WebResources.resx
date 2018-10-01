@@ -123,4 +123,7 @@
   <data name="IncorrectREGONMessage" xml:space="preserve">
     <value>Niepoprawny REGON.</value>
   </data>
+  <data name="TooLongCompanyNotesMessage" xml:space="preserve">
+    <value>Pole Notatki może mieć maksymalnie 1000 znaków.</value>
+  </data>
 </root>
