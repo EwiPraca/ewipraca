@@ -3,24 +3,25 @@ using EwiPraca.Model.UserArea;
 using EwiPraca.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace EwiPraca.Services.Services
 {
     public class UserCompanyService : IUserCompanyService
     {
         private readonly IRepository<UserCompany> _userCompanyRepository;
-        private readonly IRepository<Address> _userCompanyAddressRepository;
+        private readonly IAddressService _addressService;
 
-        public UserCompanyService(IRepository<UserCompany> userCompanyRepository,
-            IRepository<Address> userCompanyAddressRepository)
+        public UserCompanyService(IRepository<UserCompany> userCompanyRepository, 
+            IAddressService addressService)
         {
             _userCompanyRepository = userCompanyRepository;
-            _userCompanyAddressRepository = userCompanyAddressRepository;
+            _addressService = addressService;
         }
 
         public IEnumerable<UserCompany> All()
         {
-            return _userCompanyRepository.All().ToList();
+            return _userCompanyRepository.Query(x => !x.IsDeleted).ToList();
         }
 
         public int Create(UserCompany entity)
@@ -30,21 +31,10 @@ namespace EwiPraca.Services.Services
             return entity.Id;
         }
 
-        public int CreateCompanyAddress(Address entity)
-        {
-            _userCompanyAddressRepository.Insert(entity);
-
-            return entity.Id;
-        }
-
-        private void UpdateCompanyAddress(Address entity)
-        {
-            _userCompanyAddressRepository.Update(entity);
-        }
-
         public void Delete(UserCompany entity)
         {
-            _userCompanyRepository.Delete(entity);
+            entity.IsDeleted = true;
+            _userCompanyRepository.Update(entity);
         }
 
         public UserCompany GetById(int id)
@@ -54,7 +44,7 @@ namespace EwiPraca.Services.Services
 
         public void Update(UserCompany entity)
         {
-            UpdateCompanyAddress(entity.UserCompanyAddress);
+            _addressService.Update(entity.Address);
             _userCompanyRepository.Update(entity);
         }
 

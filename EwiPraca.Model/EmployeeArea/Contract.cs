@@ -1,4 +1,4 @@
-﻿namespace EwiPraca.Model.EmployeeArea
+﻿namespace EwiPraca.Model
 {
     public class Contract
     {

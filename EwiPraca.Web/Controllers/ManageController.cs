@@ -5,6 +5,7 @@ using EwiPraca.Encryptor;
 using EwiPraca.Model.UserArea;
 using EwiPraca.Models;
 using EwiPraca.Services.Interfaces;
+using EwiPraca.Services.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
@@ -19,13 +20,16 @@ namespace EwiPraca.Controllers
     public class ManageController : Controller
     {
         private readonly ApplicationUserManager _applicationUserManager;
+        private readonly AddressService _addressService;
         private readonly IUserCompanyService _userCompanyService;
 
         public ManageController(ApplicationUserManager applicationUserManager,
-            IUserCompanyService userCompanyService)
+            IUserCompanyService userCompanyService,
+            AddressService addressService)
         {
             _applicationUserManager = applicationUserManager;
             _userCompanyService = userCompanyService;
+            _addressService = addressService;
         }
 
         public ActionResult Index()
@@ -102,6 +106,7 @@ namespace EwiPraca.Controllers
                 newCompany.CreatedDate = DateTime.Now;
                 newCompany.UpdatedDate = newCompany.CreatedDate;
 
+                newCompany.Address.AddressType = _addressService.GetAddressTypeByName(Enumerations.AddressType.Zameldowania.ToString());
                 newCompany.ApplicationUserID = User.Identity.GetUserId();
 
                 _userCompanyService.Create(newCompany);

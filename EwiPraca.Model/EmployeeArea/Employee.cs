@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace EwiPraca.Model.EmployeeArea
+namespace EwiPraca.Model
 {
     public class Employee : BaseModel
     {
@@ -24,8 +24,8 @@ namespace EwiPraca.Model.EmployeeArea
         [Required]
         public DateTime BirthDate { get; set; }
         
-        public int AddressTypeId { get; set; }
-        public virtual AddressType AddressType { get; set; }
+        public int AddressId { get; set; }
+        public virtual Address Address { get; set; }
 
         public int UserCompanyId { get; set; }
         public virtual UserCompany UserCompany { get; set; }

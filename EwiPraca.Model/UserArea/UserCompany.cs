@@ -1,6 +1,5 @@
 ﻿using EwiPraca.Data;
 using EwiPraca.Model.Base;
-using EwiPraca.Model.EmployeeArea;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -28,8 +27,8 @@ namespace EwiPraca.Model.UserArea
         [ForeignKey("ApplicationUser")]
         public string ApplicationUserID { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
-        public int UserCompanyAddressId { get; set; }
-        public virtual Address UserCompanyAddress { get; set; }
+        public int AddressId { get; set; }
+        public virtual Address Address { get; set; }
 
         public virtual List<Employee> Employees { get; set; }
     }

@@ -784,6 +784,10 @@
       <Project>{87110F43-35B3-48AA-8AEF-CF898D58F512}</Project>
       <Name>EwiPraca.Encryptor</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EwiPraca.Enumerations\EwiPraca.Enumerations.csproj">
+      <Project>{41bd3ff4-f94e-44fe-a070-7e1edb64fedc}</Project>
+      <Name>EwiPraca.Enumerations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EwiPraca.Model\EwiPraca.Model.csproj">
       <Project>{2850AE3F-AA71-4269-B740-FACCC4CFF9A8}</Project>
       <Name>EwiPraca.Model</Name>

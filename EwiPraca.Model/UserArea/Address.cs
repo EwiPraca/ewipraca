@@ -20,7 +20,6 @@ namespace EwiPraca.Model.UserArea
         [Required]
         [StringLength(10)]
         public string ZIPCode { get; set; }
-
         public int AddressTypeId { get; set; }
         public virtual AddressType AddressType { get; set; }
     }

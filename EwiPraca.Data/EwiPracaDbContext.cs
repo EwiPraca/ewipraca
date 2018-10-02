@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using EwiPraca.Model.UserArea;
 using System;
+using EwiPraca.Model;
 
 namespace EwiPraca.Data
 {
@@ -16,7 +17,10 @@ namespace EwiPraca.Data
         }
 
         public IDbSet<UserCompany> UserCompanies { get; set; }
-        public IDbSet<Address> UserCompanyAdresses { get; set; }
+        public IDbSet<AddressType> AddressTypes { get; set; }
+        public IDbSet<Address> Adresses { get; set; }
+        public IDbSet<Employee> Employees { get; set; }
+        public IDbSet<Contract> Contracts { get; set; }
 
         public static EwiPracaDbContext Create()
         {

@@ -27,6 +27,6 @@ namespace EwiPraca.Models
         [DataType(DataType.MultilineText)]
         public string Notes { get; set; }
 
-        public UserCompanyAddressViewModel UserCompanyAddress {get;set;}
+        public AddressViewModel UserCompanyAddress {get;set;}
     }
 }

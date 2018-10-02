@@ -13,11 +13,14 @@ namespace EwiPraca.Controllers
     public class CompanyController : Controller
     {
         private readonly UserCompanyService _userCompanyService;
+        private readonly AddressService _addressService;
         private readonly ApplicationUserManager _applicationUserManager;
         public CompanyController(ApplicationUserManager applicationUserManager,
-            UserCompanyService userCompanyService)
+            UserCompanyService userCompanyService,
+            AddressService addressService)
         {
             _userCompanyService = userCompanyService;
+            _addressService = addressService;
             _applicationUserManager = applicationUserManager;
         }
 
@@ -62,7 +65,6 @@ namespace EwiPraca.Controllers
                     company = Mapper.Map<UserCompany>(model);
 
                     company.UpdatedDate = DateTime.Now;
-                    //company.UserCompanyAddress.AddressType = Enumerations.AddressType.Zameldowania;
                     _userCompanyService.Update(company);
                 }
                 catch (Exception e)

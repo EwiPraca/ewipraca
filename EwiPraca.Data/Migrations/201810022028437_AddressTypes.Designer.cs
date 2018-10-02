@@ -7,13 +7,13 @@ namespace EwiPraca.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class InitialMigration : IMigrationMetadata
+    public sealed partial class AddressTypes : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialMigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddressTypes));
         
         string IMigrationMetadata.Id
         {
-            get { return "201810012039527_InitialMigration"; }
+            get { return "201810022028437_AddressTypes"; }
         }
         
         string IMigrationMetadata.Source

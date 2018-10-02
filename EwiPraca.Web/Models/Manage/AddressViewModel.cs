@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace EwiPraca.Models
 {
     [Validator(typeof(UserCompanyAddressValidator))]
-    public class UserCompanyAddressViewModel
+    public class AddressViewModel
     {
         public int Id { get; set; }
 

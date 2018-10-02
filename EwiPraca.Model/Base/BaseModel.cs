@@ -6,5 +6,6 @@ namespace EwiPraca.Model.Base
     {
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

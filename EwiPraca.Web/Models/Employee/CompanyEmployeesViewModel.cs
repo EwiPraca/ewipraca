@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace EwiPraca.Models
 {
@@ -9,5 +6,6 @@ namespace EwiPraca.Models
     {
         public int CompanyId { get; set; }
         public string CompanyName { get; set; }
+        public List<EmployeeViewModel> Employees { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace EwiPraca.Validators
 {
-    public class UserCompanyAddressValidator : AbstractValidator<UserCompanyAddressViewModel>
+    public class UserCompanyAddressValidator : AbstractValidator<AddressViewModel>
     {
         public UserCompanyAddressValidator()
         {
