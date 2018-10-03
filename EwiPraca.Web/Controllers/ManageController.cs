@@ -40,7 +40,8 @@ namespace EwiPraca.Controllers
         public ActionResult MyProfile()
         {
             string userId = User.Identity.GetUserId();
-            var userProfileModel = Mapper.Map<UserViewModel>(_applicationUserManager.Users.FirstOrDefault(x => x.Id == userId));
+            var user = _applicationUserManager.Users.FirstOrDefault(x => x.Id == userId);
+            var userProfileModel = Mapper.Map<UserViewModel>(user);
 
             userProfileModel.UserCompanies = Mapper.Map<List<UserCompanyViewModel>>(_userCompanyService.GetUserCompanies(userId));
 

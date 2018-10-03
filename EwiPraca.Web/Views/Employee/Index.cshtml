@@ -5,7 +5,9 @@
 @section navigation{
     @Html.Partial("_Menu", new MenuViewModel() { MyProfileSelected = true })
 }
-
+@section scripts{
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" media="screen" />
+}
 
 <header class="page-header">
     <h1 class="page-title align-center">@ViewBag.Title</h1>
@@ -14,3 +16,61 @@
 <h2 class="slogan align-center">
     Dane pracowników.
 </h2>
+
+<h3 class="align-center">
+    <a href="#" id="open-add-employee-modal" class="button"><span class="glyphicon glyphicon-plus"></span> Dodaj</a>
+</h3>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary list-panel" id="list-panel">
+            <div class="panel-heading list-panel-heading">
+                <h1 class="panel-title list-panel-title">Lista pracowników</h1>
+            </div>
+            <div class="panel-body">
+                <table id="employees-data-table" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Imię</th>
+                            <th>Nazwisko</th>
+                            <th>PESEL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var employee in Model.Employees)
+                        {
+                            <tr>
+                                <td>@employee.FirstName</td>
+                                <td>@employee.Surname</td>
+                                <td>@employee.PESEL</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@Html.Partial("_AddEmployeeData", (object)Model.CompanyId)
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#employees-data-table').DataTable({
+            responsive: true,
+            "oLanguage": {
+                "sSearch": "Szukaj: ",
+                "sEmptyTable": "Brak danych do wyświetlenia",
+                "sInfo": "_START_ do _END_ z _TOTAL_ wierszy",
+                "sInfoEmpty": "0 z 0 z 0 wierszy",
+                "oPaginate": {
+                    "sNext": "Następna",
+                    "sPrevious": "Poprzednia"
+                },
+                "sLengthMenu": "Pokaż na stronę: _MENU_",
+            }
+        });
+    });
+</script>

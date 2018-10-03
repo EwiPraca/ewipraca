@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EwiPraca.Data;
+using EwiPraca.Model;
 using EwiPraca.Model.UserArea;
 using EwiPraca.Models;
 
@@ -19,6 +20,8 @@ namespace EwiPraca
                 cfg.CreateMap<UserCompanyViewModel, UserCompany>().ForMember(d => d.Address,
                  opt => opt.MapFrom(x => x.UserCompanyAddress));
                 cfg.CreateMap<UserViewModel, ApplicationUser>();
+                cfg.CreateMap<EmployeeViewModel, Employee>();
+                cfg.CreateMap<Employee, EmployeeViewModel>();
             }
             );
         }

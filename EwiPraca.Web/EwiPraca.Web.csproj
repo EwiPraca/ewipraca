@@ -260,9 +260,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account\LoginViewModel.cs" />
+    <Compile Include="Models\Contract\ContractViewModel.cs" />
     <Compile Include="Models\Employee\CompanyEmployeesViewModel.cs" />
+    <Compile Include="Models\Employee\EmployeeViewModel.cs" />
     <Compile Include="Models\Manage\BaseViewModel.cs" />
-    <Compile Include="Models\Manage\UserCompanyAddressViewModel.cs" />
+    <Compile Include="Models\Manage\AddressViewModel.cs" />
     <Compile Include="Models\Manage\UserCompanyViewModel.cs" />
     <Compile Include="Models\Manage\UserViewModel.cs" />
     <Compile Include="Models\MenuViewModel.cs" />
@@ -758,12 +760,14 @@
     <Content Include="Views\Manage\_EditUserData.cshtml" />
     <Content Include="Views\Manage\_AddUserCompanyData.cshtml" />
     <Content Include="Views\Manage\_AddUserCompanyModal.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\UserCompanyAddressViewModel.cshtml">
+    <Content Include="Views\Shared\EditorTemplates\AddressViewModel.cshtml">
       <Generator>ResXFileCodeGenerator</Generator>
     </Content>
     <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Views\Company\DisplayCompany.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
+    <Content Include="Views\Employee\_AddEmployeeData.cshtml" />
+    <Content Include="Views\Employee\_AddEmployeeModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

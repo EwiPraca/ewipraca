@@ -1,0 +1,38 @@
+﻿@model int
+<script type="text/javascript">
+    $("#open-add-employee-modal").click(function () {
+        showLoader();
+        var options = { "backdrop": "static", keyboard: true };
+        var data = { companyId: @Model }
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("AddEmployeeView", "Employee")",
+            contentType: "application/json",
+            data: data, 
+            datatype: "json",
+            success: function (data) {
+                $('#add-employee-modal-content').html(data);
+                $('#add-employee-modal').modal(options);
+                $('#add-employee-modal').modal('show');
+                hideLoader();
+            },
+            error: function () {
+                hideLoader();
+                alert("Dynamic content load failed.");
+            }
+        });
+    });
+
+    $("#closbtn").click(function () {
+        $('#add-employee-modal').modal('hide');
+    });
+
+</script>
+
+<div id='add-employee-modal' class='modal'>
+    <div class="modal-dialog popup-modal">
+        <div class="modal-content">
+            <div id='add-employee-modal-content'></div>
+        </div>
+    </div>
+</div>

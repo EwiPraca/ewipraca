@@ -64,35 +64,8 @@
 </script>
 
 <script type="text/javascript">
-    $("#open-add-company-modal").click(function () {
-        var options = { "backdrop": "static", keyboard: true };
-        $.ajax({
-            type: "GET",
-            url: "@Url.Action("AddUserCompany", "Manage")",
-            contentType: "application/json",
-            datatype: "json",
-            success: function (data) {
-                $('#edit-add-company-modal-content').html(data);
-                $('#edit-add-company-modal').modal(options);
-                $('#edit-add-company-modal').modal('show');
-
-            },
-            error: function () {
-                alert("Dynamic content load failed.");
-            }
-        });
-    });
-
     $("#closbtn").click(function () {
         $('#edit-add-company-modal').modal('hide');
     });
 
 </script>
-
-<div id='edit-add-company-modal' class='modal'>
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div id='edit-add-company-modal-content'></div>
-        </div>
-    </div>
-</div>

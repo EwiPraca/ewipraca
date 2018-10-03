@@ -1,11 +1,12 @@
 ﻿using EwiPraca.Models.Contract;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace EwiPraca.Models.Employee
+namespace EwiPraca.Models
 {
     public class EmployeeViewModel : BaseViewModel
     {
@@ -22,12 +23,12 @@ namespace EwiPraca.Models.Employee
         public string PESEL { get; set; }
 
         [Required]
-        public DateTime BirthDate { get; set; }
-        
-        public virtual AddressViewModel Address { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime BirthDate { get; set; } = DateTime.Now;
 
-        public virtual UserCompanyViewModel UserCompany { get; set; }
+        public AddressViewModel Address { get; set; }
 
-        public virtual List<ContractViewModel> Contracts { get; set; }
+        public int UserCompanyId { get; set; }
     }
 }
