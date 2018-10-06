@@ -6,16 +6,20 @@ using System.Text;
 using System.Threading.Tasks;
 using EwiPraca.Model;
 using EwiPraca.Data.Interfaces;
+using EwiPraca.Model.UserArea;
 
 namespace EwiPraca.Services.Services
 {
     public class EmployeeService : IEmployeeService
     {
         private readonly IRepository<Employee> _employeeRepository;
+        private readonly IRepository<Address> _addressRepository;
 
-        public EmployeeService(IRepository<Employee> employeeService)
+        public EmployeeService(IRepository<Employee> employeeRepository,
+            IRepository<Address> addressRepository)
         {
-            _employeeRepository = employeeService;
+            _employeeRepository = employeeRepository;
+            _addressRepository = addressRepository;
         }
 
         public IEnumerable<Employee> All()
@@ -43,7 +47,8 @@ namespace EwiPraca.Services.Services
 
         public void Update(Employee entity)
         {
-            throw new NotImplementedException();
+            _addressRepository.Update(entity.Address);
+            _employeeRepository.Update(entity);
         }
     }
 }

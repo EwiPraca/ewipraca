@@ -1,20 +1,20 @@
 ﻿@model EwiPraca.Models.EmployeeViewModel
 
-<div>
+<div class="modal-wrapper">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title" id="myModalLabel">Dodaj dane Twojego Pracownika</h4>
+        <h4 class="modal-title" id="myModalLabel">Edytuj dane Twojego Pracownika</h4>
     </div>
-    @using (Ajax.BeginForm("AddEmployee", "Employee", new AjaxOptions() { HttpMethod = "POST", OnSuccess = "onEmployeeAddSuccess", OnFailure = "onFailureModalEdit" })) // { @class = "form-horizontal", role = "form" }))
+    @using (Ajax.BeginForm("EditEmployee", "Employee", new AjaxOptions() { HttpMethod = "POST", OnSuccess = "onEmployeeEditSuccess", OnFailure = "onFailureModalEdit" })) // { @class = "form-horizontal", role = "form" }))
     {
-       @Html.EditorFor(x => x)
+        @Html.EditorFor(x => x)
     }
 </div>
 
 <script type="text/javascript">
-    function onEmployeeAddSuccess(e) {
+    function onEmployeeEditSuccess(e) {
         if (e.Success == "true") {
-            $('#add-employee-modal').modal('hide');
+            $('#edit-employee-modal').modal('hide');
             window.location.reload();
         }
         else {
@@ -29,7 +29,7 @@
 <script type="text/javascript">
 
     $("#closbtn").click(function () {
-        $('#add-employee-modal').modal('hide');
+        $('#edit-employee-modal').modal('hide');
     });
 
 </script>

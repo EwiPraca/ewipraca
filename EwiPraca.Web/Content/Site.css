@@ -40,10 +40,6 @@
     margin-bottom: 20px;
 }
 
-.form-control {
-    width: 98% !important;
-}
-
 .float-right {
     float: right;
     margin-right: 15px;
@@ -304,7 +300,6 @@ dl, hr, h1, h2, h3, h4, h5, h6, ol, ul, pre, table, address, fieldset, blockquot
 body {
     background: #fff;
     border-top: 6px solid #3a3a3a;
-    color: #909090;
     font: 11px/1.7 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
     -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
     -webkit-text-size-adjust: 100%;
@@ -3114,7 +3109,6 @@ a:hover > .post-format {
         }
 
     .categories a {
-        color: #868686;
         display: block;
         padding: 5px 0 5px 15px;
     }
@@ -4900,12 +4894,12 @@ x:-o-prefocus, .not-ie #footer:before {
 
 
 .panel-primary > .panel-heading {
-    background-color: #f15a23 !important;
-    border-color: #f15a23 !important;
+    background-color: #f59673 !important;
+    border-color: #f59673 !important;
 }
 
 .panel-primary {
-    border-color: #f15a23 !important;
+    border-color: #f59673 !important;
 }
 
 .panel-title.list-panel-title {
@@ -4916,4 +4910,27 @@ x:-o-prefocus, .not-ie #footer:before {
     margin-top: 15px;
     margin-bottom: 15px;
     border-radius: 3px;
+}
+
+.dataTables_length select.input-sm{
+    line-height: 20px !important;
+}
+
+.hidden{
+    visibility: hidden; 
+}
+
+table.display tbody tr:nth-child(even):hover td, table.display tbody tr:nth-child(odd):hover td{
+    background-color: #f59673 !important;
+    color: #ffffff !important;  
+}
+
+.odd:hover, .even:hover{
+    color: #f15a23 !important;  
+    cursor: pointer !important;    
+
+}
+
+.modal-wrapper .form-control{
+    width: 98% !important;
 }

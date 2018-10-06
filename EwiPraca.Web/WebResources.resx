@@ -120,6 +120,9 @@
   <data name="IncorrectNIPMessage" xml:space="preserve">
     <value>Niepoprawny NIP.</value>
   </data>
+  <data name="IncorrectPESELMessage" xml:space="preserve">
+    <value>Niepoprawny numer PESEL.</value>
+  </data>
   <data name="IncorrectREGONMessage" xml:space="preserve">
     <value>Niepoprawny REGON.</value>
   </data>

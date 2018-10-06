@@ -54,6 +54,41 @@ namespace EwiPraca.Controllers
         }
 
         [HttpPost]
+        public JsonResult EditEmployee(EmployeeViewModel model)
+        {
+            var result = new { Success = "true", Message = "Success" };
+
+            if (ModelState.IsValid)
+            {
+                var employee = Mapper.Map<Employee>(model);
+                
+                employee.UpdatedDate = DateTime.Now;
+
+                _employeeService.Update(employee);
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var error = ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault().ErrorMessage;
+
+                result = new { Success = "false", Message = error };
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult EditEmployeeView(int employeeId)
+        {
+            var employee = _employeeService.GetById(employeeId);
+
+            var employeeViewModel = Mapper.Map<EmployeeViewModel>(employee);
+
+            return PartialView("_EditEmployeeModal", employeeViewModel);
+        }
+
+        [HttpPost]
         public JsonResult AddEmployee(EmployeeViewModel model)
         {
             var result = new { Success = "true", Message = "Success" };

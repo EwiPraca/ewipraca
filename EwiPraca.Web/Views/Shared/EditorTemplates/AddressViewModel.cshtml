@@ -1,5 +1,7 @@
 ﻿@model EwiPraca.Models.AddressViewModel
 
+@Html.HiddenFor(x => x.Id)
+@Html.HiddenFor(x => x.AddressTypeId)
 <div class="row modal-row">
     @Html.LabelFor(m => m.StreetName, new { @class = "col-md-2 control-label" })
     <div class="col-md-10">

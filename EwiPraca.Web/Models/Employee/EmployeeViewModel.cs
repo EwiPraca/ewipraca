@@ -1,34 +1,32 @@
-﻿using EwiPraca.Models.Contract;
+﻿using EwiPraca.Validators;
+using FluentValidation.Attributes;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace EwiPraca.Models
 {
+    [Validator(typeof(EmployeeValidator))]
     public class EmployeeViewModel : BaseViewModel
     {
         public int Id { get; set; }
-        [StringLength(100)]
+        [DisplayName("Imię")]
         public string FirstName { get; set; }
-
-        [StringLength(100)]
-        [Required]
+        
+        [DisplayName("Nazwisko")]
         public string Surname { get; set; }
-
-        [StringLength(200)]
-        [Required]
+        
+        [DisplayName("PESEL")]
         public string PESEL { get; set; }
-
-        [Required]
+        
         [DataType(DataType.Date)]
+        [DisplayName("Data urodzenia")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; } = DateTime.Now;
 
         public AddressViewModel Address { get; set; }
 
         public int UserCompanyId { get; set; }
+
     }
 }

@@ -70,6 +70,15 @@ namespace EwiPraca {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Niepoprawny numer PESEL..
+        /// </summary>
+        internal static string IncorrectPESELMessage {
+            get {
+                return ResourceManager.GetString("IncorrectPESELMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Niepoprawny REGON..
         /// </summary>
         internal static string IncorrectREGONMessage {

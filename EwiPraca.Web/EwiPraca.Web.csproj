@@ -271,8 +271,10 @@
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Validators\EmployeeValidator.cs" />
     <Compile Include="Validators\UserCompanyAddressValidator.cs" />
     <Compile Include="Validators\UserCompanyValidator.cs" />
+    <None Include="Views\Employee\_EditEmployeeModal.cshtml" />
     <Compile Include="WebResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -768,6 +770,7 @@
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\Employee\_AddEmployeeData.cshtml" />
     <Content Include="Views\Employee\_AddEmployeeModal.cshtml" />
+    <Content Include="Views\Employee\EditorTemplates\EmployeeViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

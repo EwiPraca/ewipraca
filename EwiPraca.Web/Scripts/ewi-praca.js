@@ -8,3 +8,10 @@ function hideLoader() {
 $.fn.addBack = function (selector) {
     return this.add(selector == null ? this.prevObject : this.prevObject.filter(selector));
 }
+
+function onFailureModalEdit(e) {
+    BootstrapDialog.show({
+        title: 'Informacja',
+        message: e.Message
+    });
+}
