@@ -19,7 +19,7 @@
 
 <p class="align-center">
     <a href="#" id="open-add-employee-modal" class="button"><span class="glyphicon glyphicon-plus"></span> Dodaj</a>
-    <a href="#" id="import-from-excel" class="button"><span class="glyphicon glyphicon-plus"></span> Pobierz szablon excel do importu</a>
+    <a href="#" id="download-import-from-excel-template" class="button"><span class="glyphicon glyphicon-plus"></span> Pobierz szablon excel do importu</a>
     <a href="#" id="import-from-excel" class="button"><span class="glyphicon glyphicon-plus"></span> Importuj z pliku excel</a>
 </p>
 
@@ -60,7 +60,28 @@
 @Html.Partial("_AddEmployeeData", (object)Model.CompanyId)
 
 <script type="text/javascript">
+
     $(document).ready(function () {
+
+        $('#download-import-from-excel-template').click(function () {
+            showLoader();
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("PostExcelTemplate", "Employee")",
+                contentType: "application/json",
+                datatype: "json",
+                success: function (data) {
+                    hideLoader();
+                    var url = '@Html.Raw(Url.Action("DownloadEmployeeImportExcelTemplate", "Employee", new { fileGuid = "XXXFILEGUID", filename = "XXXFILENAME" }))';
+                    url = url.replace('XXXFILEGUID', data.FileGuid).replace('XXXFILENAME', data.FileName);
+                    window.location = url;
+                },
+                error: function () {
+                    hideLoader();
+                    alert("Pobranie pliku nie powiodło się.");
+                }
+            });
+        });
 
         var dt = $('#employees-data-table').DataTable({
             responsive: true,

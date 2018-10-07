@@ -5,12 +5,14 @@ using EwiPraca.Services.Services;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
 namespace EwiPraca.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly EmployeeService _employeeService;
@@ -61,7 +63,7 @@ namespace EwiPraca.Controllers
             if (ModelState.IsValid)
             {
                 var employee = Mapper.Map<Employee>(model);
-                
+
                 employee.UpdatedDate = DateTime.Now;
 
                 _employeeService.Update(employee);
@@ -113,6 +115,36 @@ namespace EwiPraca.Controllers
                 result = new { Success = "false", Message = error };
 
                 return Json(result, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult PostExcelTemplate()
+        {
+            string handle = Guid.NewGuid().ToString();
+
+            using (MemoryStream memoryStream = new MemoryStream(WebResources.EwiPracaImportPracownikowSzablon))
+            {
+                memoryStream.Position = 0;
+                TempData[handle] = memoryStream.ToArray();
+            }
+
+            var result = new { FileGuid = handle, FileName = "EwiPracaImportPracownikowSzablon.xlsx" };
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public virtual ActionResult DownloadEmployeeImportExcelTemplate(string fileGuid, string fileName)
+        {
+            if (TempData[fileGuid] != null)
+            {
+                byte[] data = TempData[fileGuid] as byte[];
+                return File(data, "application/vnd.ms-excel", fileName);
+            }
+            else
+            {
+                return new EmptyResult();
             }
         }
     }

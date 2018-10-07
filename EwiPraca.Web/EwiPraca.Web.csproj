@@ -274,6 +274,7 @@
     <Compile Include="Validators\EmployeeValidator.cs" />
     <Compile Include="Validators\UserCompanyAddressValidator.cs" />
     <Compile Include="Validators\UserCompanyValidator.cs" />
+    <Content Include="Content\Templates\EwiPracaImportPracownikowSzablon.xlsx" />
     <None Include="Views\Employee\_EditEmployeeModal.cshtml" />
     <Compile Include="WebResources.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -61,6 +61,16 @@ namespace EwiPraca {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] EwiPracaImportPracownikowSzablon {
+            get {
+                object obj = ResourceManager.GetObject("EwiPracaImportPracownikowSzablon", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Niepoprawny NIP..
         /// </summary>
         internal static string IncorrectNIPMessage {
