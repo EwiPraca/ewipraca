@@ -71,6 +71,15 @@ namespace EwiPraca {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to C:\Media\ImportEmployeesDataFiles.
+        /// </summary>
+        internal static string ImportEmployeesExcelTemplatesFolderPath {
+            get {
+                return ResourceManager.GetString("ImportEmployeesExcelTemplatesFolderPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Niepoprawny NIP..
         /// </summary>
         internal static string IncorrectNIPMessage {

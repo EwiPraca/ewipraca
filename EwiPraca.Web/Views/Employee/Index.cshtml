@@ -14,14 +14,16 @@
 </header>
 
 <h2 class="slogan align-center">
-    Dane pracowników.
+    Dane pracowników
 </h2>
 
 <p class="align-center">
-    <a href="#" id="open-add-employee-modal" class="button"><span class="glyphicon glyphicon-plus"></span> Dodaj</a>
-    <a href="#" id="download-import-from-excel-template" class="button"><span class="glyphicon glyphicon-plus"></span> Pobierz szablon excel do importu</a>
-    <a href="#" id="import-from-excel" class="button"><span class="glyphicon glyphicon-plus"></span> Importuj z pliku excel</a>
+    <a href="#" id="open-add-employee-modal" class="button"><span class="glyphicon glyphicon-plus"></span>Dodaj</a>
+    <a href="#" id="download-import-from-excel-template" class="button"><span class="glyphicon"></span>Pobierz szablon excel do importu</a>
+    <a href="#" id="import-from-excel" class="button"><span class="glyphicon"></span>Importuj z pliku excel</a>
 </p>
+
+<p>Kliknij na wiersz w tabeli by wyświetlić i edytować dane.</p>
 
 <div class="row">
     <div class="col-md-12">
@@ -56,8 +58,23 @@
     </div>
 </div>
 
+@Html.Partial("_AddEmployeeData", Model.CompanyId)
 
-@Html.Partial("_AddEmployeeData", (object)Model.CompanyId)
+<div id='edit-employee-modal' class='modal'>
+    <div class="modal-dialog popup-modal">
+        <div class="modal-content">
+            <div id='edit-employee-modal-content'></div>
+        </div>
+    </div>
+</div>
+
+<div id='import-from-excel-modal' class='modal'>
+    <div class="modal-dialog popup-modal">
+        <div class="modal-content">
+            <div id='import-from-excel-modal-content'></div>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript">
 
@@ -77,8 +94,10 @@
                     window.location = url;
                 },
                 error: function () {
+                    $('#edit-employee-modal-content').html(data);
+                    $('#edit-employee-modal').modal(options);
+                    $('#edit-employee-modal').modal('show');
                     hideLoader();
-                    alert("Pobranie pliku nie powiodło się.");
                 }
             });
         });
@@ -102,6 +121,28 @@
                 },
                 "sLengthMenu": "Pokaż na stronę: _MENU_",
             }
+        });
+
+        $('#import-from-excel').click(function () {
+            var data = { companyId: '@Model.CompanyId' };
+            showLoader();
+            $.ajax({
+                type: "GET",
+                data: data,
+                url: "@Url.Action("ImportEmployeesFromExcelView", "Employee")",
+                contentType: "application/json",
+                datatype: "json",
+                success: function (data) {
+                    $('#import-from-excel-modal-content').html(data);
+                    $('#import-from-excel-modal').modal('show');
+                    hideLoader();
+
+                },
+                error: function () {
+                    hideLoader();
+                    alert("Import nie powiodł się.");
+                }
+            });
         });
 
         $('#employees-data-table').on('click', 'td', function (e) {
@@ -128,12 +169,6 @@
             });
         });
     });
-</script>
 
-<div id='edit-employee-modal' class='modal'>
-    <div class="modal-dialog popup-modal">
-        <div class="modal-content">
-            <div id='edit-employee-modal-content'></div>
-        </div>
-    </div>
-</div>
+
+</script>

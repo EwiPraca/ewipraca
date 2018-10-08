@@ -121,6 +121,9 @@
   <data name="EwiPracaImportPracownikowSzablon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>content\templates\ewipracaimportpracownikowszablon.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="ImportEmployeesExcelTemplatesFolderPath" xml:space="preserve">
+    <value>C:\Media\ImportEmployeesDataFiles</value>
+  </data>
   <data name="IncorrectNIPMessage" xml:space="preserve">
     <value>Niepoprawny NIP.</value>
   </data>

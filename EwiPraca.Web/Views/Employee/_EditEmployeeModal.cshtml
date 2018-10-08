@@ -7,6 +7,7 @@
     </div>
     @using (Ajax.BeginForm("EditEmployee", "Employee", new AjaxOptions() { HttpMethod = "POST", OnSuccess = "onEmployeeEditSuccess", OnFailure = "onFailureModalEdit" })) // { @class = "form-horizontal", role = "form" }))
     {
+        @Html.AntiForgeryToken()
         @Html.EditorFor(x => x)
     }
 </div>
@@ -24,9 +25,6 @@
             });
         }
     }
-</script>
-
-<script type="text/javascript">
 
     $("#closbtn").click(function () {
         $('#edit-employee-modal').modal('hide');

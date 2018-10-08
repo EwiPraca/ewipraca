@@ -4912,25 +4912,43 @@ x:-o-prefocus, .not-ie #footer:before {
     border-radius: 3px;
 }
 
-.dataTables_length select.input-sm{
+.dataTables_length select.input-sm {
     line-height: 20px !important;
 }
 
-.hidden{
-    visibility: hidden; 
+.hidden {
+    visibility: hidden;
 }
 
-table.display tbody tr:nth-child(even):hover td, table.display tbody tr:nth-child(odd):hover td{
+table.display tbody tr:nth-child(even):hover td, table.display tbody tr:nth-child(odd):hover td {
     background-color: #f59673 !important;
-    color: #ffffff !important;  
+    color: #ffffff !important;
 }
 
-.odd:hover, .even:hover{
-    color: #f15a23 !important;  
-    cursor: pointer !important;    
-
+.odd:hover, .even:hover {
+    color: #f15a23 !important;
+    cursor: pointer !important;
 }
 
-.modal-wrapper .form-control{
+.modal-wrapper .form-control {
     width: 98% !important;
 }
+
+input[type=button] {
+    color: #ffffff !important;
+    background: #f15a23;
+    cursor: pointer;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+    width: auto !important;
+    padding: 3px 12px !important;
+    font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 12px !important;
+}
+
+    input[type=button]:hover {
+        background-color: #3a3a3a;
+    }

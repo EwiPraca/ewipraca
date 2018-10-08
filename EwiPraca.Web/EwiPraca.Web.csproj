@@ -263,6 +263,7 @@
     <Compile Include="Models\Contract\ContractViewModel.cs" />
     <Compile Include="Models\Employee\CompanyEmployeesViewModel.cs" />
     <Compile Include="Models\Employee\EmployeeViewModel.cs" />
+    <Compile Include="Models\Employee\ImportEmployeesFromExcelViewModel.cs" />
     <Compile Include="Models\Manage\BaseViewModel.cs" />
     <Compile Include="Models\Manage\AddressViewModel.cs" />
     <Compile Include="Models\Manage\UserCompanyViewModel.cs" />
@@ -281,6 +282,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WebResources.resx</DependentUpon>
     </Compile>
+    <Content Include="Views\Employee\_ImportEmployeesFromExcelModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-dialog.css" />
@@ -795,6 +797,10 @@
     <ProjectReference Include="..\EwiPraca.Enumerations\EwiPraca.Enumerations.csproj">
       <Project>{41bd3ff4-f94e-44fe-a070-7e1edb64fedc}</Project>
       <Name>EwiPraca.Enumerations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EwiPraca.Importers\EwiPraca.Importers.csproj">
+      <Project>{35F3ACB1-E683-4381-AC8F-CFECC3F1F0F7}</Project>
+      <Name>EwiPraca.Importers</Name>
     </ProjectReference>
     <ProjectReference Include="..\EwiPraca.Model\EwiPraca.Model.csproj">
       <Project>{2850AE3F-AA71-4269-B740-FACCC4CFF9A8}</Project>

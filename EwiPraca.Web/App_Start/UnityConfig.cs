@@ -2,6 +2,7 @@ using EwiPraca.App_Start.Identity;
 using EwiPraca.Controllers;
 using EwiPraca.Data;
 using EwiPraca.Data.Interfaces;
+using EwiPraca.Importers;
 using EwiPraca.Model;
 using EwiPraca.Model.UserArea;
 using EwiPraca.Services.Interfaces;
@@ -48,7 +49,8 @@ namespace EwiPraca
 
             container.RegisterType<IUserCompanyService, UserCompanyService>();
             container.RegisterType<IAddressService, AddressService>();
-            container.RegisterType<IEmployeeService, EmployeeService>();
+            container.RegisterType<IEmployeeService, EmployeeService>(); 
+            container.RegisterType<IEwiImporter, CompanyEmployeeImporter>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

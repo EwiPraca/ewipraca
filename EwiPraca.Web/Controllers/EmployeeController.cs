@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
+using EwiPraca.Importers;
 using EwiPraca.Model;
 using EwiPraca.Models;
-using EwiPraca.Services.Services;
+using EwiPraca.Services.Interfaces;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace EwiPraca.Controllers
@@ -15,16 +15,20 @@ namespace EwiPraca.Controllers
     [Authorize]
     public class EmployeeController : Controller
     {
-        private readonly EmployeeService _employeeService;
-        private readonly UserCompanyService _userCompanyService;
-        private readonly AddressService _addressService;
-        public EmployeeController(EmployeeService employeeService,
-            UserCompanyService userCompanyService,
-            AddressService addressService)
+        private readonly IEmployeeService _employeeService;
+        private readonly IUserCompanyService _userCompanyService;
+        private readonly IAddressService _addressService;
+        private readonly CompanyEmployeeImporter _companyEmployeeImporter;
+
+        public EmployeeController(IEmployeeService employeeService,
+            IUserCompanyService userCompanyService,
+            IAddressService addressService,
+            CompanyEmployeeImporter companyEmployeeImporter)
         {
             _employeeService = employeeService;
             _userCompanyService = userCompanyService;
             _addressService = addressService;
+            _companyEmployeeImporter = companyEmployeeImporter;
         }
         public ActionResult Index(int id)
         {
@@ -56,6 +60,7 @@ namespace EwiPraca.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult EditEmployee(EmployeeViewModel model)
         {
             var result = new { Success = "true", Message = "Success" };
@@ -91,6 +96,7 @@ namespace EwiPraca.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult AddEmployee(EmployeeViewModel model)
         {
             var result = new { Success = "true", Message = "Success" };
@@ -146,6 +152,49 @@ namespace EwiPraca.Controllers
             {
                 return new EmptyResult();
             }
+        }
+
+        [HttpGet]
+        public ActionResult ImportEmployeesFromExcelView(int companyId)
+        {
+            return PartialView("_ImportEmployeesFromExcelModal", new ImportEmployeesFromExcelViewModel() { CompanyId = companyId });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ImportEmployeesFromExcel(ImportEmployeesFromExcelViewModel model)
+        {
+            var result = new { Success = "true", Message = "Success" };
+
+            if (ModelState.IsValid)
+            {
+                var folder = WebResources.ImportEmployeesExcelTemplatesFolderPath;
+
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+
+                string extension = Path.GetExtension(model.SpreadsheetFile.FileName);
+
+                var newFileName = Guid.NewGuid().ToString();
+                var newfullFileName = Path.Combine(folder, newFileName + extension);
+                try
+                {
+                    model.SpreadsheetFile.SaveAs(newfullFileName);
+                    _companyEmployeeImporter.Import(newfullFileName, model.CompanyId);
+                }
+                catch (Exception e)
+                {
+                    return Json(new { Success = "false", Message = e.Message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(new { Success = "false", Message = ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault().ErrorMessage }, JsonRequestBehavior.AllowGet);
+            }
+
+            return RedirectToAction("Index", "Employee", new { id = model.CompanyId });
         }
     }
 }

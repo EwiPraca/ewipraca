@@ -1,0 +1,5 @@
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Importers\bin\Debug\EwiPraca.Importers.dll
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Importers\bin\Debug\EwiPraca.Importers.pdb
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Importers\obj\Debug\EwiPraca.Importers.csprojResolveAssemblyReference.cache
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Importers\obj\Debug\EwiPraca.Importers.dll
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Importers\obj\Debug\EwiPraca.Importers.pdb

@@ -1,0 +1,95 @@
+﻿@model EwiPraca.Models.ImportEmployeesFromExcelViewModel
+
+<div class="modal-wrapper">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="myModalLabel">Importuj dane pracowników z szablonu Excel</h4>
+    </div>
+    @using (Html.BeginForm("ImportEmployeesFromExcel", "Employee", FormMethod.Post, new { id = "import-from-excel-form", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(x => x.CompanyId)
+        <div class="row modal-row">
+            @Html.LabelFor(x => x.SpreadsheetFile, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                <input type="file" class="form-control"
+                       id="SpreadsheetFile" name="SpreadsheetFile"
+                       accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+            </div>
+        </div>
+        <div class="row modal-row">
+            @Html.LabelFor(x => x.IsOverride, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(x => x.IsOverride, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row modal-row">
+            <div class="col-md-12">
+                <div class="float-right">
+                    <input id="import-Button" type="button" class="btn btn-default" value="Importuj" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#import-Button").click(function () {
+            var ok;
+            if ($("#IsOverride").is(':checked')) {
+                ok = confirm("Jesteś pewny, że chcesz nadpisać wszystkie istniejące dane?");
+                if (ok) {
+                    submitImportForm();
+                }
+                else {
+                    e.preventDefault();
+                }
+            }
+            else {
+                submitImportForm();
+            }            
+        });
+
+        $("#closbtn").click(function () {
+            $('#import-from-excel-modal').modal('hide');
+        });
+
+        function submitImportForm() {
+            dataString = new FormData($("#import-from-excel-form").get(0));
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("ImportEmployeesFromExcel", "Employee")",
+                data: dataString,
+                dataType: "json",
+                contentType: false,
+                processData: false,
+                success: function (r) {
+                    if (r.Success == "false") {
+                        BootstrapDialog.show({
+                            title: 'Informacja',
+                            message: r.Message
+                        });
+                    }
+                    else {
+                        window.location.href = r.Message;
+                    }
+                },
+                error: function (xhr) {
+                    if (xhr.responseJSON.Message) {
+                        BootstrapDialog.show({
+                            title: 'Informacja',
+                            message: xhr.responseJSON.Message
+                        });
+                    }
+
+                    event.preventDefault();
+                },
+                complete: function (e) {
+
+                }
+            });
+        }
+    });
+
+</script>
