@@ -17,8 +17,15 @@ namespace EwiPraca.Importers
                 throw new FileNotFoundException(fileName);
             }
 
-            var results = FileImporter.ReadExcelEmployeeFile(fileName);
+            var results = ExcelEmployeeDataImporter.ReadExcelEmployeeFile(fileName);
 
+            foreach(var result in results)
+            {
+                if(!result.IsValid())
+                {
+                    throw new Exception(string.Format("Brakujące dane w wierszu {0}", result.RowNumber));
+                }
+            }
         }
     }
 }

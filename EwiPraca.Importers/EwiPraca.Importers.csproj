@@ -46,8 +46,9 @@
   <ItemGroup>
     <Compile Include="IEwiImporter.cs" />
     <Compile Include="Importers\CompanyEmployeeImporter.cs" />
-    <Compile Include="Importers\EmployeeRow.cs" />
-    <Compile Include="Importers\FileImporter.cs" />
+    <Compile Include="Importers\EmployeeImportRow.cs" />
+    <Compile Include="Importers\EmployeeImportRowValidator.cs" />
+    <Compile Include="Importers\ExcelEmployeeDataImporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

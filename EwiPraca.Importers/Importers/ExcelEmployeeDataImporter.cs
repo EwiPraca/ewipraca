@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 
 namespace EwiPraca.Importers.Importers
 {
-    public static class FileImporter
+    public static class ExcelEmployeeDataImporter
     {
-        public static List<EmployeeRow> ReadExcelEmployeeFile(string filename)
+        public static List<EmployeeImportRow> ReadExcelEmployeeFile(string filename)
         {
             Excel.Application xlApp = new Excel.Application();
             Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(filename);
@@ -20,13 +20,22 @@ namespace EwiPraca.Importers.Importers
             int rowCount = xlRange.Rows.Count;
             int colCount = xlRange.Columns.Count;
 
-            List<EmployeeRow> rows = new List<EmployeeRow>();
+            List<EmployeeImportRow> rows = new List<EmployeeImportRow>();
 
-            for (int i = 1; i <= rowCount; i++)
+            for (int i = 2; i <= rowCount; i++)
             {
-                EmployeeRow row = new EmployeeRow();
-                
-                  //  if (xlRange.Cells[i, j] != null && xlRange.Cells[i, j].Value2 != null)
+                EmployeeImportRow row = new EmployeeImportRow();
+
+                row.RowNumber = i;
+                row.FirstName = xlRange.Cells[i, 1].Value2?.ToString();
+                row.Surname = xlRange.Cells[i, 2].Value2?.ToString();
+                row.PESEL = xlRange.Cells[i, 3].Value2?.ToString();
+                row.BirthDate = xlRange.Cells[i, 4].Value2?.ToString();
+                row.City = xlRange.Cells[i, 5].Value2?.ToString();
+                row.StreetName = xlRange.Cells[i, 6].Value2?.ToString();
+                row.StreetNumber = xlRange.Cells[i, 7].Value2?.ToString();
+                row.PlaceNumber = xlRange.Cells[i, 8].Value2?.ToString();
+                row.ZIPCode = xlRange.Cells[i, 9].Value2?.ToString();            
 
                 rows.Add(row);
             }
@@ -45,7 +54,7 @@ namespace EwiPraca.Importers.Importers
             xlApp.Quit();
             Marshal.ReleaseComObject(xlApp);
 
-            return null;
+            return rows;
         }
     }
 }
