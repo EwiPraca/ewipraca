@@ -61,11 +61,22 @@ namespace EwiPraca.Controllers
                     {
                         ModelState.AddModelError("NotFound", "Nie znaleziono firmy.");
                     }
+                    else
+                    {
+                        company.KRS = model.KRS;
+                        company.NIP = model.NIP;
+                        company.REGON = company.REGON;
 
-                    company = Mapper.Map<UserCompany>(model);
+                        company.Address.City = model.UserCompanyAddress.City;
+                        company.Address.StreetName = model.UserCompanyAddress.StreetName;
+                        company.Address.StreetNumber = model.UserCompanyAddress.StreetNumber;
+                        company.Address.PlaceNumber = model.UserCompanyAddress.PlaceNumber;
+                        company.Address.ZIPCode = model.UserCompanyAddress.ZIPCode;
 
-                    company.UpdatedDate = DateTime.Now;
-                    _userCompanyService.Update(company);
+                        company.UpdatedDate = DateTime.Now;
+                        _userCompanyService.Update(company);
+                    }
+                    
                 }
                 catch (Exception e)
                 {

@@ -55,7 +55,8 @@
             $('#import-from-excel-modal').modal('hide');
         });
 
-        function submitImportForm() {
+        function submitImportForm() {            
+            showLoader();
             dataString = new FormData($("#import-from-excel-form").get(0));
             $.ajax({
                 type: "POST",
@@ -72,7 +73,7 @@
                         });
                     }
                     else {
-                        window.location.href = r.Message;
+                        window.location.reload();
                     }
                 },
                 error: function (xhr) {
@@ -89,6 +90,10 @@
 
                 }
             });
+
+            $('#import-Button').attr("disabled", true);
+            $('#SpreadsheetFile').attr("disabled", true);
+            $('#IsOverride').attr("disabled", true);
         }
     });
 

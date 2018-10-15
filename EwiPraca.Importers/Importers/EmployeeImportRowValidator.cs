@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EwiPraca.Validators;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,24 @@ namespace EwiPraca.Importers.Importers
                 if(val == null || string.IsNullOrEmpty(val.ToString()))
                 {
                     return false;
+                }
+
+                if(property.Name == "BirthDay")
+                {
+                    DateTime date;
+
+                    if(!DateTime.TryParse(val.ToString(), out date))
+                    {
+                        return false;
+                    }
+                }
+
+                if (property.Name == "PESEL")
+                {
+                    if (!val.ToString().IsValidPESEL())
+                    {
+                        return false;
+                    }
                 }
             }
 

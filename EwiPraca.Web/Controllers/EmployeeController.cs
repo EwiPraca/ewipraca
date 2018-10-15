@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ewipraca.ImportProcessors;
 using EwiPraca.Importers;
 using EwiPraca.Model;
 using EwiPraca.Models;
@@ -18,17 +19,20 @@ namespace EwiPraca.Controllers
         private readonly IEmployeeService _employeeService;
         private readonly IUserCompanyService _userCompanyService;
         private readonly IAddressService _addressService;
-        private readonly CompanyEmployeeImporter _companyEmployeeImporter;
+        private readonly IEwiImporter _companyEmployeeImporter;
+        private readonly IImportEmployeeProcessor _employeeProcessor;
 
         public EmployeeController(IEmployeeService employeeService,
             IUserCompanyService userCompanyService,
             IAddressService addressService,
-            CompanyEmployeeImporter companyEmployeeImporter)
+            IEwiImporter companyEmployeeImporter,
+            IImportEmployeeProcessor employeeProcessor)
         {
             _employeeService = employeeService;
             _userCompanyService = userCompanyService;
             _addressService = addressService;
             _companyEmployeeImporter = companyEmployeeImporter;
+            _employeeProcessor = employeeProcessor;
         }
         public ActionResult Index(int id)
         {
@@ -49,14 +53,37 @@ namespace EwiPraca.Controllers
             var model = new CompanyEmployeesViewModel();
             model.CompanyId = id;
             model.CompanyName = company.CompanyName;
-            model.Employees = Mapper.Map<List<EmployeeViewModel>>(company.Employees);
+            model.Employees = Mapper.Map<List<EmployeeViewModel>>(company.Employees.Where(x => !x.IsDeleted));
             return View(model);
         }
 
         [HttpGet]
         public ActionResult AddEmployeeView(int companyId)
         {
-            return PartialView("_AddEmployeeModal", new EmployeeViewModel() { UserCompanyId = companyId });
+            var addressType = _addressService.GetAddressTypeByName(Enumerations.AddressType.Zameldowania.ToString());
+
+            return PartialView("_AddEmployeeModal", new EmployeeViewModel() { UserCompanyId = companyId, Address = new AddressViewModel() { AddressTypeId = addressType.Id } });
+        }
+
+        [HttpPost]
+        public JsonResult DeleteEmployee(int id)
+        {
+            var result = new { Success = "true", Message = "Success" };
+
+            try
+            {
+                var employee = _employeeService.GetById(id);
+
+                if(employee != null)
+                {
+                    _employeeService.Delete(employee);
+                }
+            }
+            catch (Exception e)
+            {
+                result = new { Success = "false", Message = e.Message };
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -107,8 +134,6 @@ namespace EwiPraca.Controllers
 
                 employee.CreatedDate = DateTime.Now;
                 employee.UpdatedDate = employee.CreatedDate;
-
-                employee.Address.AddressType = _addressService.GetAddressTypeByName(Enumerations.AddressType.Zameldowania.ToString());
 
                 _employeeService.Create(employee);
 
@@ -182,7 +207,14 @@ namespace EwiPraca.Controllers
                 try
                 {
                     model.SpreadsheetFile.SaveAs(newfullFileName);
-                    _companyEmployeeImporter.Import(newfullFileName, model.CompanyId);
+                    var results = _companyEmployeeImporter.Import(newfullFileName, model.CompanyId);
+
+                    if (results.Count > 0)
+                    {
+                        var employees = Mapper.Map<List<Employee>>(results);
+
+                        _employeeProcessor.Process(employees, model.CompanyId, model.IsOverride);
+                    }
                 }
                 catch (Exception e)
                 {
@@ -194,7 +226,7 @@ namespace EwiPraca.Controllers
                 return Json(new { Success = "false", Message = ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault().ErrorMessage }, JsonRequestBehavior.AllowGet);
             }
 
-            return RedirectToAction("Index", "Employee", new { id = model.CompanyId });
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

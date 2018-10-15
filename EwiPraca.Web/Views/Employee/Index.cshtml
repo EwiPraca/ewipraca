@@ -23,9 +23,7 @@
     <a href="#" id="import-from-excel" class="button"><span class="glyphicon"></span>Importuj z pliku excel</a>
 </p>
 
-<p>Kliknij na wiersz w tabeli by wyświetlić i edytować dane.</p>
-
-<div class="row">
+<div class="row last-row">
     <div class="col-md-12">
         <div class="panel panel-primary list-panel" id="list-panel">
             <div class="panel-heading list-panel-heading">
@@ -39,6 +37,7 @@
                             <th>Imię</th>
                             <th>Nazwisko</th>
                             <th>PESEL</th>
+                            <th>Akcje</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,6 +48,7 @@
                                 <td>@employee.FirstName</td>
                                 <td>@employee.Surname</td>
                                 <td>@employee.PESEL</td>
+                                <td class="action-column"></td>
                             </tr>
                         }
                     </tbody>
@@ -109,7 +109,24 @@
                 "targets": [0],
                 "visible": false,
                 "searchable": false
-            }],
+            },
+             {
+                 "targets": [1],
+             },
+             {
+                 "targets": [2]
+             },
+             {
+                 "targets": [3]
+             },
+              {
+                  "targets": [4],
+                  mRender: function (data, type, row) {
+
+                      return '<a class="button grid-button edit-button" data-id="' + row[0] + '">Edytuj</a><a class="button grid-button delete-button" data-id="' + row[0] + '">Usuń</a>'
+                  }
+              },
+            ],
             "oLanguage": {
                 "sSearch": "Szukaj: ",
                 "sEmptyTable": "Brak danych do wyświetlenia",
@@ -145,11 +162,42 @@
             });
         });
 
-        $('#employees-data-table').on('click', 'td', function (e) {
-            var data = dt.row($(this).parents('tr')).data();
+        $('.delete-button').click(function (e) {
+            var id = $(this).attr('data-id');
+            var data = { id: id };
+
+            var ok = confirm("Czy na pewno chcesz usunąć ten rekord?");
+            if (ok) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("DeleteEmployee", "Employee")",
+                    contentType: "application/json",
+                    data: JSON.stringify(data),
+                    datatype: "json",
+                    success: function (data) {
+                        if (data.Success = "true") {
+                            window.location.reload();
+                        }
+                        else {
+                            showErrorMessage(e.Message);
+                        }
+                    },
+                    error: function (e) {
+                        showErrorMessage("Wystąpił błąd. " + e);
+                    }
+                });
+            }
+            else {
+                e.preventDefault();
+            }
+        });
+
+        $('.edit-button').click(function () {
+            var id = $(this).attr('data-id');
+
             showLoader();
             var options = { "backdrop": "static", keyboard: true };
-            var data = { employeeId: data[0] }
+            var data = { employeeId: id }
             $.ajax({
                 type: "GET",
                 url: "@Url.Action("EditEmployeeView", "Employee")",

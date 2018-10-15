@@ -1,3 +1,4 @@
+using Ewipraca.ImportProcessors;
 using EwiPraca.App_Start.Identity;
 using EwiPraca.Controllers;
 using EwiPraca.Data;
@@ -51,6 +52,8 @@ namespace EwiPraca
             container.RegisterType<IAddressService, AddressService>();
             container.RegisterType<IEmployeeService, EmployeeService>(); 
             container.RegisterType<IEwiImporter, CompanyEmployeeImporter>();
+
+            container.RegisterType<IImportEmployeeProcessor, ImportEmployeeProcessor>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

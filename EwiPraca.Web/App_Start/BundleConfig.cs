@@ -20,7 +20,7 @@ namespace EwiPraca
                       "~/Scripts/bootstrap.min.js",
                       "~/Scripts/respond.min.js",
                       "~/Scripts/bootstrap-dialog.min.js",
-                      "~/Scripts/ewi-praca.min.js"));
+                      "~/Scripts/ewi-praca.js"));
             
             bundles.Add(new StyleBundle("~/Content/css").Include(
                      // "~/Content/bootstrap.min.css",

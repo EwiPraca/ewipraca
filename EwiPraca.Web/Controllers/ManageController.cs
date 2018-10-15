@@ -92,7 +92,9 @@ namespace EwiPraca.Controllers
         [HttpGet]
         public ActionResult AddUserCompany()
         {
-            return PartialView("_AddUserCompanyModal", new UserCompanyViewModel());
+            var addressType = _addressService.GetAddressTypeByName(Enumerations.AddressType.Zameldowania.ToString());
+
+            return PartialView("_AddUserCompanyModal", new UserCompanyViewModel() { UserCompanyAddress = new AddressViewModel() { AddressTypeId = addressType.Id } });
         }
 
         [HttpPost]
@@ -103,7 +105,7 @@ namespace EwiPraca.Controllers
             if (ModelState.IsValid)
             {
                 var newCompany = Mapper.Map<UserCompany>(model);
-                
+
                 newCompany.CreatedDate = DateTime.Now;
                 newCompany.UpdatedDate = newCompany.CreatedDate;
 

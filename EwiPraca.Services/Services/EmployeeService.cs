@@ -50,5 +50,10 @@ namespace EwiPraca.Services.Services
             _addressRepository.Update(entity.Address);
             _employeeRepository.Update(entity);
         }
+
+        public Employee GetByPESEL(string PESEL)
+        {
+            return _employeeRepository.Query(x => x.PESEL == PESEL).FirstOrDefault();
+        }
     }
 }

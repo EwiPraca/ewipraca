@@ -10,8 +10,12 @@ $.fn.addBack = function (selector) {
 }
 
 function onFailureModalEdit(e) {
+    showErrorMessage(e.Message);
+}
+
+function showErrorMessage(message) {
     BootstrapDialog.show({
         title: 'Informacja',
-        message: e.Message
+        message: message
     });
 }

@@ -54,6 +54,23 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ewipraca.ImportProcessors\Ewipraca.ImportProcessors.csproj">
+      <Project>{7484058C-04A7-49B3-A048-1F9C1FA44E53}</Project>
+      <Name>Ewipraca.ImportProcessors</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EwiPraca.Model\EwiPraca.Model.csproj">
+      <Project>{2850AE3F-AA71-4269-B740-FACCC4CFF9A8}</Project>
+      <Name>EwiPraca.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EwiPraca.Validators\EwiPraca.Validators.csproj">
+      <Project>{37D6A551-C988-4A2B-A45D-EE06D6D138C1}</Project>
+      <Name>EwiPraca.Validators</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Validators\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

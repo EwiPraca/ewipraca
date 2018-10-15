@@ -802,6 +802,10 @@
       <Project>{35F3ACB1-E683-4381-AC8F-CFECC3F1F0F7}</Project>
       <Name>EwiPraca.Importers</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ewipraca.ImportProcessors\Ewipraca.ImportProcessors.csproj">
+      <Project>{7484058C-04A7-49B3-A048-1F9C1FA44E53}</Project>
+      <Name>Ewipraca.ImportProcessors</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EwiPraca.Model\EwiPraca.Model.csproj">
       <Project>{2850AE3F-AA71-4269-B740-FACCC4CFF9A8}</Project>
       <Name>EwiPraca.Model</Name>

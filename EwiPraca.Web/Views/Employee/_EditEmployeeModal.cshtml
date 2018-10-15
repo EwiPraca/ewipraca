@@ -19,10 +19,7 @@
             window.location.reload();
         }
         else {
-            BootstrapDialog.show({
-                title: 'Informacja',
-                message: e.Message
-            });
+            showErrorMessage(e.Messsage);
         }
     }
 

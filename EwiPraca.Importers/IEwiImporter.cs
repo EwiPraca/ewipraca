@@ -1,7 +1,10 @@
-﻿namespace EwiPraca.Importers
+﻿using EwiPraca.Importers.Importers;
+using System.Collections.Generic;
+
+namespace EwiPraca.Importers
 {
     public interface IEwiImporter
     {
-        void Import(string fileName, int companyId);
+        List<EmployeeImportRow> Import(string fileName, int companyId);
     }
 }

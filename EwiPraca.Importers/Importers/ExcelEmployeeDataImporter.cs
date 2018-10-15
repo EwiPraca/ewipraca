@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Excel = Microsoft.Office.Interop.Excel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 
 namespace EwiPraca.Importers.Importers
@@ -31,6 +28,11 @@ namespace EwiPraca.Importers.Importers
                 row.Surname = xlRange.Cells[i, 2].Value2?.ToString();
                 row.PESEL = xlRange.Cells[i, 3].Value2?.ToString();
                 row.BirthDate = xlRange.Cells[i, 4].Value2?.ToString();
+
+                double date = double.Parse(row.BirthDate);
+
+                row.BirthDate = DateTime.FromOADate(date).ToString("MMMM dd, yyyy");
+
                 row.City = xlRange.Cells[i, 5].Value2?.ToString();
                 row.StreetName = xlRange.Cells[i, 6].Value2?.ToString();
                 row.StreetNumber = xlRange.Cells[i, 7].Value2?.ToString();
