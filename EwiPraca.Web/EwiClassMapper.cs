@@ -40,6 +40,10 @@ namespace EwiPraca
                  opt => opt.MapFrom(x => x.ZIPCode));
 
                 cfg.CreateMap<EmployeeImportRow, EmployeeViewModel>();
+
+                cfg.CreateMap<Contract, ContractViewModel>();
+
+                cfg.CreateMap<ContractViewModel, Contract>();
             }
             );
         }

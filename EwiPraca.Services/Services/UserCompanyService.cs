@@ -3,7 +3,6 @@ using EwiPraca.Model.UserArea;
 using EwiPraca.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 namespace EwiPraca.Services.Services
 {
@@ -12,7 +11,7 @@ namespace EwiPraca.Services.Services
         private readonly IRepository<UserCompany> _userCompanyRepository;
         private readonly IAddressService _addressService;
 
-        public UserCompanyService(IRepository<UserCompany> userCompanyRepository, 
+        public UserCompanyService(IRepository<UserCompany> userCompanyRepository,
             IAddressService addressService)
         {
             _userCompanyRepository = userCompanyRepository;

@@ -2,6 +2,7 @@
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(EwiPraca.Startup))]
+
 namespace EwiPraca
 {
     public partial class Startup

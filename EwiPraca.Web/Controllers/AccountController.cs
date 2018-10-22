@@ -1,17 +1,14 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
+﻿using EwiPraca.App_Start.Identity;
+using EwiPraca.Data;
+using EwiPraca.Encryptor;
+using EwiPraca.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using EwiPraca.Models;
-using EwiPraca.App_Start.Identity;
-using EwiPraca.Data;
-using EwiPraca.Encryptor;
+using System;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 
 namespace EwiPraca.Controllers
 {
@@ -22,7 +19,7 @@ namespace EwiPraca.Controllers
         private readonly ApplicationSignInManager _signInManager;
 
         public AccountController(
-            ApplicationUserManager userManager, 
+            ApplicationUserManager userManager,
             ApplicationSignInManager signInManager
             )
         {
@@ -58,17 +55,20 @@ namespace EwiPraca.Controllers
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
+
                 case SignInStatus.LockedOut:
                     return View("Lockout");
+
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Błędne hasło lub adres email.");
                     return View(model);
             }
         }
-        
+
         //
         // GET: /Account/Register
         [AllowAnonymous]
@@ -86,7 +86,8 @@ namespace EwiPraca.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser {
+                var user = new ApplicationUser
+                {
                     UserName = EncryptionService.EncryptEmail(model.Email),
                     Email = EncryptionService.EncryptEmail(model.Email),
                     FirstName = EncryptionService.Encrypt(model.FirstName),
@@ -96,8 +97,8 @@ namespace EwiPraca.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await _signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -112,7 +113,7 @@ namespace EwiPraca.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-        
+
         //
         // GET: /Account/ForgotPassword
         //[AllowAnonymous]
@@ -140,7 +141,7 @@ namespace EwiPraca.Controllers
         //        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
         //        // Send an email with this link
         //        // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-        //        // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
+        //        // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
         //        // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
         //        // return RedirectToAction("ForgotPasswordConfirmation", "Account");
         //    }
@@ -221,6 +222,7 @@ namespace EwiPraca.Controllers
         }
 
         #region Helpers
+
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -277,6 +279,7 @@ namespace EwiPraca.Controllers
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
-        #endregion
+
+        #endregion Helpers
     }
 }

@@ -113,13 +113,11 @@ namespace EwiPraca.Data
             entry.State = EntityState.Modified;
 
             return entityToUpdate;
-
         }
 
         public virtual void Detach(TEntity entity)
         {
             _context.Entry(entity).State = EntityState.Detached;
-
         }
 
         public IEnumerable<TEntity> All()
@@ -161,6 +159,5 @@ namespace EwiPraca.Data
         {
             return _context.Database.ExecuteSqlCommand(command, parameters);
         }
-
     }
 }

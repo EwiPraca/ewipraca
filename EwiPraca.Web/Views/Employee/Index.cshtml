@@ -23,7 +23,7 @@
     <a href="#" id="import-from-excel" class="button"><span class="glyphicon"></span>Importuj z pliku excel</a>
 </p>
 
-<div class="row last-row">
+<div class="row">
     <div class="col-md-12">
         <div class="panel panel-primary list-panel" id="list-panel">
             <div class="panel-heading list-panel-heading">
@@ -57,10 +57,15 @@
         </div>
     </div>
 </div>
+<div class="row last-row">
+    <p class="align-center">
+        <a href="@Url.Action("DisplayCompany", "Company", new { id = Model.CompanyId })" class="button"><span class="glyphicon"></span>Powrót</a>
+    </p>
+</div>
 
 @Html.Partial("_AddEmployeeData", Model.CompanyId)
 
-<div id='edit-employee-modal' class='modal'>
+<div id='edit-employee-modal' class='modal fade'>
     <div class="modal-dialog popup-modal">
         <div class="modal-content">
             <div id='edit-employee-modal-content'></div>
@@ -68,10 +73,19 @@
     </div>
 </div>
 
-<div id='import-from-excel-modal' class='modal'>
+<div id='import-from-excel-modal' class='modal fade'>
     <div class="modal-dialog popup-modal">
         <div class="modal-content">
             <div id='import-from-excel-modal-content'></div>
+        </div>
+    </div>
+</div>
+
+
+<div id='add-contract-modal' class='modal fade'>
+    <div class="modal-dialog popup-modal">
+        <div class="modal-content">
+            <div id='add-contract-modal-content'></div>
         </div>
     </div>
 </div>
@@ -217,6 +231,4 @@
             });
         });
     });
-
-
 </script>

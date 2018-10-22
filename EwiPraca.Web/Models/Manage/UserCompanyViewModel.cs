@@ -11,13 +11,13 @@ namespace EwiPraca.Models
 
         [Display(Name = "Nazwa firmy")]
         public string CompanyName { get; set; }
-        
+
         [Display(Name = "Numer REGON")]
         public string REGON { get; set; }
-        
+
         [Display(Name = "Numer KRS")]
         public string KRS { get; set; }
-        
+
         [Display(Name = "Numer NIP")]
         public string NIP { get; set; }
 
@@ -27,6 +27,6 @@ namespace EwiPraca.Models
         [DataType(DataType.MultilineText)]
         public string Notes { get; set; }
 
-        public AddressViewModel UserCompanyAddress {get;set;}
+        public AddressViewModel UserCompanyAddress { get; set; }
     }
 }

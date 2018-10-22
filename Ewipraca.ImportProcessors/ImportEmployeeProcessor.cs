@@ -25,7 +25,7 @@ namespace Ewipraca.ImportProcessors
             foreach (var employee in employeeList)
             {
                 var existingEmployee = _employeeService.GetByPESEL(employee.PESEL);
-                if(existingEmployee != null)
+                if (existingEmployee != null)
                 {
                     if (isOverride)
                     {

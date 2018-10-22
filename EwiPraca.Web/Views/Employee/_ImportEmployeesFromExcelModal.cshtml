@@ -48,14 +48,14 @@
             }
             else {
                 submitImportForm();
-            }            
+            }
         });
 
         $("#closbtn").click(function () {
             $('#import-from-excel-modal').modal('hide');
         });
 
-        function submitImportForm() {            
+        function submitImportForm() {
             showLoader();
             dataString = new FormData($("#import-from-excel-form").get(0));
             $.ajax({
@@ -96,5 +96,4 @@
             $('#IsOverride').attr("disabled", true);
         }
     });
-
 </script>

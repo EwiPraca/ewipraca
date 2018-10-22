@@ -1,0 +1,68 @@
+﻿@model EwiPraca.Models.ContractViewModel
+
+
+@Html.HiddenFor(x => x.Id)
+@Html.HiddenFor(x => x.EmployeeId)
+
+@Html.HiddenFor(x => x.CreatedDate)
+@Html.HiddenFor(x => x.UpdatedDate)
+
+<div class="row modal-row">
+    @Html.LabelFor(m => m.Workplace, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(m => m.Workplace, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Workplace)
+    </div>
+</div>
+<div class="row modal-row">
+    @Html.LabelFor(m => m.ContractType, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.EnumDropDownListFor(
+              x => x.ContractType,
+              "Wybierz rodzaj",
+              new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ContractType)
+    </div>
+</div>
+<div class="row modal-row">
+    @Html.LabelFor(m => m.DateFrom, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.EditorFor(m => m.DateFrom, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.DateFrom)
+    </div>
+</div>
+<div class="row modal-row">
+    @Html.LabelFor(m => m.DateTo, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.EditorFor(m => m.DateTo, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.DateTo)
+    </div>
+</div>
+<div class="row modal-row">
+    @Html.LabelFor(m => m.JobPart, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(m => m.JobPart, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.JobPart)
+    </div>
+</div>
+<div class="row modal-row">
+    @Html.LabelFor(m => m.Salary, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(m => m.Salary, new { @class = "form-control", @type = "number" })
+        @Html.ValidationMessageFor(m => m.Salary)
+    </div>
+</div>
+<div class="row modal-row">
+    @Html.LabelFor(m => m.Notes, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextAreaFor(m => m.Notes, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Notes)
+    </div>
+</div>
+<div class="row modal-row">
+    <div class="col-md-12">
+        <div class="float-right">
+            <input type="submit" class="btn btn-default" value="Zapisz" />
+        </div>
+    </div>
+</div>

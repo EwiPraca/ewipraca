@@ -39,6 +39,16 @@ namespace EwiPraca.Data.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         EmployeeId = c.Int(nullable: false),
+                        DateFrom = c.DateTime(),
+                        DateTo = c.DateTime(),
+                        ContractType = c.Int(nullable: false),
+                        Workplace = c.String(),
+                        Salary = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        JobPart = c.String(),
+                        Notes = c.String(),
+                        CreatedDate = c.DateTime(nullable: false),
+                        UpdatedDate = c.DateTime(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Employee", t => t.EmployeeId)
@@ -159,19 +169,22 @@ namespace EwiPraca.Data.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
-            
+
+            Sql(string.Format("INSERT INTO [dbo].[AddressType] ([AddressTypeName], [AddressTypeNameDescription]) VALUES ('{0}','{1}')", Enumerations.AddressType.Zameldowania.ToString(), "Adres zameldowania"));
+
+            Sql(string.Format("INSERT INTO [dbo].[AddressType] ([AddressTypeName], [AddressTypeNameDescription]) VALUES ('{0}','{1}')", Enumerations.AddressType.Korespondencyjny.ToString(), "Adres korespondencyjny"));
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.UserRoles", "RoleId", "dbo.Roles");
+            DropForeignKey("dbo.Contract", "EmployeeId", "dbo.Employee");
             DropForeignKey("dbo.Employee", "UserCompanyId", "dbo.UserCompany");
             DropForeignKey("dbo.UserCompany", "ApplicationUserID", "dbo.Users");
             DropForeignKey("dbo.UserRoles", "UserId", "dbo.Users");
             DropForeignKey("dbo.UserLogins", "UserId", "dbo.Users");
             DropForeignKey("dbo.UserClaims", "UserId", "dbo.Users");
             DropForeignKey("dbo.UserCompany", "AddressId", "dbo.Address");
-            DropForeignKey("dbo.Contract", "EmployeeId", "dbo.Employee");
             DropForeignKey("dbo.Employee", "AddressId", "dbo.Address");
             DropForeignKey("dbo.Address", "AddressTypeId", "dbo.AddressType");
             DropIndex("dbo.Roles", "RoleNameIndex");

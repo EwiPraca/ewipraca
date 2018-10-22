@@ -1,17 +1,14 @@
 ﻿using AutoMapper;
 using EwiPraca.App_Start.Identity;
-using EwiPraca.Data;
 using EwiPraca.Encryptor;
 using EwiPraca.Model.UserArea;
 using EwiPraca.Models;
 using EwiPraca.Services.Interfaces;
 using EwiPraca.Services.Services;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace EwiPraca.Controllers
@@ -125,6 +122,5 @@ namespace EwiPraca.Controllers
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
         }
-
     }
 }

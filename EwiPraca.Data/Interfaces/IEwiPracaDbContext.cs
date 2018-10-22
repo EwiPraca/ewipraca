@@ -1,6 +1,4 @@
-﻿using EwiPraca.Model.UserArea;
-using System;
-using System.Data.Entity;
+﻿using System;
 
 namespace EwiPraca.Data.Interfaces
 {

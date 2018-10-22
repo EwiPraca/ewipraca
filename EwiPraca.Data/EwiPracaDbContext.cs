@@ -1,10 +1,9 @@
 ﻿using EwiPraca.Data.Interfaces;
+using EwiPraca.Model;
+using EwiPraca.Model.UserArea;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using EwiPraca.Model.UserArea;
-using System;
-using EwiPraca.Model;
 
 namespace EwiPraca.Data
 {
@@ -13,7 +12,6 @@ namespace EwiPraca.Data
         public EwiPracaDbContext()
             : base("EwiPracaDbContext", throwIfV1Schema: false)
         {
-
         }
 
         public IDbSet<UserCompany> UserCompanies { get; set; }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace EwiPraca.Models
 {
@@ -12,9 +8,11 @@ namespace EwiPraca.Models
         [Display(Name = "Adres email")]
         [EmailAddress(ErrorMessage = "Niepoprawny adres email.")]
         public string Email { get; set; }
+
         [Required(ErrorMessage = "Pole hasło nie może być puste.")]
         [Display(Name = "Hasło")]
         public string Password { get; set; }
+
         [Display(Name = "Pamiętaj mnie")]
         public bool RememberMe { get; set; }
     }

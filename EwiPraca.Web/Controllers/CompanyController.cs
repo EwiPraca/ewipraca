@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using EwiPraca.App_Start.Identity;
-using EwiPraca.Model.UserArea;
 using EwiPraca.Models;
 using EwiPraca.Services.Services;
 using Microsoft.AspNet.Identity;
@@ -15,6 +14,7 @@ namespace EwiPraca.Controllers
         private readonly UserCompanyService _userCompanyService;
         private readonly AddressService _addressService;
         private readonly ApplicationUserManager _applicationUserManager;
+
         public CompanyController(ApplicationUserManager applicationUserManager,
             UserCompanyService userCompanyService,
             AddressService addressService)
@@ -76,7 +76,6 @@ namespace EwiPraca.Controllers
                         company.UpdatedDate = DateTime.Now;
                         _userCompanyService.Update(company);
                     }
-                    
                 }
                 catch (Exception e)
                 {

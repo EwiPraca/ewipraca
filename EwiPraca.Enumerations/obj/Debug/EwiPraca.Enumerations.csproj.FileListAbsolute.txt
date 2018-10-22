@@ -2,4 +2,3 @@ C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiP
 C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Enumerations\bin\Debug\EwiPraca.Enumerations.pdb
 C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Enumerations\obj\Debug\EwiPraca.Enumerations.dll
 C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Enumerations\obj\Debug\EwiPraca.Enumerations.pdb
-C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Enumerations\obj\Debug\EwiPraca.Enumerations.csprojResolveAssemblyReference.cache

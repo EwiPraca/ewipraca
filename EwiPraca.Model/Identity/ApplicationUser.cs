@@ -13,8 +13,10 @@ namespace EwiPraca.Data
     {
         [Required]
         public string FirstName { get; set; }
+
         [Required]
         public string Surname { get; set; }
+
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
 

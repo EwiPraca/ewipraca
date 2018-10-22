@@ -1,12 +1,9 @@
-﻿using EwiPraca.Services.Interfaces;
-using System;
+﻿using EwiPraca.Data.Interfaces;
+using EwiPraca.Model;
+using EwiPraca.Model.UserArea;
+using EwiPraca.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EwiPraca.Model;
-using EwiPraca.Data.Interfaces;
-using EwiPraca.Model.UserArea;
 
 namespace EwiPraca.Services.Services
 {

@@ -15,7 +15,6 @@
     Tutaj możesz edytować dane swojej firmy.
 </h2>
 
-
 <section id="main">
     <article class="entry clearfix">
         @using (Html.BeginForm("DisplayCompany", "Company", FormMethod.Post))
@@ -138,7 +137,11 @@
             <li><a href="#">Direct Mail</a></li>
             <li><a href="#">Environment</a></li>*@
         </ul>
-
     </div><!-- end .widget -->
-
 </aside>
+
+<div class="row last-row">
+    <p class="align-center">
+        <a href="@Url.Action("MyProfile", "Manage")" class="button"><span class="glyphicon"></span>Powrót</a>
+    </p>
+</div>

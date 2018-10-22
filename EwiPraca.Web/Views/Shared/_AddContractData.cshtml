@@ -1,0 +1,26 @@
+﻿@model int
+<script type="text/javascript">
+    $("#open-add-employee-contract-modal").click(function () {
+        showLoader();
+        var options = { "backdrop": "static", keyboard: true };
+        var data = { employeeId: @Model }
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("AddContractView", "Contract")",
+            contentType: "application/json",
+            data: data,
+            datatype: "html",
+            success: function (data) {
+                $('#edit-employee-modal').modal('hide');
+                $('#add-contract-modal-content').html(data);
+                $('#add-contract-modal').modal(options);
+                $('#add-contract-modal').modal('show');
+                hideLoader();
+            },
+            error: function (e) {
+                hideLoader();
+                alert("Dynamic load failed.");
+            }
+        });
+    });    
+</script>

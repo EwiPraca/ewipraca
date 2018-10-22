@@ -10,7 +10,7 @@ namespace EwiPraca.Models
 
         [Display(Name = "Imię")]
         [Required(ErrorMessage = "Musisz podać swoje imię.")]
-        [StringLength(100, ErrorMessage ="Pole nie może zawierać więcej niż 100 znaków")]
+        [StringLength(100, ErrorMessage = "Pole nie może zawierać więcej niż 100 znaków")]
         public string FirstName { get; set; }
 
         [Display(Name = "Nazwisko")]
@@ -21,22 +21,25 @@ namespace EwiPraca.Models
         [Required(ErrorMessage = "Adres email jest wymagany.")]
         [EmailAddress(ErrorMessage = "Niepoprawny adres email.")]
         public string Email { get; set; }
+
         [Display(Name = "Imię")]
         public string FirstNameDecrypted
         {
             get { return EncryptionService.Decrypt(FirstName); }
         }
+
         [Display(Name = "Nazwisko")]
         public string SurnameDecrypted
         {
             get { return EncryptionService.Decrypt(Surname); }
         }
+
         [Display(Name = "Email")]
         public string EmailDecrypted
         {
             get { return EncryptionService.DecryptEmail(Email); }
         }
-        
+
         public List<UserCompanyViewModel> UserCompanies { get; set; }
     }
 }

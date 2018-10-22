@@ -252,6 +252,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\ContractController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -276,6 +277,9 @@
     <Compile Include="Validators\UserCompanyAddressValidator.cs" />
     <Compile Include="Validators\UserCompanyValidator.cs" />
     <Content Include="Content\Templates\EwiPracaImportPracownikowSzablon.xlsx" />
+    <Content Include="Views\Shared\_AddContractData.cshtml" />
+    <Content Include="Views\Contract\_AddContractModal.cshtml" />
+    <Content Include="Views\Contract\EditorTemplates\ContractViewModel.cshtml" />
     <None Include="Views\Employee\_EditEmployeeModal.cshtml" />
     <Compile Include="WebResources.Designer.cs">
       <AutoGen>True</AutoGen>

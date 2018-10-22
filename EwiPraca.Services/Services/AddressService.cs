@@ -1,11 +1,8 @@
-﻿using EwiPraca.Services.Interfaces;
-using System;
+﻿using EwiPraca.Data.Interfaces;
+using EwiPraca.Model.UserArea;
+using EwiPraca.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EwiPraca.Model.UserArea;
-using EwiPraca.Data.Interfaces;
 
 namespace EwiPraca.Services.Services
 {
@@ -13,6 +10,7 @@ namespace EwiPraca.Services.Services
     {
         private readonly IRepository<Address> _addressRepository;
         private readonly IRepository<AddressType> _addressTypeRepository;
+
         public AddressService(IRepository<Address> addressRepository,
             IRepository<AddressType> addressTypeRepository)
         {

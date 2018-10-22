@@ -23,6 +23,7 @@ namespace EwiPraca.Models
 
         [Display(Name = "Kod pocztowy")]
         public string ZIPCode { get; set; }
+
         public int AddressTypeId { get; set; }
     }
 }

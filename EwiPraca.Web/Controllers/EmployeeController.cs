@@ -34,6 +34,7 @@ namespace EwiPraca.Controllers
             _companyEmployeeImporter = companyEmployeeImporter;
             _employeeProcessor = employeeProcessor;
         }
+
         public ActionResult Index(int id)
         {
             var company = _userCompanyService.GetById(id);
@@ -74,7 +75,7 @@ namespace EwiPraca.Controllers
             {
                 var employee = _employeeService.GetById(id);
 
-                if(employee != null)
+                if (employee != null)
                 {
                     _employeeService.Delete(employee);
                 }

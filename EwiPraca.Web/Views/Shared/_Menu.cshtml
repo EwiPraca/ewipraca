@@ -1,6 +1,6 @@
 ﻿@using EwiPraca.Constants
 @model MenuViewModel
-@{ 
+@{
     string homeSelected = Model.HomeSelected ? "current" : string.Empty;
     string aboutSelected = Model.AboutSelected ? "current" : string.Empty;
     string administrationSelected = Model.AdministrationSelected ? "current" : string.Empty;
@@ -23,5 +23,4 @@
         }
         @Html.Partial("_LoginPartial", (object)myProfileSelected)
     </ul>
-
 </nav><!-- end #main-nav -->

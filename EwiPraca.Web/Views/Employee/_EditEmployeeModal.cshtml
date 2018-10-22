@@ -1,16 +1,144 @@
-﻿@model EwiPraca.Models.EmployeeViewModel
+﻿@using EwiPraca.Enumerations
+@using System.ComponentModel.DataAnnotations
+@model EwiPraca.Models.EmployeeViewModel
+
+@{
+    var contract = Model.Contracts.FirstOrDefault();
+    var contractType = contract?.ContractType.GetAttribute<DisplayAttribute>();
+    var contractDuration = contract?.DateTo == null ? "Czas nieokreślony" : contract.DateTo.Value.ToShortDateString();
+}
 
 <div class="modal-wrapper">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h4 class="modal-title" id="myModalLabel">Edytuj dane Twojego Pracownika</h4>
     </div>
-    @using (Ajax.BeginForm("EditEmployee", "Employee", new AjaxOptions() { HttpMethod = "POST", OnSuccess = "onEmployeeEditSuccess", OnFailure = "onFailureModalEdit" })) // { @class = "form-horizontal", role = "form" }))
-    {
-        @Html.AntiForgeryToken()
-        @Html.EditorFor(x => x)
-    }
+
+    <ul class="tabs-nav">
+
+        <li id="employee-data-tab" class="active">
+            <a href="#tab1">Dane osobowe</a>
+        </li>
+
+        <li id="contracts-tab">
+            <a href="#tab2">Umowy</a>
+        </li>
+
+        <li>
+            <a href="#tab3">Badania lekarskie</a>
+        </li>
+
+        <li>
+            <a href="#tab3">BHP</a>
+        </li>
+
+    </ul><!-- end .tabs-nav -->
+
+    <div class="tabs-container">
+
+        <div class="tab-content" id="tab1">
+            @using (Ajax.BeginForm("EditEmployee", "Employee", new AjaxOptions() { HttpMethod = "POST", OnSuccess = "onEmployeeEditSuccess", OnFailure = "onFailureModalEdit" })) // { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.EditorFor(x => x)
+            }
+        </div><!-- end #tab1 -->
+
+        <div class="tab-content" id="tab2">
+            <h5>
+                Ostatnia umowa
+            </h5>
+            @if (contract != null)
+            {
+                <div class="row modal-row">
+                    @Html.Label("Rodzaj umowy", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        <p>@contractType.Name</p>
+                    </div>
+                </div>
+                <div class="row modal-row">
+                    @Html.Label("Data wygaśnięcia", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        <p>@contractDuration</p>
+                    </div>
+                </div>
+                <div class="row modal-row">
+                    @Html.Label("Etat", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        <p>@contract.JobPart</p>
+                    </div>
+                </div>
+                <div class="row modal-row">
+                    @Html.Label("Notatki", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        <p>@contract.Notes</p>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <p>Brak umów do wyświetlenia.</p>
+            }
+
+            <a href="#" id="open-add-employee-contract-modal" class="button"><span class="glyphicon glyphicon-plus"></span>Dodaj</a>
+
+            <hr />
+
+            <h5>Historia zatrudnienia</h5>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-primary list-panel" id="list-panel">
+                        <div class="panel-heading list-panel-heading">
+                        </div>
+                        <div class="panel-body">
+                            <table id="contracts-data-table" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Typ umowy</th>
+                                        <th>Miejsce pracy</th>
+                                        <th>Ważna od</th>
+                                        <th>Ważna do</th>
+                                        <th>Akcje</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var employeeContract in Model.Contracts)
+                                    {
+                                        <tr>
+                                            <td>@employeeContract.Id</td>
+                                            @{
+                                                var typeContract = employeeContract.ContractType.GetAttribute<DisplayAttribute>().Name;
+                                                var contractDateToRow = contract?.DateTo == null ? "Czas nieokreślony" : contract.DateTo.Value.ToShortDateString();
+                                                var contractDateFromRow = contract?.DateFrom == null ? "Czas nieokreślony" : contract.DateTo.Value.ToShortDateString();
+                                            }
+                                            <td>@typeContract</td>
+                                            <td>@employeeContract.Workplace</td>
+                                            <td>@contractDateFromRow</td>
+                                            <td>@contractDateToRow</td>
+                                            <td></td>
+                                        </tr>
+                                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div><!-- end #tab2 -->
+
+        <div class="tab-content" id="tab3">
+            3. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nisl orci, condim entum ultrices consequat eu, vehicula ac mauris. Ut adipiscing, leo nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </div><!-- end #tab3 -->
+
+    </div><!-- end .tabs-container -->
+
+
 </div>
+
+@Html.Partial("_AddContractData", Model.Id)
 
 <script type="text/javascript">
     function onEmployeeEditSuccess(e) {
@@ -23,8 +151,119 @@
         }
     }
 
-    $("#closbtn").click(function () {
-        $('#edit-employee-modal').modal('hide');
+    (function () {
+        var $tabsNav = $('.tabs-nav'),
+			$tabsNavLis = $tabsNav.children('li'),
+			$tabContent = $('.tab-content');
+
+        $tabsNav.each(function () {
+            var $this = $(this);
+
+            $this.next().children('.tab-content').stop(true, true).hide()
+												 .first().show();
+
+            $this.children('li').first().addClass('active').stop(true, true).show();
+        });
+
+        $tabsNavLis.on('click', function (e) {
+            var $this = $(this);
+
+            $this.siblings().removeClass('active').end()
+				 .addClass('active');
+
+            $this.parent().next().children('.tab-content').stop(true, true).hide()
+														  .siblings($this.find('a').attr('href')).fadeIn();
+
+            e.preventDefault();
+        });
+    })();
+
+    var dt = $('#contracts-data-table').DataTable({
+        responsive: true,
+        "columnDefs": [
+        {
+            "targets": [0],
+            "visible": false,
+            "searchable": false
+        },
+         {
+             "targets": [1],
+         },
+         {
+             "targets": [2]
+         },
+         {
+             "targets": [3]
+         },
+         {
+             "targets": [4]
+         },
+          {
+              "targets": [5],
+              mRender: function (data, type, row) {
+
+                  return '<a class="button grid-button edit-button" data-id="' + row[0] + '">Edytuj</a><a class="button grid-button delete-button-contract" data-id="' + row[0] + '">Usuń</a>'
+              }
+          },
+        ],
+        "oLanguage": {
+            "sSearch": "Szukaj: ",
+            "sEmptyTable": "Brak danych do wyświetlenia",
+            "sInfo": "_START_ do _END_ z _TOTAL_ wierszy",
+            "sInfoEmpty": "0 z 0 z 0 wierszy",
+            "oPaginate": {
+                "sNext": "Następna",
+                "sPrevious": "Poprzednia"
+            },
+            "sLengthMenu": "Pokaż na stronę: _MENU_",
+        }
+    });
+
+    $('.delete-button-contract').click(function (e) {
+        var id = $(this).attr('data-id');
+        var data = { id: id };
+
+        var ok = confirm("Czy na pewno chcesz usunąć ten rekord?");
+        if (ok) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("DeleteContract", "Contract")",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                datatype: "json",
+                success: function (data) {
+                    if (data.Success = "true") {
+
+                        var options = { "backdrop": "static", keyboard: true };
+                        var data = { employeeId: @Model.Id }
+                        $.ajax({
+                            type: "GET",
+                            url: "@Url.Action("EditEmployeeView", "Employee")",
+                            contentType: "application/json",
+                            data: data,
+                            datatype: "json",
+                            success: function (data) {
+                                $('#edit-employee-modal-content').html(data);
+
+                            },
+                            error: function () {
+                                hideLoader();
+                                alert("Dynamic content load failed.");
+                            }
+                        });
+                    }
+                    else {
+                        showErrorMessage(e.Message);
+                    }
+                },
+                error: function (e) {
+                    showErrorMessage("Wystąpił błąd. " + e);
+                }
+            });
+        }
+        else {
+            e.preventDefault();
+        }
     });
 
 </script>

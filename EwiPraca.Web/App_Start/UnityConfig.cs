@@ -1,6 +1,5 @@
 using Ewipraca.ImportProcessors;
 using EwiPraca.App_Start.Identity;
-using EwiPraca.Controllers;
 using EwiPraca.Data;
 using EwiPraca.Data.Interfaces;
 using EwiPraca.Importers;
@@ -47,10 +46,11 @@ namespace EwiPraca
             container.RegisterType<IRepository<Employee>, Repository<Employee>>();
             container.RegisterType<IRepository<Contract>, Repository<Contract>>();
 
-
             container.RegisterType<IUserCompanyService, UserCompanyService>();
             container.RegisterType<IAddressService, AddressService>();
-            container.RegisterType<IEmployeeService, EmployeeService>(); 
+            container.RegisterType<IEmployeeService, EmployeeService>();
+            container.RegisterType<IContractService, ContractService>();
+
             container.RegisterType<IEwiImporter, CompanyEmployeeImporter>();
 
             container.RegisterType<IImportEmployeeProcessor, ImportEmployeeProcessor>();

@@ -6,6 +6,7 @@ namespace EwiPraca.Enumerations
     {
         [Description("Adres zameldowania")]
         Zameldowania,
+
         [Description("Adres korespondencyjny")]
         Korespondencyjny
     }

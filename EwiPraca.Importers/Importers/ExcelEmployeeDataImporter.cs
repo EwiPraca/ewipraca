@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Excel = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace EwiPraca.Importers.Importers
 {
@@ -37,7 +37,7 @@ namespace EwiPraca.Importers.Importers
                 row.StreetName = xlRange.Cells[i, 6].Value2?.ToString();
                 row.StreetNumber = xlRange.Cells[i, 7].Value2?.ToString();
                 row.PlaceNumber = xlRange.Cells[i, 8].Value2?.ToString();
-                row.ZIPCode = xlRange.Cells[i, 9].Value2?.ToString();            
+                row.ZIPCode = xlRange.Cells[i, 9].Value2?.ToString();
 
                 rows.Add(row);
             }

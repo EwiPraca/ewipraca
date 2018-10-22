@@ -1,5 +1,5 @@
-﻿using EwiPraca.Encryptor;
-using EwiPraca.Constants;
+﻿using EwiPraca.Constants;
+using EwiPraca.Encryptor;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
@@ -66,7 +66,6 @@ namespace EwiPraca.Data.Migrations
 
             var adminRoleId = context.Roles.FirstOrDefault(x => x.Name == RolesNames.Administrator).Id;
 
-
             foreach (var admin in administrators)
             {
                 var userAdmin = context.Users.FirstOrDefault(x => x.Email == admin);
@@ -84,7 +83,6 @@ namespace EwiPraca.Data.Migrations
             }
 
             context.SaveChanges();
-
         }
     }
 }

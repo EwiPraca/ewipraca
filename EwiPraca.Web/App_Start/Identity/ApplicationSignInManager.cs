@@ -1,9 +1,9 @@
 ﻿using EwiPraca.Data;
 using Microsoft.AspNet.Identity.Owin;
-using System;
 using Microsoft.Owin.Security;
-using System.Threading.Tasks;
+using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace EwiPraca.App_Start.Identity
 {
@@ -37,6 +37,5 @@ namespace EwiPraca.App_Start.Identity
 
             return loginResult;
         }
-
     }
 }
