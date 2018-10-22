@@ -280,6 +280,7 @@
     <Content Include="Views\Shared\_AddContractData.cshtml" />
     <Content Include="Views\Contract\_AddContractModal.cshtml" />
     <Content Include="Views\Contract\EditorTemplates\ContractViewModel.cshtml" />
+    <Content Include="Views\Contract\_EditContractModal.cshtml" />
     <None Include="Views\Employee\_EditEmployeeModal.cshtml" />
     <Compile Include="WebResources.Designer.cs">
       <AutoGen>True</AutoGen>

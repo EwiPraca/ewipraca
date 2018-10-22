@@ -74,6 +74,12 @@
                         <p>@contract.Notes</p>
                     </div>
                 </div>
+                <div class="row modal-row">
+                    @Html.Label("Wynagrodzenie w PLN", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        <p id="salary-span" class="hidden">@contract.Salary</p><a href="#" id="show-salary-button" class="button"><span class="glyphicon"></span>Pokaż</a>
+                    </div>
+                </div>
             }
             else
             {
@@ -109,8 +115,8 @@
                                             <td>@employeeContract.Id</td>
                                             @{
                                                 var typeContract = employeeContract.ContractType.GetAttribute<DisplayAttribute>().Name;
-                                                var contractDateToRow = contract?.DateTo == null ? "Czas nieokreślony" : contract.DateTo.Value.ToShortDateString();
-                                                var contractDateFromRow = contract?.DateFrom == null ? "Czas nieokreślony" : contract.DateTo.Value.ToShortDateString();
+                                                var contractDateToRow = employeeContract?.DateTo == null ? "Czas nieokreślony" : employeeContract.DateTo.Value.ToShortDateString();
+                                                var contractDateFromRow = employeeContract?.DateFrom == null ? "Czas nieokreślony" : employeeContract.DateTo.Value.ToShortDateString();
                                             }
                                             <td>@typeContract</td>
                                             <td>@employeeContract.Workplace</td>
@@ -202,7 +208,7 @@
               "targets": [5],
               mRender: function (data, type, row) {
 
-                  return '<a class="button grid-button edit-button" data-id="' + row[0] + '">Edytuj</a><a class="button grid-button delete-button-contract" data-id="' + row[0] + '">Usuń</a>'
+                  return '<a class="button grid-button edit-contract-button" data-id="' + row[0] + '">Edytuj</a><a class="button grid-button delete-button-contract" data-id="' + row[0] + '">Usuń</a>'
               }
           },
         ],
@@ -217,6 +223,32 @@
             },
             "sLengthMenu": "Pokaż na stronę: _MENU_",
         }
+    });
+
+    $('.edit-contract-button').click(function () {
+        var id = $(this).attr('data-id');
+
+        showLoader();
+        var options = { "backdrop": "static", keyboard: true };
+        var data = { contractId: id }
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("EditContractView", "Contract")",
+            contentType: "application/json",
+            data: data,
+            datatype: "json",
+            success: function (data) {
+                $('#edit-contract-modal-content').html(data);
+                $('#edit-contract-modal').modal(options);
+                $('#edit-employee-modal').modal('hide');
+                $('#edit-contract-modal').modal('show');
+                hideLoader();
+            },
+            error: function () {
+                hideLoader();
+                alert("Dynamic content load failed.");
+            }
+        });
     });
 
     $('.delete-button-contract').click(function (e) {
@@ -264,6 +296,11 @@
         else {
             e.preventDefault();
         }
+    });
+
+    $("#show-salary-button").click(function(){
+        $("#salary-span").removeClass("hidden");
+        $(this).hide();
     });
 
 </script>

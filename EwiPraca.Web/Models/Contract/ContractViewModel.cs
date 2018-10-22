@@ -9,6 +9,7 @@ namespace EwiPraca.Models
     {
         public int Id { get; set; }
         public int EmployeeId { get; set; }
+        public EmployeeViewModel Employee { get; set; }
 
         [DisplayName("Rodzaj umowy")]
         [Required(ErrorMessage = "Rodzaj umowy jest polem wymaganym.")]
@@ -30,7 +31,7 @@ namespace EwiPraca.Models
 
         [DisplayName("Wynagrodzenie")]
         [Required(ErrorMessage = "Wynagrodzenie jest polem wymaganym.")]
-        [DisplayFormat(DataFormatString = "{0:0}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:0.00}", ApplyFormatInEditMode = true)]
         public decimal Salary { get; set; }
 
         [DisplayName("Rodzaj etatu")]

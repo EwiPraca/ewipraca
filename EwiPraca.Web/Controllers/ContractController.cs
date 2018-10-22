@@ -24,6 +24,42 @@ namespace EwiPraca.Controllers
         }
 
         [HttpGet]
+        public ActionResult EditContractView(int contractId)
+        {
+            var contract = _contractService.GetById(contractId);
+
+            var contractViewModel = Mapper.Map<ContractViewModel>(contract);
+
+            return PartialView("_EditContractModal", contractViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult EditContract(ContractViewModel model)
+        {
+            var result = new { Success = "true", Message = "Success" };
+
+            if (ModelState.IsValid)
+            {
+                var contract = Mapper.Map<Contract>(model);
+
+                contract.UpdatedDate = DateTime.Now;
+
+                _contractService.Update(contract);
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var error = ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault().ErrorMessage;
+
+                result = new { Success = "false", Message = error };
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
         public ActionResult AddContractView(int employeeId)
         {
             return PartialView("_AddContractModal", new ContractViewModel() { EmployeeId = employeeId });

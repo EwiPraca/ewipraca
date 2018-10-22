@@ -43,7 +43,8 @@ namespace EwiPraca
 
                 cfg.CreateMap<Contract, ContractViewModel>();
 
-                cfg.CreateMap<ContractViewModel, Contract>();
+                cfg.CreateMap<ContractViewModel, Contract>().ForMember(d => d.Employee,
+                 opt => opt.MapFrom(x => x.Employee));
             }
             );
         }
