@@ -60,6 +60,7 @@
     <Compile Include="Base\BaseModel.cs" />
     <Compile Include="EmployeeArea\Contract.cs" />
     <Compile Include="EmployeeArea\Employee.cs" />
+    <Compile Include="EmployeeArea\MedicalReport.cs" />
     <Compile Include="Identity\ApplicationUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserArea\AddressType.cs" />

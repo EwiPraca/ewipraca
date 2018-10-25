@@ -34,5 +34,6 @@ namespace EwiPraca.Model
         public virtual UserCompany UserCompany { get; set; }
 
         public virtual List<Contract> Contracts { get; set; }
+        public virtual List<MedicalReport> MedicalReports { get; set; }
     }
 }

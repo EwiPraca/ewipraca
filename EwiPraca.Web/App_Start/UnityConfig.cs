@@ -45,11 +45,13 @@ namespace EwiPraca
             container.RegisterType<IRepository<AddressType>, Repository<AddressType>>();
             container.RegisterType<IRepository<Employee>, Repository<Employee>>();
             container.RegisterType<IRepository<Contract>, Repository<Contract>>();
+            container.RegisterType<IRepository<MedicalReport>, Repository<MedicalReport>>();
 
             container.RegisterType<IUserCompanyService, UserCompanyService>();
             container.RegisterType<IAddressService, AddressService>();
             container.RegisterType<IEmployeeService, EmployeeService>();
             container.RegisterType<IContractService, ContractService>();
+            container.RegisterType<IMedicalReportService, MedicalReportService>();
 
             container.RegisterType<IEwiImporter, CompanyEmployeeImporter>();
 

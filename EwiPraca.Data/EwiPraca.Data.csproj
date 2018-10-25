@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201810211144046_InitialMigration.Designer.cs">
       <DependentUpon>201810211144046_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810250852448_EmployeeMedicalReport.cs" />
+    <Compile Include="Migrations\201810250852448_EmployeeMedicalReport.Designer.cs">
+      <DependentUpon>201810250852448_EmployeeMedicalReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="RepositoryTransaction.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="EwiPracaDbContext.cs" />
@@ -102,6 +106,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201810211144046_InitialMigration.resx">
       <DependentUpon>201810211144046_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810250852448_EmployeeMedicalReport.resx">
+      <DependentUpon>201810250852448_EmployeeMedicalReport.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

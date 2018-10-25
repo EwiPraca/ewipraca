@@ -44,6 +44,7 @@
     <Compile Include="AddressType.cs" />
     <Compile Include="ContractType.cs" />
     <Compile Include="EnumExtensions.cs" />
+    <Compile Include="MedicalResultType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

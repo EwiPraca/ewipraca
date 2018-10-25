@@ -20,6 +20,8 @@ namespace EwiPraca.Data
         public IDbSet<Employee> Employees { get; set; }
         public IDbSet<Contract> Contracts { get; set; }
 
+        public IDbSet<MedicalReport> MedicalReports { get; set; }
+
         public static EwiPracaDbContext Create()
         {
             return new EwiPracaDbContext();

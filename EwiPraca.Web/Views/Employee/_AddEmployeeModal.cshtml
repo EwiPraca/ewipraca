@@ -1,14 +1,14 @@
 ﻿@model EwiPraca.Models.EmployeeViewModel
 
-<div>
+<div class="modal-wrapper">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h4 class="modal-title" id="myModalLabel">Dodaj dane Twojego Pracownika</h4>
     </div>
     @using (Ajax.BeginForm("AddEmployee", "Employee", new AjaxOptions() { HttpMethod = "POST", OnSuccess = "onEmployeeAddSuccess", OnFailure = "onFailureModalEdit" })) // { @class = "form-horizontal", role = "form" }))
     {
-       @Html.AntiForgeryToken()
-       @Html.EditorFor(x => x)
+        @Html.AntiForgeryToken()
+        @Html.EditorFor(x => x)
     }
 </div>
 

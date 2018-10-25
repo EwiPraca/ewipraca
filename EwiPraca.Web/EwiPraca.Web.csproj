@@ -256,6 +256,7 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MedicalReportController.cs" />
     <Compile Include="EwiClassMapper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -269,6 +270,7 @@
     <Compile Include="Models\Manage\AddressViewModel.cs" />
     <Compile Include="Models\Manage\UserCompanyViewModel.cs" />
     <Compile Include="Models\Manage\UserViewModel.cs" />
+    <Compile Include="Models\MedicalReport\MedicalReportViewModel.cs" />
     <Compile Include="Models\MenuViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -288,6 +290,7 @@
       <DependentUpon>WebResources.resx</DependentUpon>
     </Compile>
     <Content Include="Views\Employee\_ImportEmployeesFromExcelModal.cshtml" />
+    <Content Include="Views\MedicalReport\EditorTemplates\MedicalReportViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-dialog.css" />

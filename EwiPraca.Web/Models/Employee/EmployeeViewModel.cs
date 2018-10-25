@@ -32,7 +32,10 @@ namespace EwiPraca.Models
 
         public int UserCompanyId { get; set; }
 
-        public List<ContractViewModel> Contracts
+        public List<ContractViewModel> Contracts { get; set; }
+        public List<MedicalReportViewModel> MedicalReports { get; set; }
+
+        public List<ContractViewModel> ContractsList
         {
             get
             {

@@ -1,0 +1,49 @@
+﻿@model EwiPraca.Models.ContractViewModel
+
+<div class="modal-wrapper">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="closbtncontract">×</button>
+        <h4 class="modal-title" id="myModalLabel">Edytuj umowę</h4>
+    </div>
+    @using (Ajax.BeginForm("EditContract", "Contract", new AjaxOptions() { HttpMethod = "POST", OnSuccess = "onEditContractSuccess", OnFailure = "onFailureModalEdit" })) // { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.EditorFor(x => x)
+    }
+</div>
+
+<script type="text/javascript">
+    function onEditContractSuccess(e) {
+        if (e.Success == "true") {
+            showLoader();
+            var options = { "backdrop": "static", keyboard: true };
+            var data = { employeeId: @Model.EmployeeId }
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("EditEmployeeView", "Employee")",
+                contentType: "application/json",
+            data: data,
+            datatype: "json",
+            success: function (data) {
+                $('#edit-employee-modal-content').html(data);
+                $('#edit-employee-modal').modal(options);
+                $('#edit-contract-modal').modal('hide');
+                $('#edit-employee-modal').modal('show');
+                hideLoader();
+            },
+            error: function () {
+                hideLoader();
+                alert("Dynamic content load failed.");
+            }
+        });
+        }
+        else {
+            showErrorMessage(e.Message);
+        }
+    }
+    $(document).ready(function () {
+        $("#closbtncontract").click(function () {
+            $('#edit-employee-modal').modal('show');
+        });
+    });
+</script>
