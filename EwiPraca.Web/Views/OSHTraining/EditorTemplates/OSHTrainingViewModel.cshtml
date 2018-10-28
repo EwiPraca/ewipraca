@@ -1,5 +1,4 @@
-﻿@model EwiPraca.Models.MedicalReportViewModel
-
+﻿@model EwiPraca.Models.OSHTrainingViewModel
 
 @Html.HiddenFor(x => x.Id)
 @Html.HiddenFor(x => x.EmployeeId)
@@ -12,16 +11,6 @@
     <div class="col-md-10">
         @Html.EditorFor(m => m.CompletionDate, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.CompletionDate)
-    </div>
-</div>
-<div class="row modal-row">
-    @Html.LabelFor(m => m.Result, new { @class = "col-md-2 control-label" })
-    <div class="col-md-10">
-        @Html.EnumDropDownListFor(
-              x => x.Result,
-              "Wybierz",
-              new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Result)
     </div>
 </div>
 <div class="row modal-row">

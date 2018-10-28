@@ -3,9 +3,13 @@
 @model EwiPraca.Models.EmployeeViewModel
 
 @{
+    var now = DateTime.Now;
     var contract = Model.Contracts.FirstOrDefault();
     var contractType = contract?.ContractType.GetAttribute<DisplayAttribute>();
     var contractDuration = contract?.DateTo == null ? "Czas nieokreślony" : contract.DateTo.Value.ToShortDateString();
+
+    var medicalReport = Model.MedicalReports?.OrderByDescending(x => x.NextCompletionDate).FirstOrDefault(x => x.NextCompletionDate > now || !x.NextCompletionDate.HasValue);
+    var oshTraining = Model.OSHTrainings?.OrderByDescending(x => x.NextCompletionDate).FirstOrDefault(x => x.NextCompletionDate > now || !x.NextCompletionDate.HasValue);
 }
 
 <div class="modal-wrapper">
@@ -29,7 +33,7 @@
         </li>
 
         <li>
-            <a href="#tab3">BHP</a>
+            <a href="#tab4">BHP</a>
         </li>
 
     </ul><!-- end .tabs-nav -->
@@ -116,7 +120,7 @@
                                             @{
                                                 var typeContract = employeeContract.ContractType.GetAttribute<DisplayAttribute>().Name;
                                                 var contractDateToRow = employeeContract?.DateTo == null ? "Czas nieokreślony" : employeeContract.DateTo.Value.ToShortDateString();
-                                                var contractDateFromRow = employeeContract?.DateFrom == null ? "Czas nieokreślony" : employeeContract.DateTo.Value.ToShortDateString();
+                                                var contractDateFromRow = employeeContract?.DateFrom == null ? "Czas nieokreślony" : employeeContract.DateFrom.Value.ToShortDateString();
                                             }
                                             <td>@typeContract</td>
                                             <td>@employeeContract.Workplace</td>
@@ -136,8 +140,165 @@
         </div><!-- end #tab2 -->
 
         <div class="tab-content" id="tab3">
-            3. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nisl orci, condim entum ultrices consequat eu, vehicula ac mauris. Ut adipiscing, leo nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            <h5>
+                Ważne badanie lekarskie
+            </h5>
+            @if (medicalReport != null)
+            {
+                <div class="row modal-row">
+                    @Html.Label("Data badania", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        <p>@medicalReport.CompletionDate.ToShortDateString()</p>
+                    </div>
+                </div>
+                <div class="row modal-row">
+                    @Html.Label("Wynik badania", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @{
+                            var result = medicalReport.Result.GetAttribute<DisplayAttribute>().Name;
+                        }
+                        <p>@result</p>
+                    </div>
+                </div>
+                <div class="row modal-row">
+                    @Html.Label("Data następnego badania", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @{
+                            var nextCompletionDate = !medicalReport.NextCompletionDate.HasValue ? "Bezterminowe" : medicalReport.NextCompletionDate.Value.ToShortDateString();
+                        }
+
+                        <p>@nextCompletionDate</p>
+                    </div>
+                </div>
+                            }
+                            else
+                            {
+                                <p style="color: red;">Brak ważnych badań lekarskich.</p>
+                            }
+
+
+            <a href="#" id="open-add-employee-medical-report-modal" class="button"><span class="glyphicon glyphicon-plus"></span>Dodaj</a>
+
+            <hr />
+
+            <h5>Poprzednie</h5>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-primary list-panel" id="list-panel">
+                        <div class="panel-heading list-panel-heading">
+                        </div>
+                        <div class="panel-body">
+                            <table id="medical-reports-data-table" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Data badania</th>
+                                        <th>Wynik</th>
+                                        <th>Ważne do</th>
+                                        <th>Akcje</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.MedicalReports != null)
+                                    {
+                                        foreach (var employeeMedicalReport in Model.MedicalReports)
+                                        {
+                                            <tr>
+                                                <td>@employeeMedicalReport.Id</td>
+                                                @{
+                                                    var typeMedicalReport = employeeMedicalReport.Result.GetAttribute<DisplayAttribute>().Name;
+                                                    var medicalReportValidTo = !employeeMedicalReport.NextCompletionDate.HasValue ? "Czas nieokreślony" : employeeMedicalReport.NextCompletionDate.Value.ToShortDateString();
+                                                }
+                                                <td>@employeeMedicalReport.CompletionDate.ToShortDateString()</td>
+                                                <td>@typeMedicalReport</td>
+                                                <td>@medicalReportValidTo</td>
+                                                <td></td>
+                                            </tr>
+                                                        }
+                                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div><!-- end #tab3 -->
+
+
+        <div class="tab-content" id="tab4">
+            <h5>
+                Ważne szkolenie BHP
+            </h5>
+            @if (oshTraining != null)
+            {
+                <div class="row modal-row">
+                    @Html.Label("Data szkolenia", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        <p>@oshTraining.CompletionDate.ToShortDateString()</p>
+                    </div>
+                </div>
+                <div class="row modal-row">
+                    @Html.Label("Data następnego szkolenia", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @{
+                            var oshTrainingNextCompletionDate = !oshTraining.NextCompletionDate.HasValue ? "Bezterminowe" : oshTraining.NextCompletionDate.Value.ToShortDateString();
+                        }
+
+                        <p>@oshTrainingNextCompletionDate</p>
+                    </div>
+                </div>
+                            }
+                            else
+                            {
+                                <p style="color: red;">Brak ważnego szkolenia BHP.</p>
+                            }
+
+
+            <a href="#" id="open-add-employee-osh-training-modal" class="button"><span class="glyphicon glyphicon-plus"></span>Dodaj</a>
+
+            <hr />
+
+            <h5>Poprzednie</h5>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-primary list-panel" id="list-panel">
+                        <div class="panel-heading list-panel-heading">
+                        </div>
+                        <div class="panel-body">
+                            <table id="osh-trainings-data-table" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Data szkolenia</th>
+                                        <th>Następne szkolenie</th>
+                                        <th>Akcje</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.OSHTrainings != null)
+                                    {
+                                        foreach (var training in Model.OSHTrainings)
+                                        {
+                                            <tr>
+                                                <td>@training.Id</td>
+                                                @{
+                                                    var oshTrainingValidTo = !training.NextCompletionDate.HasValue ? "Czas nieokreślony" : training.NextCompletionDate.Value.ToShortDateString();
+                                                }
+                                                <td>@training.CompletionDate.ToShortDateString()</td>
+                                                <td>@oshTrainingValidTo</td>
+                                                <td></td>
+                                            </tr>
+                                         }
+                                     }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
     </div><!-- end .tabs-container -->
 
@@ -145,6 +306,8 @@
 </div>
 
 @Html.Partial("_AddContractData", Model.Id)
+@Html.Partial("_AddMedicalReportData", Model.Id)
+@Html.Partial("_AddOSHTrainingData", Model.Id)
 
 <script type="text/javascript">
     function onEmployeeEditSuccess(e) {
@@ -277,6 +440,226 @@
                             success: function (data) {
                                 $('#edit-employee-modal-content').html(data);
 
+                            },
+                            error: function () {
+                                hideLoader();
+                                alert("Dynamic content load failed.");
+                            }
+                        });
+                    }
+                    else {
+                        showErrorMessage(e.Message);
+                    }
+                },
+                error: function (e) {
+                    showErrorMessage("Wystąpił błąd. " + e);
+                }
+            });
+        }
+        else {
+            e.preventDefault();
+        }
+    });
+
+    var dt = $('#medical-reports-data-table').DataTable({
+        responsive: true,
+        "columnDefs": [
+        {
+            "targets": [0],
+            "visible": false,
+            "searchable": false
+        },
+         {
+             "targets": [1],
+         },
+         {
+             "targets": [2]
+         },
+         {
+             "targets": [3]
+         },
+          {
+              "targets": [4],
+              mRender: function (data, type, row) {
+
+                  return '<a class="button grid-button edit-medical-report-button" data-id="' + row[0] + '">Edytuj</a><a class="button grid-button delete-button-medical-report" data-id="' + row[0] + '">Usuń</a>'
+              }
+          },
+        ],
+        "oLanguage": {
+            "sSearch": "Szukaj: ",
+            "sEmptyTable": "Brak danych do wyświetlenia",
+            "sInfo": "_START_ do _END_ z _TOTAL_ wierszy",
+            "sInfoEmpty": "0 z 0 z 0 wierszy",
+            "oPaginate": {
+                "sNext": "Następna",
+                "sPrevious": "Poprzednia"
+            },
+            "sLengthMenu": "Pokaż na stronę: _MENU_",
+        }
+    });
+
+    $('.edit-medical-report-button').click(function () {
+        var id = $(this).attr('data-id');
+
+        showLoader();
+        var options = { "backdrop": "static", keyboard: true };
+        var data = { reportId: id }
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("EditMedicalReportView", "MedicalReport")",
+            contentType: "application/json",
+            data: data,
+            datatype: "json",
+            success: function (data) {
+                $('#edit-medical-report-modal-content').html(data);
+                $('#edit-medical-report-modal').modal(options);
+                $('#edit-employee-modal').modal('hide');
+                $('#edit-medical-report-modal').modal('show');
+                hideLoader();
+            },
+            error: function (e) {
+                debugger;
+                hideLoader();
+                alert("Dynamic content load failed.");
+            }
+        });
+    });
+
+    $('.delete-button-medical-report').click(function (e) {
+        var id = $(this).attr('data-id');
+        var data = { id: id };
+
+        var ok = confirm("Czy na pewno chcesz usunąć ten rekord?");
+        if (ok) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("DeleteMedicalReport", "MedicalReport")",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                datatype: "json",
+                success: function (data) {
+                    if (data.Success = "true") {
+
+                        var options = { "backdrop": "static", keyboard: true };
+                        var data = { employeeId: @Model.Id }
+                        $.ajax({
+                            type: "GET",
+                            url: "@Url.Action("EditEmployeeView", "Employee")",
+                            contentType: "application/json",
+                            data: data,
+                            datatype: "json",
+                            success: function (data) {
+                                $('#edit-employee-modal-content').html(data);
+
+                            },
+                            error: function () {
+                                hideLoader();
+                                alert("Dynamic content load failed.");
+                            }
+                        });
+                    }
+                    else {
+                        showErrorMessage(e.Message);
+                    }
+                },
+                error: function (e) {
+                    showErrorMessage("Wystąpił błąd. " + e);
+                }
+            });
+        }
+        else {
+            e.preventDefault();
+        }
+    });
+
+    var dt = $('#osh-trainings-data-table').DataTable({
+        responsive: true,
+        "columnDefs": [
+        {
+            "targets": [0],
+            "visible": false,
+            "searchable": false
+        },
+         {
+             "targets": [1],
+         },
+         {
+             "targets": [2]
+         },
+          {
+              "targets": [3],
+              mRender: function (data, type, row) {
+
+                  return '<a class="button grid-button edit-osh-training-button" data-id="' + row[0] + '">Edytuj</a><a class="button grid-button delete-button-osh-training" data-id="' + row[0] + '">Usuń</a>'
+              }
+          },
+        ],
+        "oLanguage": {
+            "sSearch": "Szukaj: ",
+            "sEmptyTable": "Brak danych do wyświetlenia",
+            "sInfo": "_START_ do _END_ z _TOTAL_ wierszy",
+            "sInfoEmpty": "0 z 0 z 0 wierszy",
+            "oPaginate": {
+                "sNext": "Następna",
+                "sPrevious": "Poprzednia"
+            },
+            "sLengthMenu": "Pokaż na stronę: _MENU_",
+        }
+    });
+
+    $('.edit-osh-training-button').click(function () {
+        var id = $(this).attr('data-id');
+
+        showLoader();
+        var options = { "backdrop": "static", keyboard: true };
+        var data = { reportId: id }
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("EditOSHTrainingView", "OSHTraining")",
+            contentType: "application/json",
+            data: data,
+            datatype: "json",
+            success: function (data) {
+                $('#edit-osh-training-modal-content').html(data);
+                $('#edit-osh-training-modal').modal(options);
+                $('#edit-employee-modal').modal('hide');
+                $('#edit-osh-training-modal').modal('show');
+                hideLoader();
+            },
+            error: function (e) {
+                debugger;
+                hideLoader();
+                alert("Dynamic content load failed.");
+            }
+        });
+    });
+
+    $('.delete-button-osh-training').click(function (e) {
+        var id = $(this).attr('data-id');
+        var data = { id: id };
+
+        var ok = confirm("Czy na pewno chcesz usunąć ten rekord?");
+        if (ok) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("DeleteOSHTraining", "OSHTraining")",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                datatype: "json",
+                success: function (data) {
+                    if (data.Success = "true") {
+
+                        var options = { "backdrop": "static", keyboard: true };
+                        var data = { employeeId: @Model.Id }
+                        $.ajax({
+                            type: "GET",
+                            url: "@Url.Action("EditEmployeeView", "Employee")",
+                            contentType: "application/json",
+                            data: data,
+                            datatype: "json",
+                            success: function (data) {
+                                $('#edit-employee-modal-content').html(data);
                             },
                             error: function () {
                                 hideLoader();

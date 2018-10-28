@@ -8,39 +8,38 @@ using System.Web.Mvc;
 
 namespace EwiPraca.Controllers
 {
-    [Authorize]
-    public class MedicalReportController : Controller
+    public class OSHTrainingController : Controller
     {
-        private readonly IMedicalReportService _medicalReportService;
+        private readonly IOSHTrainingService _oshTrainingService;
 
-        public MedicalReportController(IMedicalReportService medicalReportService)
+        public OSHTrainingController(IOSHTrainingService oshTrainingService)
         {
-            _medicalReportService = medicalReportService;
+            _oshTrainingService = oshTrainingService;
         }
 
         [HttpGet]
-        public ActionResult EditMedicalReportView(int reportId)
+        public ActionResult EditOSHTrainingView(int reportId)
         {
-            var mReport = _medicalReportService.GetById(reportId);
+            var mReport = _oshTrainingService.GetById(reportId);
 
-            var mReportViewModel = Mapper.Map<MedicalReportViewModel>(mReport);
+            var mReportViewModel = Mapper.Map<OSHTrainingViewModel>(mReport);
 
-            return PartialView("_EditMedicalReportModal", mReportViewModel);
+            return PartialView("_EditOSHTrainingModal", mReportViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult EditMedicalReport(MedicalReportViewModel model)
+        public JsonResult EditOSHTraining(OSHTrainingViewModel model)
         {
             var result = new { Success = "true", Message = "Success" };
 
             if (ModelState.IsValid)
             {
-                var mReport = Mapper.Map<MedicalReport>(model);
+                var oshTraining = Mapper.Map<OSHTraining>(model);
 
-                mReport.UpdatedDate = DateTime.Now;
+                oshTraining.UpdatedDate = DateTime.Now;
 
-                _medicalReportService.Update(mReport);
+                _oshTrainingService.Update(oshTraining);
 
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
@@ -55,14 +54,14 @@ namespace EwiPraca.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddMedicalReportView(int employeeId)
+        public ActionResult AddOSHTrainingView(int employeeId)
         {
-            return PartialView("_AddMedicalReportModal", new MedicalReportViewModel() { EmployeeId = employeeId });
+            return PartialView("_AddOSHTrainingModal", new OSHTrainingViewModel() { EmployeeId = employeeId });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult AddMedicalReport(MedicalReportViewModel model)
+        public JsonResult AddOSHTraining(OSHTrainingViewModel model)
         {
             var result = new { Success = "true", Message = "Success" };
 
@@ -70,12 +69,12 @@ namespace EwiPraca.Controllers
             {
                 try
                 {
-                    var mReport = Mapper.Map<MedicalReport>(model);
+                    var oshTraining = Mapper.Map<OSHTraining>(model);
 
-                    mReport.CreatedDate = DateTime.Now;
-                    mReport.UpdatedDate = mReport.CreatedDate;
+                    oshTraining.CreatedDate = DateTime.Now;
+                    oshTraining.UpdatedDate = oshTraining.CreatedDate;
 
-                    _medicalReportService.Create(mReport);
+                    _oshTrainingService.Create(oshTraining);
                 }
                 catch (Exception e)
                 {
@@ -95,17 +94,17 @@ namespace EwiPraca.Controllers
         }
 
         [HttpPost]
-        public JsonResult DeleteMedicalReport(int id)
+        public JsonResult DeleteOSHTraining(int id)
         {
             var result = new { Success = "true", Message = "Success" };
 
             try
             {
-                var mReport = _medicalReportService.GetById(id);
+                var oshTraining = _oshTrainingService.GetById(id);
 
-                if (mReport != null)
+                if (oshTraining != null)
                 {
-                    _medicalReportService.Delete(mReport);
+                    _oshTrainingService.Delete(oshTraining);
                 }
             }
             catch (Exception e)

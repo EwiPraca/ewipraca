@@ -5,6 +5,7 @@ using EwiPraca.Model;
 using EwiPraca.Model.UserArea;
 using EwiPraca.Models;
 using System;
+using System.Linq;
 
 namespace EwiPraca
 {
@@ -23,7 +24,12 @@ namespace EwiPraca
                  opt => opt.MapFrom(x => x.UserCompanyAddress));
                 cfg.CreateMap<UserViewModel, ApplicationUser>();
                 cfg.CreateMap<EmployeeViewModel, Employee>();
-                cfg.CreateMap<Employee, EmployeeViewModel>();
+                cfg.CreateMap<Employee, EmployeeViewModel>().ForMember(d => d.MedicalReports,
+                 opt => opt.MapFrom(x => x.MedicalReports.Where(s => !s.IsDeleted).ToList()))
+                 .ForMember(d => d.OSHTrainings,
+                 opt => opt.MapFrom(x => x.OSHTrainings.Where(s => !s.IsDeleted).ToList()))
+                 .ForMember(d => d.Contracts,
+                 opt => opt.MapFrom(x => x.Contracts.Where(s => !s.IsDeleted).ToList())); 
 
                 cfg.CreateMap<EmployeeImportRow, Employee>()
                 .ForMember(d => d.BirthDate,
@@ -47,6 +53,10 @@ namespace EwiPraca
 
                 cfg.CreateMap<MedicalReport, MedicalReportViewModel>();
                 cfg.CreateMap<MedicalReportViewModel, MedicalReport>().ForMember(d => d.Employee,
+                 opt => opt.MapFrom(x => x.Employee));
+
+                cfg.CreateMap<OSHTraining, OSHTrainingViewModel>();
+                cfg.CreateMap<OSHTrainingViewModel, OSHTraining>().ForMember(d => d.Employee,
                  opt => opt.MapFrom(x => x.Employee));
             }
             );

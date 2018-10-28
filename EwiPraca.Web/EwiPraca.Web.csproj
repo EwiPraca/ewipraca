@@ -257,6 +257,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MedicalReportController.cs" />
+    <Compile Include="Controllers\OSHTrainingController.cs" />
     <Compile Include="EwiClassMapper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -272,6 +273,7 @@
     <Compile Include="Models\Manage\UserViewModel.cs" />
     <Compile Include="Models\MedicalReport\MedicalReportViewModel.cs" />
     <Compile Include="Models\MenuViewModel.cs" />
+    <Compile Include="Models\OSHTraining\OSHTrainingViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -291,6 +293,13 @@
     </Compile>
     <Content Include="Views\Employee\_ImportEmployeesFromExcelModal.cshtml" />
     <Content Include="Views\MedicalReport\EditorTemplates\MedicalReportViewModel.cshtml" />
+    <Content Include="Views\Shared\_AddMedicalReportData.cshtml" />
+    <Content Include="Views\MedicalReport\_AddMedicalReportModal.cshtml" />
+    <Content Include="Views\MedicalReport\_EditMedicalReportModal.cshtml" />
+    <Content Include="Views\OSHTraining\EditorTemplates\OSHTrainingViewModel.cshtml" />
+    <Content Include="Views\OSHTraining\_AddOSHTrainingModal.cshtml" />
+    <Content Include="Views\OSHTraining\_EditOSHTrainingModal.cshtml" />
+    <Content Include="Views\Shared\_AddOSHTrainingData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-dialog.css" />

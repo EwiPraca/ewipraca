@@ -1,0 +1,27 @@
+﻿@model int
+<script type="text/javascript">
+    $("#open-add-employee-medical-report-modal").click(function () {
+        showLoader();
+        var options = { "backdrop": "static", keyboard: true };
+        var data = { employeeId: @Model }
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("AddMedicalReportView", "MedicalReport")",
+            contentType: "application/json",
+            data: data,
+            datatype: "html",
+            success: function (data) {
+                $('#edit-employee-modal').modal('hide');
+                $('#add-medical-report-modal-content').html(data);
+                $('#add-medical-report-modal').modal(options);
+                $('#add-medical-report-modal').modal('show');
+                hideLoader();
+            },
+            error: function (e) {
+                debugger;
+                hideLoader();
+                alert("Dynamic load failed.");
+            }
+        });
+    });
+</script>
