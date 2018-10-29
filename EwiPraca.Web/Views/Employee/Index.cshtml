@@ -2,9 +2,11 @@
 @{
     ViewBag.Title = Model.CompanyName + " - Pracownicy";
 }
+
 @section navigation{
     @Html.Partial("_Menu", new MenuViewModel() { MyProfileSelected = true })
 }
+
 @section scripts{
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" media="screen" />
 }

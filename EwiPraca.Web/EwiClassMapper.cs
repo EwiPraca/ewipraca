@@ -55,7 +55,9 @@ namespace EwiPraca
                 cfg.CreateMap<MedicalReportViewModel, MedicalReport>().ForMember(d => d.Employee,
                  opt => opt.MapFrom(x => x.Employee));
 
-                cfg.CreateMap<OSHTraining, OSHTrainingViewModel>();
+                cfg.CreateMap<OSHTraining, OSHTrainingViewModel>()
+                .ForMember(d => d.IsValid,
+                 opt => opt.Ignore());
                 cfg.CreateMap<OSHTrainingViewModel, OSHTraining>().ForMember(d => d.Employee,
                  opt => opt.MapFrom(x => x.Employee));
             }

@@ -36,15 +36,16 @@ namespace EwiPraca.Models
         public List<MedicalReportViewModel> MedicalReports { get; set; }
         public List<OSHTrainingViewModel> OSHTrainings { get; set; }
 
-        public List<ContractViewModel> ContractsList
+        public OSHTrainingViewModel LastOSHTraining
         {
+            get {
+                return OSHTrainings?.OrderByDescending(x => x.NextCompletionDate ?? DateTime.MaxValue).FirstOrDefault();
+            }
+        }
+        public MedicalReportViewModel LastMedicalReport {
             get
             {
-                return _contracts.Where(x => !x.IsDeleted).ToList();
-            }
-            set
-            {
-                _contracts = value;
+                return MedicalReports?.OrderByDescending(x => x.NextCompletionDate ?? DateTime.MaxValue).FirstOrDefault();
             }
         }
     }

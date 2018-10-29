@@ -1,0 +1,105 @@
+﻿@model EwiPraca.Models.CompanyEmployeesViewModel
+@{
+    ViewBag.Title = Model.CompanyName + " - szkolenia BHP";
+}
+
+@section navigation{
+    @Html.Partial("_Menu", new MenuViewModel() { MyProfileSelected = true })
+}
+
+@section scripts{
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" media="screen" />
+}
+
+
+<header class="page-header">
+    <h1 class="page-title align-center">@ViewBag.Title</h1>
+</header>
+
+<h2 class="slogan align-center">
+    Dane pracowników - szkolenia BHP
+</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary list-panel" id="list-panel">
+            <div class="panel-heading list-panel-heading">
+                <h1 class="panel-title list-panel-title">Lista pracowników</h1>
+            </div>
+            <div class="panel-body">
+                <table id="employees-data-table" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Imię</th>
+                            <th>Nazwisko</th>
+                            <th>Data szkolenia</th>
+                            <th>Ważne do</th>
+                            <th>Czy ważne szkolenie?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var employee in Model.Employees)
+                        {
+                            <tr>
+                                <td>@employee.Id</td>
+                                <td>@employee.FirstName</td>
+                                <td>@employee.Surname</td>
+                                <td>@Html.Raw(employee.LastOSHTraining?.CompletionDate.ToShortDateString() ?? "Brak")</td>
+                                <td>
+                                    @Html.Raw(employee.LastOSHTraining == null ? "Brak" : employee.LastOSHTraining.NextCompletionDate.HasValue ?
+                                   employee.LastOSHTraining.NextCompletionDate.Value.ToShortDateString() : "Bezterminowe")
+                            </td>
+                            <td class="@Html.Raw(employee.LastOSHTraining == null || !employee.LastOSHTraining.IsValid ? "non-valid-text" : "valid-text")">@Html.Raw(employee.LastOSHTraining == null ? "Nie" : employee.LastOSHTraining.IsValid ? "Tak" : "Nie")</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row last-row">
+    <p class="align-center">
+        <a href="@Url.Action("DisplayCompany", "Company", new { id = Model.CompanyId })" class="button"><span class="glyphicon"></span>Powrót</a>
+    </p>
+</div>
+
+<script>
+        $('#employees-data-table').DataTable({
+        responsive: true,
+        "columnDefs": [
+        {
+            "targets": [0],
+            "visible": false,
+            "searchable": false
+        },
+         {
+             "targets": [1],
+         },
+         {
+             "targets": [2]
+         },
+         {
+             "targets": [3]
+         },
+         {
+             "targets": [4]
+         },
+         {
+             "targets": [5]
+         },
+        ],
+        "oLanguage": {
+            "sSearch": "Szukaj: ",
+            "sEmptyTable": "Brak danych do wyświetlenia",
+            "sInfo": "_START_ do _END_ z _TOTAL_ wierszy",
+            "sInfoEmpty": "0 z 0 z 0 wierszy",
+            "oPaginate": {
+                "sNext": "Następna",
+                "sPrevious": "Poprzednia"
+            },
+            "sLengthMenu": "Pokaż na stronę: _MENU_",
+        }
+    });
+</script>

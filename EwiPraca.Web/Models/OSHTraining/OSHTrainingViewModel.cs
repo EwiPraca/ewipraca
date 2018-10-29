@@ -25,5 +25,13 @@ namespace EwiPraca.Models
         [DisplayName("Notatki")]
         [DataType(DataType.MultilineText)]
         public string Notes { get; set; }
+
+        public bool IsValid
+        {
+            get
+            {
+                return !NextCompletionDate.HasValue || NextCompletionDate > DateTime.Now;
+            }
+        }
     }
 }

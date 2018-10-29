@@ -1,4 +1,7 @@
 ﻿@model List<EwiPraca.Models.UserViewModel>
+@{
+    ViewBag.Title = "Administracja";
+}
 @section navigation{
 
     @Html.Partial("_Menu", new MenuViewModel() { AdministrationSelected = true })

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Ewipraca.ImportProcessors;
+using EwiPraca.Enumerations;
 using EwiPraca.Importers;
 using EwiPraca.Model;
 using EwiPraca.Models;
@@ -35,7 +36,7 @@ namespace EwiPraca.Controllers
             _employeeProcessor = employeeProcessor;
         }
 
-        public ActionResult Index(int id)
+        public ActionResult Index(int id, EmployeeListTypes viewType)
         {
             var company = _userCompanyService.GetById(id);
 
@@ -55,7 +56,23 @@ namespace EwiPraca.Controllers
             model.CompanyId = id;
             model.CompanyName = company.CompanyName;
             model.Employees = Mapper.Map<List<EmployeeViewModel>>(company.Employees.Where(x => !x.IsDeleted));
-            return View(model);
+
+            string viewName = string.Empty;
+
+            switch (viewType)
+            {
+                case EmployeeListTypes.MedicalResults:
+                    viewName = "MedicalResults";
+                    break;
+                case EmployeeListTypes.OSHTrainings:
+                    viewName = "OSHTrainings";
+                    break;
+                case EmployeeListTypes.Default:
+                    viewName = "Index";
+                    break;
+            }
+
+            return View(viewName, model);
         }
 
         [HttpGet]

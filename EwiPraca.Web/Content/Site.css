@@ -4964,3 +4964,11 @@ input[type=button] {
     .modal-wrapper .tabs-container{
         border-bottom: none !important;
     }
+
+    .valid-text{
+        color: green !important;
+    }
+
+    .non-valid-text{
+        color: red !important;
+    }
