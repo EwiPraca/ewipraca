@@ -46,6 +46,7 @@
     <Compile Include="Interfaces\IEmployeeService.cs" />
     <Compile Include="Interfaces\IMedicalReportService.cs" />
     <Compile Include="Interfaces\IOSHTrainingService.cs" />
+    <Compile Include="Interfaces\IPositionDictionaryService.cs" />
     <Compile Include="Interfaces\IService.cs" />
     <Compile Include="Interfaces\IUserCompanyService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\MedicalReportService.cs" />
     <Compile Include="Services\OSHTrainingService.cs" />
+    <Compile Include="Services\PositionDictionaryService.cs" />
     <Compile Include="Services\UserCompanyService.cs" />
   </ItemGroup>
   <ItemGroup>

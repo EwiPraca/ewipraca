@@ -28,6 +28,8 @@ namespace EwiPraca.Model
         [Required]
         public int AddressId { get; set; }
         public virtual Address Address { get; set; }
+        public int? PositionDictionaryValueId { get; set; }
+        public virtual PositionDictionaryValue Position { get; set; }
 
         [Required]
         public int UserCompanyId { get; set; }

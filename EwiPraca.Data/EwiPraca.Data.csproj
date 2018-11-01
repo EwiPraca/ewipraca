@@ -76,6 +76,14 @@
     <Compile Include="Migrations\201810271848394_EmployeeOSHTraining.Designer.cs">
       <DependentUpon>201810271848394_EmployeeOSHTraining.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810311616181_PositionsDictionaryForCompany.cs" />
+    <Compile Include="Migrations\201810311616181_PositionsDictionaryForCompany.Designer.cs">
+      <DependentUpon>201810311616181_PositionsDictionaryForCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811010926226_EmployeePosition.cs" />
+    <Compile Include="Migrations\201811010926226_EmployeePosition.Designer.cs">
+      <DependentUpon>201811010926226_EmployeePosition.cs</DependentUpon>
+    </Compile>
     <Compile Include="RepositoryTransaction.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="EwiPracaDbContext.cs" />
@@ -116,6 +124,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810271848394_EmployeeOSHTraining.resx">
       <DependentUpon>201810271848394_EmployeeOSHTraining.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810311616181_PositionsDictionaryForCompany.resx">
+      <DependentUpon>201810311616181_PositionsDictionaryForCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811010926226_EmployeePosition.resx">
+      <DependentUpon>201811010926226_EmployeePosition.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
