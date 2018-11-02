@@ -5,13 +5,13 @@ using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using EwiPraca.Model;
 
 namespace EwiPraca.Models
 {
     [Validator(typeof(EmployeeValidator))]
     public class EmployeeViewModel : BaseViewModel
     {
-        private List<ContractViewModel> _contracts;
         public int Id { get; set; }
 
         [DisplayName("Imię")]
@@ -31,6 +31,11 @@ namespace EwiPraca.Models
         public AddressViewModel Address { get; set; }
 
         public int UserCompanyId { get; set; }
+
+        [DisplayName("Stanowisko")]
+        public int? PositionDictionaryValueId { get; set; }
+
+        public List<PositionDictionaryValue> Positions { get; set; }
 
         public List<ContractViewModel> Contracts { get; set; }
         public List<MedicalReportViewModel> MedicalReports { get; set; }

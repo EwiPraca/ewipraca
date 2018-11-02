@@ -267,6 +267,8 @@
     <Compile Include="Models\Employee\CompanyEmployeesViewModel.cs" />
     <Compile Include="Models\Employee\EmployeeViewModel.cs" />
     <Compile Include="Models\Employee\ImportEmployeesFromExcelViewModel.cs" />
+    <Compile Include="Models\Employee\PositionDictionaryValueViewModel.cs" />
+    <Compile Include="Models\Employee\PositionDictionaryViewModel.cs" />
     <Compile Include="Models\Manage\BaseViewModel.cs" />
     <Compile Include="Models\Manage\AddressViewModel.cs" />
     <Compile Include="Models\Manage\UserCompanyViewModel.cs" />
@@ -287,6 +289,11 @@
     <Content Include="Views\Contract\_EditContractModal.cshtml" />
     <Content Include="Views\Employee\MedicalResults.cshtml" />
     <Content Include="Views\Employee\OSHTrainings.cshtml" />
+    <Content Include="Views\Employee\_AddPositionDictionaryValues.cshtml" />
+    <Content Include="Views\Employee\_AddPositionDictionaryViewModal.cshtml" />
+    <Content Include="Views\Employee\_AddPositionDictionaryValueViewModal.cshtml" />
+    <Content Include="Views\Employee\EditorTemplates\PositionDictionaryValueViewModel.cshtml" />
+    <Content Include="Views\Employee\_EditPositionDictionaryValueViewModal.cshtml" />
     <None Include="Views\Employee\_EditEmployeeModal.cshtml" />
     <Compile Include="WebResources.Designer.cs">
       <AutoGen>True</AutoGen>

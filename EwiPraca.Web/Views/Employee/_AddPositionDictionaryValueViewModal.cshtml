@@ -1,0 +1,49 @@
+﻿@model EwiPraca.Models.PositionDictionaryValueViewModel
+
+<div class="modal-wrapper">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="closbtndictvalue">×</button>
+        <h4 class="modal-title" id="myModalLabel">Dodaj nowe stanowisko</h4>
+    </div>
+    @using (Ajax.BeginForm("AddPositionDictionaryValue", "Employee", new AjaxOptions() { HttpMethod = "POST", OnSuccess = "onPositionDictionaryValueAddSuccess", OnFailure = "onFailureModalEdit" })) 
+    {
+        @Html.AntiForgeryToken()
+        @Html.EditorFor(x => x)
+    }
+</div>
+
+<script type="text/javascript">
+    function onPositionDictionaryValueAddSuccess(e) {
+        if (e.Success == "true") {
+            showLoader();
+            var options = { "backdrop": "static", keyboard: true };
+            var data = { companyId: @Model.UserCompanyId }
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("AddPositionDictionaryView", "Employee")",
+                contentType: "application/json",
+            data: data,
+            datatype: "json",
+            success: function (data) {
+                $('#add-position-dictionary-value-modal').modal('hide');
+                $('#add-position-dictionary-modal-content').html(data);
+                $('#add-position-dictionary-modal').modal(options);
+                $('#add-position-dictionary-modal').modal('show');
+                hideLoader();
+            },
+            error: function () {
+                hideLoader();
+                alert("Dynamic content load failed.");
+            }
+        });
+        }
+        else {
+            showErrorMessage(e.Message);
+        }
+    }
+    $(document).ready(function () {
+        $("#closbtndictvalue").click(function () {
+            $('#add-position-dictionary-modal').modal('show');
+        });
+    });
+</script>

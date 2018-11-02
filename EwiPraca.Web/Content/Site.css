@@ -4972,3 +4972,8 @@ input[type=button] {
     .non-valid-text{
         color: red !important;
     }
+
+    .modal-grid-row{
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }

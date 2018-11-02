@@ -1,0 +1,37 @@
+﻿@model int
+<script type="text/javascript">
+    $("#open-add-position-dictionary-modal").click(function () {
+        showLoader();
+        var options = { "backdrop": "static", keyboard: true };
+        var data = { companyId: @Model }
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("AddPositionDictionaryView", "Employee")",
+            contentType: "application/json",
+            data: data,
+            datatype: "json",
+            success: function (data) {
+                $('#add-position-dictionary-modal-content').html(data);
+                $('#add-position-dictionary-modal').modal(options);
+                $('#add-position-dictionary-modal').modal('show');
+                hideLoader();
+            },
+            error: function () {
+                hideLoader();
+                alert("Dynamic content load failed.");
+            }
+        });
+    });
+
+    $("#closbtn").click(function () {
+        $('#add-position-dictionary-modal').modal('hide');
+    });
+</script>
+
+<div id='add-position-dictionary-modal' class='modal fade'>
+    <div class="modal-dialog popup-modal">
+        <div class="modal-content">
+            <div id='add-position-dictionary-modal-content'></div>
+        </div>
+    </div>
+</div>

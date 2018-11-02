@@ -48,6 +48,7 @@ namespace EwiPraca
             container.RegisterType<IRepository<MedicalReport>, Repository<MedicalReport>>();
             container.RegisterType<IRepository<OSHTraining>, Repository<OSHTraining>>();
             container.RegisterType<IRepository<PositionDictionary>, Repository<PositionDictionary>>();
+            container.RegisterType<IRepository<PositionDictionaryValue>, Repository<PositionDictionaryValue>>();
 
             container.RegisterType<IUserCompanyService, UserCompanyService>();
             container.RegisterType<IAddressService, AddressService>();

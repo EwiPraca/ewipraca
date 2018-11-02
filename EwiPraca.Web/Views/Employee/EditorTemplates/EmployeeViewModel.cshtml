@@ -34,6 +34,25 @@
         @Html.ValidationMessageFor(m => m.BirthDate)
     </div>
 </div>
+@if (Model.Positions != null)
+{
+    <div class="row modal-row">
+        @Html.LabelFor(m => m.PositionDictionaryValueId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.PositionDictionaryValueId, new SelectList(Model.Positions, "Id", "Name"), "- Wybierz -")
+            @Html.ValidationMessageFor(m => m.BirthDate)
+        </div>
+    </div>
+}
+else
+{
+    <div class="row modal-row">
+        @Html.LabelFor(m => m.PositionDictionaryValueId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <p>Brak słownika stanowisk.</p>          
+        </div>
+    </div>
+}
 @Html.EditorFor(m => m.Address)
 <div class="row modal-row">
     <div class="col-md-12">

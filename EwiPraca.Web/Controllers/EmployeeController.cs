@@ -22,18 +22,21 @@ namespace EwiPraca.Controllers
         private readonly IAddressService _addressService;
         private readonly IEwiImporter _companyEmployeeImporter;
         private readonly IImportEmployeeProcessor _employeeProcessor;
+        private readonly IPositionDictionaryService _positionDictionaryService;
 
         public EmployeeController(IEmployeeService employeeService,
             IUserCompanyService userCompanyService,
             IAddressService addressService,
             IEwiImporter companyEmployeeImporter,
-            IImportEmployeeProcessor employeeProcessor)
+            IImportEmployeeProcessor employeeProcessor,
+            IPositionDictionaryService positionDictionaryService)
         {
             _employeeService = employeeService;
             _userCompanyService = userCompanyService;
             _addressService = addressService;
             _companyEmployeeImporter = companyEmployeeImporter;
             _employeeProcessor = employeeProcessor;
+            _positionDictionaryService = positionDictionaryService;
         }
 
         public ActionResult Index(int id, EmployeeListTypes viewType)
@@ -64,9 +67,11 @@ namespace EwiPraca.Controllers
                 case EmployeeListTypes.MedicalResults:
                     viewName = "MedicalResults";
                     break;
+
                 case EmployeeListTypes.OSHTrainings:
                     viewName = "OSHTrainings";
                     break;
+
                 case EmployeeListTypes.Default:
                     viewName = "Index";
                     break;
@@ -80,64 +85,9 @@ namespace EwiPraca.Controllers
         {
             var addressType = _addressService.GetAddressTypeByName(Enumerations.AddressType.Zameldowania.ToString());
 
-            return PartialView("_AddEmployeeModal", new EmployeeViewModel() { UserCompanyId = companyId, Address = new AddressViewModel() { AddressTypeId = addressType.Id } });
-        }
+            var positions = _positionDictionaryService.GetByUserCompanyId(companyId)?.Values;
 
-        [HttpPost]
-        public JsonResult DeleteEmployee(int id)
-        {
-            var result = new { Success = "true", Message = "Success" };
-
-            try
-            {
-                var employee = _employeeService.GetById(id);
-
-                if (employee != null)
-                {
-                    _employeeService.Delete(employee);
-                }
-            }
-            catch (Exception e)
-            {
-                result = new { Success = "false", Message = e.Message };
-            }
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public JsonResult EditEmployee(EmployeeViewModel model)
-        {
-            var result = new { Success = "true", Message = "Success" };
-
-            if (ModelState.IsValid)
-            {
-                var employee = Mapper.Map<Employee>(model);
-
-                employee.UpdatedDate = DateTime.Now;
-
-                _employeeService.Update(employee);
-
-                return Json(result, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                var error = ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault().ErrorMessage;
-
-                result = new { Success = "false", Message = error };
-
-                return Json(result, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        [HttpGet]
-        public ActionResult EditEmployeeView(int employeeId)
-        {
-            var employee = _employeeService.GetById(employeeId);
-
-            var employeeViewModel = Mapper.Map<EmployeeViewModel>(employee);
-
-            return PartialView("_EditEmployeeModal", employeeViewModel);
+            return PartialView("_AddEmployeeModal", new EmployeeViewModel() { UserCompanyId = companyId, Positions = positions, Address = new AddressViewModel() { AddressTypeId = addressType.Id } });
         }
 
         [HttpPost]
@@ -165,6 +115,172 @@ namespace EwiPraca.Controllers
 
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult EditEmployee(EmployeeViewModel model)
+        {
+            var result = new { Success = "true", Message = "Success" };
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var employee = Mapper.Map<Employee>(model);
+
+                    employee.UpdatedDate = DateTime.Now;
+
+                    _employeeService.Update(employee);
+
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception e)
+                {
+                    result = new { Success = "false", Message = e.Message };
+                }
+            }
+            else
+            {
+                var error = ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault().ErrorMessage;
+
+                result = new { Success = "false", Message = error };
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult EditEmployeeView(int employeeId)
+        {
+            var employee = _employeeService.GetById(employeeId);
+
+            var employeeViewModel = Mapper.Map<EmployeeViewModel>(employee);
+
+            employeeViewModel.Positions = _positionDictionaryService.GetByUserCompanyId(employee.UserCompanyId)?.Values;
+
+            return PartialView("_EditEmployeeModal", employeeViewModel);
+        }
+
+        [HttpGet]
+        public ActionResult AddPositionDictionaryView(int companyId)
+        {
+            PositionDictionaryViewModel positionDictionaryViewModel;
+
+            var dictionary = _positionDictionaryService.GetByUserCompanyId(companyId);
+
+            if (dictionary != null)
+            {
+                positionDictionaryViewModel = Mapper.Map<PositionDictionaryViewModel>(dictionary);
+            }
+            else
+            {
+                positionDictionaryViewModel = new PositionDictionaryViewModel() { UserCompanyId = companyId };
+            }
+
+            return PartialView("_AddPositionDictionaryViewModal", positionDictionaryViewModel);
+        }
+
+        [HttpGet]
+        public ActionResult AddPositionDictionaryValueView(int dictionaryId, int companyId)
+        {
+            var positionDictionaryValueViewModel = new PositionDictionaryValueViewModel() { PositionDictionaryId = dictionaryId, UserCompanyId = companyId };
+
+            return PartialView("_AddPositionDictionaryValueViewModal", positionDictionaryValueViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddPositionDictionaryValue(PositionDictionaryValueViewModel model)
+        {
+            var result = new { Success = "true", Message = "Success" };
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (model.PositionDictionaryId > 0)
+                    {
+                        var positionValue = Mapper.Map<PositionDictionaryValue>(model);
+
+                        _positionDictionaryService.CreateDictionaryValue(positionValue);
+                    }
+                    else
+                    {
+                        PositionDictionary dictionary = new PositionDictionary()
+                        {
+                            UserCompanyId = model.UserCompanyId,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now
+                        };
+
+                        int dictionaryId = _positionDictionaryService.Create(dictionary);
+
+                        var positionValue = Mapper.Map<PositionDictionaryValue>(model);
+                        positionValue.PositionDictionaryId = dictionaryId;
+
+                        _positionDictionaryService.CreateDictionaryValue(positionValue);
+                    }
+                }
+                catch (Exception e)
+                {
+                    result = new { Success = "false", Message = e.Message };
+                }
+            }
+            else
+            {
+                var error = ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault().ErrorMessage;
+
+                result = new { Success = "false", Message = error };
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult EditPositionDictionaryValueView(int id, int companyId)
+        {
+            var dictValue = _positionDictionaryService.GetPositionValueById(id);
+
+            var positionDictionaryValueViewModel = Mapper.Map<PositionDictionaryValueViewModel>(dictValue);
+
+            positionDictionaryValueViewModel.UserCompanyId = companyId;
+
+            return PartialView("_EditPositionDictionaryValueViewModal", positionDictionaryValueViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPositionDictionaryValue(PositionDictionaryValueViewModel model)
+        {
+            var result = new { Success = "true", Message = "Success" };
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var positionValue = _positionDictionaryService.GetPositionValueById(model.Id);
+
+                    positionValue.Name = model.Name;
+                    positionValue.Description = model.Description;
+
+                    positionValue.PositionDictionary.UpdatedDate = DateTime.Now;
+
+                    _positionDictionaryService.UpdateDictionaryValue(positionValue);
+
+                }
+                catch (Exception e)
+                {
+                    result = new { Success = "false", Message = e.Message };
+                }
+            }
+            else
+            {
+                var error = ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault().ErrorMessage;
+
+                result = new { Success = "false", Message = error };
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -246,5 +362,52 @@ namespace EwiPraca.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult DeleteEmployee(int id)
+        {
+            var result = new { Success = "true", Message = "Success" };
+
+            try
+            {
+                var employee = _employeeService.GetById(id);
+
+                if (employee != null)
+                {
+                    _employeeService.Delete(employee);
+                }
+            }
+            catch (Exception e)
+            {
+                result = new { Success = "false", Message = e.Message };
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult DeletePositionDictionaryValue(int id)
+        {
+            var result = new { Success = "true", Message = "Success" };
+
+            try
+            {
+                var positionValue = _positionDictionaryService.GetPositionValueById(id);
+
+                if (positionValue != null && !_positionDictionaryService.IsPositionInUse(positionValue))
+                {
+                    _positionDictionaryService.DeleteDictionaryValue(positionValue);
+                }
+                else
+                {
+                    result = new { Success = "false", Message = "Nie można skasować stanowiska, które jest już w użyciu." };
+                }
+            }
+            catch (Exception e)
+            {
+                result = new { Success = "false", Message = e.Message };
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

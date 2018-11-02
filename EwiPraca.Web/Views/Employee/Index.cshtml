@@ -23,6 +23,7 @@
     <a href="#" id="open-add-employee-modal" class="button"><span class="glyphicon glyphicon-plus"></span>Dodaj</a>
     <a href="#" id="download-import-from-excel-template" class="button"><span class="glyphicon"></span>Pobierz szablon excel do importu</a>
     <a href="#" id="import-from-excel" class="button"><span class="glyphicon"></span>Importuj z pliku excel</a>
+    <a href="#" id="open-add-position-dictionary-modal" class="button"><span class="glyphicon glyphicon-plus"></span>Zarządzaj słownikiem stanowisk pracowników</a>
 </p>
 
 <div class="row">
@@ -66,6 +67,8 @@
 </div>
 
 @Html.Partial("_AddEmployeeData", Model.CompanyId)
+
+@Html.Partial("_AddPositionDictionaryValues", Model.CompanyId)
 
 <div id='edit-employee-modal' class='modal fade'>
     <div class="modal-dialog popup-modal">
@@ -128,6 +131,22 @@
     <div class="modal-dialog popup-modal">
         <div class="modal-content">
             <div id='edit-osh-training-modal-content'></div>
+        </div>
+    </div>
+</div>
+
+<div id='add-position-dictionary-value-modal' class='modal fade'>
+    <div class="modal-dialog popup-modal">
+        <div class="modal-content">
+            <div id='add-position-dictionary-value-modal-content'></div>
+        </div>
+    </div>
+</div>
+
+<div id='edit-position-dictionary-value-modal' class='modal fade'>
+    <div class="modal-dialog popup-modal">
+        <div class="modal-content">
+            <div id='edit-position-dictionary-value-modal-content'></div>
         </div>
     </div>
 </div>
@@ -231,7 +250,7 @@
                     data: JSON.stringify(data),
                     datatype: "json",
                     success: function (data) {
-                        if (data.Success = "true") {
+                        if (data.Success == "true") {
                             window.location.reload();
                         }
                         else {
