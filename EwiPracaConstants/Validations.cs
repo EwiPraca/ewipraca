@@ -18,6 +18,9 @@
             public const int ZIPCodeLength = 10;
             public const int FirstNameLength = 100;
             public const int SurnameLength = 100;
+            public const int JobPartNameLength = 100;
+            public const int PositionNameLength = 150;
+            public const int DictionaryDescriptionLength = 500;
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using EwiPraca.Enumerations;
+using EwiPraca.Model;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -35,12 +37,17 @@ namespace EwiPraca.Models
         public decimal Salary { get; set; }
 
         [DisplayName("Rodzaj etatu")]
-        [Required(ErrorMessage = "Rodzaj etatu jest polem wymaganym.")]
-        public string JobPart { get; set; }
+        public int? JobPartDictionaryValueId { get; set; }
+
+        [DisplayName("Rodzaj etatu")]
+        public JobPartDictionaryValue JobPartDictionaryValue { get; set; }
+
+        public List<JobPartDictionaryValue> JobParts { get; set; }
 
         [DisplayName("Notatki")]
         [DataType(DataType.MultilineText)]
         public string Notes { get; set; }
+
         public bool IsDeleted { get; set; }
     }
 }

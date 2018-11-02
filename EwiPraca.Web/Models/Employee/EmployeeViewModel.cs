@@ -35,6 +35,9 @@ namespace EwiPraca.Models
         [DisplayName("Stanowisko")]
         public int? PositionDictionaryValueId { get; set; }
 
+        [DisplayName("Stanowisko")]
+        public PositionDictionaryValue PositionDictionaryValue { get; set; }
+
         public List<PositionDictionaryValue> Positions { get; set; }
 
         public List<ContractViewModel> Contracts { get; set; }

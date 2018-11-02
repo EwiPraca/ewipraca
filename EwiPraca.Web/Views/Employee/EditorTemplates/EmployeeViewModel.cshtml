@@ -34,13 +34,13 @@
         @Html.ValidationMessageFor(m => m.BirthDate)
     </div>
 </div>
-@if (Model.Positions != null)
+@if (Model.Positions != null && Model.Positions.Count > 0)
 {
     <div class="row modal-row">
         @Html.LabelFor(m => m.PositionDictionaryValueId, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.PositionDictionaryValueId, new SelectList(Model.Positions, "Id", "Name"), "- Wybierz -")
-            @Html.ValidationMessageFor(m => m.BirthDate)
+            @Html.ValidationMessageFor(m => m.PositionDictionaryValueId)
         </div>
     </div>
 }

@@ -267,7 +267,9 @@
     <Compile Include="Models\Employee\CompanyEmployeesViewModel.cs" />
     <Compile Include="Models\Employee\EmployeeViewModel.cs" />
     <Compile Include="Models\Employee\ImportEmployeesFromExcelViewModel.cs" />
+    <Compile Include="Models\Employee\JobPartDictionaryValueViewMode.cs" />
     <Compile Include="Models\Employee\PositionDictionaryValueViewModel.cs" />
+    <Compile Include="Models\Employee\JobPartDictionaryViewModel.cs" />
     <Compile Include="Models\Employee\PositionDictionaryViewModel.cs" />
     <Compile Include="Models\Manage\BaseViewModel.cs" />
     <Compile Include="Models\Manage\AddressViewModel.cs" />
@@ -294,6 +296,10 @@
     <Content Include="Views\Employee\_AddPositionDictionaryValueViewModal.cshtml" />
     <Content Include="Views\Employee\EditorTemplates\PositionDictionaryValueViewModel.cshtml" />
     <Content Include="Views\Employee\_EditPositionDictionaryValueViewModal.cshtml" />
+    <Content Include="Views\Employee\EditorTemplates\JobPartDictionaryValueViewModel.cshtml" />
+    <Content Include="Views\Employee\_AddJobPartDictionaryValues.cshtml" />
+    <Content Include="Views\Employee\_AddJobPartDictionaryValueViewModal.cshtml" />
+    <Content Include="Views\Employee\_AddJobPartDictionaryViewModal.cshtml" />
     <None Include="Views\Employee\_EditEmployeeModal.cshtml" />
     <Compile Include="WebResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -309,6 +315,7 @@
     <Content Include="Views\OSHTraining\_AddOSHTrainingModal.cshtml" />
     <Content Include="Views\OSHTraining\_EditOSHTrainingModal.cshtml" />
     <Content Include="Views\Shared\_AddOSHTrainingData.cshtml" />
+    <Content Include="Views\Employee\_EditJobPartDictionaryValueViewModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-dialog.css" />

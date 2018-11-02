@@ -12,10 +12,16 @@ namespace EwiPraca.Controllers
     public class ContractController : Controller
     {
         private readonly IContractService _contractService;
+        private readonly IEmployeeService _employeeService;
+        private readonly IJobPartDictionaryService _jobPartDictionaryService;
 
-        public ContractController(IContractService contractService)
+        public ContractController(IContractService contractService,
+            IJobPartDictionaryService jobPartDictionaryService,
+            IEmployeeService employeeService)
         {
             _contractService = contractService;
+            _jobPartDictionaryService = jobPartDictionaryService;
+            _employeeService = employeeService;
         }
 
         public ActionResult Index()
@@ -29,6 +35,8 @@ namespace EwiPraca.Controllers
             var contract = _contractService.GetById(contractId);
 
             var contractViewModel = Mapper.Map<ContractViewModel>(contract);
+
+            contractViewModel.JobParts = _jobPartDictionaryService.GetByUserCompanyId(contract.Employee.UserCompanyId)?.Values;
 
             return PartialView("_EditContractModal", contractViewModel);
         }
@@ -62,7 +70,10 @@ namespace EwiPraca.Controllers
         [HttpGet]
         public ActionResult AddContractView(int employeeId)
         {
-            return PartialView("_AddContractModal", new ContractViewModel() { EmployeeId = employeeId });
+            var employee = _employeeService.GetById(employeeId);
+            var jobParts = _jobPartDictionaryService.GetByUserCompanyId(employee.UserCompanyId)?.Values;
+
+            return PartialView("_AddContractModal", new ContractViewModel() { EmployeeId = employeeId, JobParts = jobParts });
         }
 
         [HttpPost]

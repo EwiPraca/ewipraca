@@ -1,0 +1,37 @@
+﻿@model int
+<script type="text/javascript">
+    $("#open-add-job-part-dictionary-modal").click(function () {
+        showLoader();
+        var options = { "backdrop": "static", keyboard: true };
+        var data = { companyId: @Model }
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("AddJobPartDictionaryView", "Employee")",
+            contentType: "application/json",
+            data: data,
+            datatype: "json",
+            success: function (data) {
+                $('#add-job-part-dictionary-modal-content').html(data);
+                $('#add-job-part-dictionary-modal').modal(options);
+                $('#add-job-part-dictionary-modal').modal('show');
+                hideLoader();
+            },
+            error: function () {
+                hideLoader();
+                alert("Dynamic content load failed.");
+            }
+        });
+    });
+
+    $("#closebtn").click(function () {
+        $('#add-job-part-dictionary-modal').modal('hide');
+    });
+</script>
+
+<div id='add-job-part-dictionary-modal' class='modal fade'>
+    <div class="modal-dialog popup-modal">
+        <div class="modal-content">
+            <div id='add-job-part-dictionary-modal-content'></div>
+        </div>
+    </div>
+</div>

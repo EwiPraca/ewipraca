@@ -25,7 +25,9 @@ namespace EwiPraca.Model
         [Required]
         public decimal Salary { get; set; }
 
-        public string JobPart { get; set; }
+        public int? JobPartDictionaryValueId { get; set; }
+        public virtual JobPartDictionaryValue JobPartDictionaryValue { get; set; }
+
         public string Notes { get; set; }
     }
 }

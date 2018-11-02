@@ -84,6 +84,10 @@
     <Compile Include="Migrations\201811010926226_EmployeePosition.Designer.cs">
       <DependentUpon>201811010926226_EmployeePosition.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811021116307_JobPartDictionaryValuesForContract.cs" />
+    <Compile Include="Migrations\201811021116307_JobPartDictionaryValuesForContract.Designer.cs">
+      <DependentUpon>201811021116307_JobPartDictionaryValuesForContract.cs</DependentUpon>
+    </Compile>
     <Compile Include="RepositoryTransaction.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="EwiPracaDbContext.cs" />
@@ -130,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811010926226_EmployeePosition.resx">
       <DependentUpon>201811010926226_EmployeePosition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811021116307_JobPartDictionaryValuesForContract.resx">
+      <DependentUpon>201811021116307_JobPartDictionaryValuesForContract.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

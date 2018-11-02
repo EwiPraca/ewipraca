@@ -23,13 +23,15 @@ namespace EwiPraca.Controllers
         private readonly IEwiImporter _companyEmployeeImporter;
         private readonly IImportEmployeeProcessor _employeeProcessor;
         private readonly IPositionDictionaryService _positionDictionaryService;
+        private readonly IJobPartDictionaryService _jobPartDictionaryService;
 
         public EmployeeController(IEmployeeService employeeService,
             IUserCompanyService userCompanyService,
             IAddressService addressService,
             IEwiImporter companyEmployeeImporter,
             IImportEmployeeProcessor employeeProcessor,
-            IPositionDictionaryService positionDictionaryService)
+            IPositionDictionaryService positionDictionaryService,
+            IJobPartDictionaryService jobPartDictionaryService)
         {
             _employeeService = employeeService;
             _userCompanyService = userCompanyService;
@@ -37,6 +39,7 @@ namespace EwiPraca.Controllers
             _companyEmployeeImporter = companyEmployeeImporter;
             _employeeProcessor = employeeProcessor;
             _positionDictionaryService = positionDictionaryService;
+            _jobPartDictionaryService = jobPartDictionaryService;
         }
 
         public ActionResult Index(int id, EmployeeListTypes viewType)
@@ -284,6 +287,128 @@ namespace EwiPraca.Controllers
         }
 
         [HttpGet]
+        public ActionResult AddJobPartDictionaryView(int companyId)
+        {
+            JobPartDictionaryViewModel jobPartDictionaryViewModel;
+
+            var dictionary = _jobPartDictionaryService.GetByUserCompanyId(companyId);
+
+            if (dictionary != null)
+            {
+                jobPartDictionaryViewModel = Mapper.Map<JobPartDictionaryViewModel>(dictionary);
+            }
+            else
+            {
+                jobPartDictionaryViewModel = new JobPartDictionaryViewModel() { UserCompanyId = companyId };
+            }
+
+            return PartialView("_AddJobPartDictionaryViewModal", jobPartDictionaryViewModel);
+        }
+
+        [HttpGet]
+        public ActionResult AddJobPartDictionaryValueView(int dictionaryId, int companyId)
+        {
+            var jobPartDictionaryValueViewModel = new JobPartDictionaryValueViewModel() { JobPartDictionaryId = dictionaryId, UserCompanyId = companyId };
+
+            return PartialView("_AddJobPartDictionaryValueViewModal", jobPartDictionaryValueViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddJobPartDictionaryValue(JobPartDictionaryValueViewModel model)
+        {
+            var result = new { Success = "true", Message = "Success" };
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (model.JobPartDictionaryId > 0)
+                    {
+                        var jobPartValue = Mapper.Map<JobPartDictionaryValue>(model);
+
+                        _jobPartDictionaryService.CreateDictionaryValue(jobPartValue);
+                    }
+                    else
+                    {
+                        JobPartDictionary dictionary = new JobPartDictionary()
+                        {
+                            UserCompanyId = model.UserCompanyId,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now
+                        };
+
+                        int dictionaryId = _jobPartDictionaryService.Create(dictionary);
+
+                        var positionValue = Mapper.Map<JobPartDictionaryValue>(model);
+                        positionValue.JobPartDictionaryId = dictionaryId;
+
+                        _jobPartDictionaryService.CreateDictionaryValue(positionValue);
+                    }
+                }
+                catch (Exception e)
+                {
+                    result = new { Success = "false", Message = e.Message };
+                }
+            }
+            else
+            {
+                var error = ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault().ErrorMessage;
+
+                result = new { Success = "false", Message = error };
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult EditJobPartDictionaryValueView(int id, int companyId)
+        {
+            var dictValue = _jobPartDictionaryService.GetJobPartValueById(id);
+
+            var jobPartDictionaryValueViewModel = Mapper.Map<JobPartDictionaryValueViewModel>(dictValue);
+
+            jobPartDictionaryValueViewModel.UserCompanyId = companyId;
+
+            return PartialView("_EditJobPartDictionaryValueViewModal", jobPartDictionaryValueViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditJobPartDictionaryValue(JobPartDictionaryValueViewModel model)
+        {
+            var result = new { Success = "true", Message = "Success" };
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var positionValue = _jobPartDictionaryService.GetJobPartValueById(model.Id);
+
+                    positionValue.Name = model.Name;
+                    positionValue.Notes = model.Notes;
+
+                    positionValue.JobPartDictionary.UpdatedDate = DateTime.Now;
+
+                    _jobPartDictionaryService.UpdateDictionaryValue(positionValue);
+
+                }
+                catch (Exception e)
+                {
+                    result = new { Success = "false", Message = e.Message };
+                }
+            }
+            else
+            {
+                var error = ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault().ErrorMessage;
+
+                result = new { Success = "false", Message = error };
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
         public ActionResult PostExcelTemplate()
         {
             string handle = Guid.NewGuid().ToString();
@@ -400,6 +525,31 @@ namespace EwiPraca.Controllers
                 else
                 {
                     result = new { Success = "false", Message = "Nie można skasować stanowiska, które jest już w użyciu." };
+                }
+            }
+            catch (Exception e)
+            {
+                result = new { Success = "false", Message = e.Message };
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteJobPartDictionaryValue(int id)
+        {
+            var result = new { Success = "true", Message = "Success" };
+
+            try
+            {
+                var positionValue = _jobPartDictionaryService.GetJobPartValueById(id);
+
+                if (positionValue != null && !_jobPartDictionaryService.IsPositionInUse(positionValue))
+                {
+                    _jobPartDictionaryService.DeleteDictionaryValue(positionValue);
+                }
+                else
+                {
+                    result = new { Success = "false", Message = "Nie można skasować etatu, który jest już w użyciu." };
                 }
             }
             catch (Exception e)

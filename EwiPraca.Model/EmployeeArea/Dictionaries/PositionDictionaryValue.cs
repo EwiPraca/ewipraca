@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static EwiPracaConstants.Validations;
 
 namespace EwiPraca.Model
 {
@@ -10,9 +11,9 @@ namespace EwiPraca.Model
         public virtual PositionDictionary PositionDictionary { get; set; }
 
         [Required]
-        [StringLength(150)]
+        [StringLength(MaximumLength.PositionNameLength)]
         public string Name { get; set; }
-        [StringLength(500)]
+        [StringLength(MaximumLength.DictionaryDescriptionLength)]
         public string Description { get; set; }
     }
 }

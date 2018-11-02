@@ -52,11 +52,18 @@ namespace EwiPraca
                 cfg.CreateMap<PositionDictionaryValue, PositionDictionaryValueViewModel>();
                 cfg.CreateMap<PositionDictionaryValueViewModel, PositionDictionaryValue>();
 
+                cfg.CreateMap<JobPartDictionary, JobPartDictionaryViewModel>();
+                cfg.CreateMap<JobPartDictionaryViewModel, JobPartDictionary>();
+                cfg.CreateMap<JobPartDictionaryValue, JobPartDictionaryValueViewModel>();
+                cfg.CreateMap<JobPartDictionaryValueViewModel, JobPartDictionaryValue>();
+
                 cfg.CreateMap<EmployeeImportRow, EmployeeViewModel>();
 
                 cfg.CreateMap<Contract, ContractViewModel>();
                 cfg.CreateMap<ContractViewModel, Contract>().ForMember(d => d.Employee,
-                 opt => opt.MapFrom(x => x.Employee));
+                 opt => opt.MapFrom(x => x.Employee))
+                 .ForMember(d => d.JobPartDictionaryValue,
+                 opt => opt.MapFrom(x => x.JobPartDictionaryValue));
 
                 cfg.CreateMap<MedicalReport, MedicalReportViewModel>();
                 cfg.CreateMap<MedicalReportViewModel, MedicalReport>().ForMember(d => d.Employee,

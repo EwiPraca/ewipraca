@@ -69,7 +69,7 @@
                 <div class="row modal-row">
                     @Html.Label("Etat", new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        <p>@contract.JobPart</p>
+                        <p>@Html.Raw(contract.JobPartDictionaryValue?.Name ?? "Brak")</p>
                     </div>
                 </div>
                 <div class="row modal-row">
