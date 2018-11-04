@@ -4,6 +4,7 @@
     {
         Default,
         OSHTrainings,
-        MedicalResults
+        MedicalResults,
+        SickLeaves
     }
 }

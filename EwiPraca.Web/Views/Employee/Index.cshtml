@@ -46,16 +46,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var employee in Model.Employees)
+                        @if (Model.Employees != null)
                         {
-                            <tr>
-                                <td>@employee.Id</td>
-                                <td>@employee.FirstName</td>
-                                <td>@employee.Surname</td>
-                                <td>@employee.PESEL</td>
-                                <td class="action-column"></td>
-                            </tr>
-                        }
+                            foreach (var employee in Model.Employees)
+                            {
+                                <tr>
+                                    <td>@employee.Id</td>
+                                    <td>@employee.FirstName</td>
+                                    <td>@employee.Surname</td>
+                                    <td>@employee.PESEL</td>
+                                    <td class="action-column"></td>
+                                </tr>
+                            }
+                        }                       
                     </tbody>
                 </table>
             </div>
@@ -71,7 +74,6 @@
 @Html.Partial("_AddEmployeeData", Model.CompanyId)
 
 @Html.Partial("_AddPositionDictionaryValues", Model.CompanyId)
-
 
 @Html.Partial("_AddJobPartDictionaryValues", Model.CompanyId)
 
@@ -90,7 +92,6 @@
         </div>
     </div>
 </div>
-
 
 <div id='add-contract-modal' class='modal fade'>
     <div class="modal-dialog popup-modal">
@@ -168,6 +169,14 @@
     <div class="modal-dialog popup-modal">
         <div class="modal-content">
             <div id='edit-job-part-dictionary-value-modal-content'></div>
+        </div>
+    </div>
+</div>
+
+<div id='add-sick-leave-modal' class='modal fade'>
+    <div class="modal-dialog popup-modal">
+        <div class="modal-content">
+            <div id='add-sick-leave-modal-content'></div>
         </div>
     </div>
 </div>

@@ -49,6 +49,7 @@
     <Compile Include="Interfaces\IJobPartDictionaryService.cs" />
     <Compile Include="Interfaces\IPositionDictionaryService.cs" />
     <Compile Include="Interfaces\IService.cs" />
+    <Compile Include="Interfaces\ISickLeaveService.cs" />
     <Compile Include="Interfaces\IUserCompanyService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AddressService.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Services\OSHTrainingService.cs" />
     <Compile Include="Services\JobPartDictionaryService.cs" />
     <Compile Include="Services\PositionDictionaryService.cs" />
+    <Compile Include="Services\SickLeaveService.cs" />
     <Compile Include="Services\UserCompanyService.cs" />
   </ItemGroup>
   <ItemGroup>

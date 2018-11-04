@@ -1,11 +1,11 @@
-﻿@model EwiPraca.Models.MedicalReportViewModel
+﻿@model EwiPraca.Models.SickLeaveViewModel
 
 <div class="modal-wrapper">
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="closbtnreport">×</button>
-        <h4 class="modal-title" id="myModalLabel">Edytuj umowę</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="closbtnsleave">×</button>
+        <h4 class="modal-title" id="myModalLabel">Dodaj zwolnienie lekarskie</h4>
     </div>
-    @using (Ajax.BeginForm("EditMedicalReport", "MedicalReport", new AjaxOptions() { HttpMethod = "POST", OnSuccess = "onEditMedicalReportSuccess", OnFailure = "onFailureModalEdit" })) // { @class = "form-horizontal", role = "form" }))
+    @using (Ajax.BeginForm("AddSickLeave", "SickLeave", new AjaxOptions() { HttpMethod = "POST", OnSuccess = "onSickLeaveAddSuccess", OnFailure = "onFailureModalEdit" })) // { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
         @Html.EditorFor(x => x)
@@ -13,8 +13,8 @@
 </div>
 
 <script type="text/javascript">
-    function onEditMedicalReportSuccess(e) {
-        if (e.Success == "true") {
+    function onSickLeaveAddSuccess(e) {
+        if (e.Success == "true") {           
             showLoader();
             var options = { "backdrop": "static", keyboard: true };
             var data = { employeeId: @Model.EmployeeId }
@@ -26,8 +26,8 @@
             datatype: "json",
             success: function (data) {
                 $('#edit-employee-modal-content').html(data);
-                $('#edit-employee-modal').modal(options);
-                $('#edit-medical-report-modal').modal('hide');
+                $('#edit-employee-modal').modal(options);                
+                $('#add-sick-leave-modal').modal('hide');
                 $('#edit-employee-modal').modal('show');
                 hideLoader();
             },
@@ -42,7 +42,7 @@
         }
     }
     $(document).ready(function () {
-        $("#closbtnreport").click(function () {
+        $("#closbtnsleave").click(function () {
             $('#edit-employee-modal').modal('show');
         });
     });

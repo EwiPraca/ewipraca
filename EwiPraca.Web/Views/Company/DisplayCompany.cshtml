@@ -132,7 +132,7 @@
             <li><a href="@Url.Action("Index", "Employee", new { id = Model.Id, viewType = EmployeeListTypes.Default } )">Pracownicy</a></li>
             <li><a href="@Url.Action("Index", "Employee", new { id = Model.Id, viewType = EmployeeListTypes.MedicalResults } )">Badania lekarskie</a></li>
             <li><a href="@Url.Action("Index", "Employee", new { id = Model.Id, viewType = EmployeeListTypes.OSHTrainings } )">Szkolenia BHP</a></li>
-            <li><a href="#">Zwolnienia</a></li>
+            <li><a href="@Url.Action("Index", "Employee", new { id = Model.Id, viewType = EmployeeListTypes.SickLeaves } )">Zwolnienia lekarskie</a></li>
             <li><a href="#">Urlopy</a></li>
         </ul>
     </div><!-- end .widget -->

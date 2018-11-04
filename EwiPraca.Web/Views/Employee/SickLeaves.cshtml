@@ -1,6 +1,6 @@
 ﻿@model EwiPraca.Models.CompanyEmployeesViewModel
 @{
-    ViewBag.Title = Model.CompanyName + " - szkolenia BHP";
+    ViewBag.Title = Model.CompanyName + " - zwolnienia lekarskie";
 }
 
 @section navigation{
@@ -17,7 +17,7 @@
 </header>
 
 <h2 class="slogan align-center">
-    Dane pracowników - szkolenia BHP
+    Dane pracowników - zwolnienia lekarskie
 </h2>
 
 <div class="row">
@@ -33,9 +33,8 @@
                             <th>ID</th>
                             <th>Imię</th>
                             <th>Nazwisko</th>
-                            <th>Data szkolenia</th>
-                            <th>Ważne do</th>
-                            <th>Czy ważne szkolenie?</th>
+                            <th>Data od</th>
+                            <th>Data do</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,19 +42,23 @@
                         {
                             foreach (var employee in Model.Employees)
                             {
-                                <tr>
-                                    <td>@employee.Id</td>
-                                    <td>@employee.FirstName</td>
-                                    <td>@employee.Surname</td>
-                                    <td>@Html.Raw(employee.LastOSHTraining?.CompletionDate.ToShortDateString() ?? "Brak")</td>
-                                    <td>
-                                        @Html.Raw(employee.LastOSHTraining == null ? "Brak" : employee.LastOSHTraining.NextCompletionDate.HasValue ?
-                                   employee.LastOSHTraining.NextCompletionDate.Value.ToShortDateString() : "Bezterminowe")
-                                    </td>
-                                    <td class="@Html.Raw(employee.LastOSHTraining == null || !employee.LastOSHTraining.IsValid ? "non-valid-text" : "valid-text")">@Html.Raw(employee.LastOSHTraining == null ? "Nie" : employee.LastOSHTraining.IsValid ? "Tak" : "Nie")</td>
-                                </tr>
+                                if (employee.SickLeaves != null)
+                                {
+                                    foreach (var sickLeave in employee.SickLeaves)
+                                    {
+                                        <tr>
+                                            <td>@employee.Id</td>
+                                            <td>@employee.FirstName</td>
+                                            <td>@employee.Surname</td>
+                                            <td>@sickLeave.DateFrom.ToShortDateString()</td>
+                                            <td>@sickLeave.DateTo.ToShortDateString()</td>
+                                        </tr>
+                                    }
+                                }
+
                             }
                         }
+
                     </tbody>
                 </table>
             </div>
@@ -69,7 +72,7 @@
 </div>
 
 <script>
-        $('#employees-data-table').DataTable({
+    $('#employees-data-table').DataTable({
         responsive: true,
         "columnDefs": [
         {
@@ -88,10 +91,7 @@
          },
          {
              "targets": [4]
-         },
-         {
-             "targets": [5]
-         },
+         }
         ],
         "oLanguage": {
             "sSearch": "Szukaj: ",

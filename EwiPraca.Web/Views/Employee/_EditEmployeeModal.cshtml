@@ -33,7 +33,15 @@
         </li>
 
         <li>
-            <a href="#tab4">BHP</a>
+            <a href="#tab4">Szkolenia BHP</a>
+        </li>
+
+        <li>
+            <a href="#tab5">Zwolnienia lekarskie</a>
+        </li>
+
+        <li>
+            <a href="#tab6">Urlopy</a>
         </li>
 
     </ul><!-- end .tabs-nav -->
@@ -289,8 +297,8 @@
                                                 <td>@oshTrainingValidTo</td>
                                                 <td></td>
                                             </tr>
-                                         }
-                                     }
+                                                        }
+                                                    }
                                 </tbody>
                             </table>
                         </div>
@@ -300,6 +308,52 @@
 
         </div>
 
+        <div class="tab-content" id="tab5">
+            <h5>
+                Zwolnienia lekarskie
+            </h5>
+            <a href="#" id="open-add-employee-sick-leave-modal" class="button"><span class="glyphicon glyphicon-plus"></span>Dodaj</a>
+
+            <hr />
+
+            <h5>Historia</h5>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-primary list-panel" id="list-panel">
+                        <div class="panel-heading list-panel-heading">
+                        </div>
+                        <div class="panel-body">
+                            <table id="sick-leaves-data-table" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Data od</th>
+                                        <th>Data do</th>
+                                        <th>Notatki</th>
+                                        <th>Akcje</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.SickLeaves != null)
+                                    {
+                                        foreach (var sickLeave in Model.SickLeaves)
+                                        {
+                                            <tr>
+                                                <td>@sickLeave.Id</td>
+                                                <td>@sickLeave.DateFrom.ToShortDateString()</td>
+                                                <td>@sickLeave.DateTo.ToShortDateString()</td>
+                                                <td>@sickLeave.Notes</td>
+                                                <td></td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div><!-- end .tabs-container -->
 
 
@@ -308,6 +362,7 @@
 @Html.Partial("_AddContractData", Model.Id)
 @Html.Partial("_AddMedicalReportData", Model.Id)
 @Html.Partial("_AddOSHTrainingData", Model.Id)
+@Html.Partial("_AddSickLeaveData", Model.Id)
 
 <script type="text/javascript">
     function onEmployeeEditSuccess(e) {
@@ -644,6 +699,90 @@
             $.ajax({
                 type: "POST",
                 url: "@Url.Action("DeleteOSHTraining", "OSHTraining")",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                datatype: "json",
+                success: function (data) {
+                    if (data.Success == "true") {
+
+                        var options = { "backdrop": "static", keyboard: true };
+                        var data = { employeeId: @Model.Id }
+                        $.ajax({
+                            type: "GET",
+                            url: "@Url.Action("EditEmployeeView", "Employee")",
+                            contentType: "application/json",
+                            data: data,
+                            datatype: "json",
+                            success: function (data) {
+                                $('#edit-employee-modal-content').html(data);
+                            },
+                            error: function () {
+                                hideLoader();
+                                alert("Dynamic content load failed.");
+                            }
+                        });
+                    }
+                    else {
+                        showErrorMessage(e.Message);
+                    }
+                },
+                error: function (e) {
+                    showErrorMessage("Wystąpił błąd. " + e);
+                }
+            });
+        }
+        else {
+            e.preventDefault();
+        }
+    });
+
+    var dt = $('#sick-leaves-data-table').DataTable({
+        responsive: true,
+        "columnDefs": [
+        {
+            "targets": [0],
+            "visible": false,
+            "searchable": false
+        },
+         {
+             "targets": [1],
+         },
+         {
+             "targets": [2]
+         },
+         {
+             "targets": [3]
+         },
+          {
+              "targets": [4],
+              mRender: function (data, type, row) {
+
+                  return '<a class="button grid-button delete-button-sick-leave" data-id="' + row[0] + '">Usuń</a>'
+              }
+          },
+        ],
+        "oLanguage": {
+            "sSearch": "Szukaj: ",
+            "sEmptyTable": "Brak danych do wyświetlenia",
+            "sInfo": "_START_ do _END_ z _TOTAL_ wierszy",
+            "sInfoEmpty": "0 z 0 z 0 wierszy",
+            "oPaginate": {
+                "sNext": "Następna",
+                "sPrevious": "Poprzednia"
+            },
+            "sLengthMenu": "Pokaż na stronę: _MENU_",
+        }
+    });
+
+    $('.delete-button-sick-leave').click(function (e) {
+        var id = $(this).attr('data-id');
+        var data = { id: id };
+
+        var ok = confirm("Czy na pewno chcesz usunąć ten rekord?");
+        if (ok) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("DeleteSickLeave", "SickLeave")",
                 contentType: "application/json",
                 data: JSON.stringify(data),
                 datatype: "json",

@@ -70,14 +70,16 @@ namespace EwiPraca.Controllers
                 case EmployeeListTypes.MedicalResults:
                     viewName = "MedicalResults";
                     break;
-
                 case EmployeeListTypes.OSHTrainings:
                     viewName = "OSHTrainings";
                     break;
-
+                case EmployeeListTypes.SickLeaves:
+                    viewName = "SickLeaves";
+                    break;
                 case EmployeeListTypes.Default:
                     viewName = "Index";
                     break;
+
             }
 
             return View(viewName, model);
