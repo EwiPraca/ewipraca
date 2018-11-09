@@ -20,14 +20,7 @@ namespace EwiPraca.App_Start.Identity
             };
 
             // Configure validation logic for passwords
-            PasswordValidator = new PasswordValidator
-            {
-                RequiredLength = 6,
-                RequireNonLetterOrDigit = false,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
-            };
+            PasswordValidator = new CustomPasswordValidator(6);
 
             // Configure user lockout defaults
             UserLockoutEnabledByDefault = true;

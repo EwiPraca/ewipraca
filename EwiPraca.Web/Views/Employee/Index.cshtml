@@ -181,6 +181,14 @@
     </div>
 </div>
 
+<div id='move-employee-modal' class='modal fade'>
+    <div class="modal-dialog popup-modal">
+        <div class="modal-content">
+            <div id='move-employee-modal-content'></div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -228,7 +236,7 @@
                   "targets": [4],
                   mRender: function (data, type, row) {
 
-                      return '<a class="button grid-button edit-button" data-id="' + row[0] + '">Edytuj</a><a class="button grid-button delete-button" data-id="' + row[0] + '">Usuń</a>'
+                      return '<a class="button grid-button move-employee-button" data-id="' + row[0] + '">Przenieś</a><a class="button grid-button edit-button" data-id="' + row[0] + '">Edytuj</a><a class="button grid-button delete-button" data-id="' + row[0] + '">Usuń</a>'
                   }
               },
             ],
@@ -321,5 +329,30 @@
                 }
             });
         });
+
+        $('.move-employee-button').click(function () {
+            var id = $(this).attr('data-id');
+
+            showLoader();
+            var options = { "backdrop": "static", keyboard: true };
+            var data = { employeeId: id }
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("MoveEmployeeView", "Employee")",
+                contentType: "application/json",
+            data: data,
+            datatype: "json",
+            success: function (data) {
+                $('#move-employee-modal-content').html(data);
+                $('#move-employee-modal').modal(options);
+                $('#move-employee-modal').modal('show');
+                hideLoader();
+            },
+            error: function () {
+                hideLoader();
+                alert("Dynamic content load failed.");
+            }
+        });
+    });
     });
 </script>

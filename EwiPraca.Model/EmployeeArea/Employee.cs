@@ -1,4 +1,5 @@
-﻿using EwiPraca.Model.Base;
+﻿using EwiPraca.Enumerations;
+using EwiPraca.Model.Base;
 using EwiPraca.Model.UserArea;
 using System;
 using System.Collections.Generic;
@@ -39,5 +40,7 @@ namespace EwiPraca.Model
         public virtual List<MedicalReport> MedicalReports { get; set; }
         public virtual List<OSHTraining> OSHTrainings { get; set; }
         public virtual List<SickLeave> SickLeaves { get; set; }
+
+        public Sex Sex { get; set; }
     }
 }

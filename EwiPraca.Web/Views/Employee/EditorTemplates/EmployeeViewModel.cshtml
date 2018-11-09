@@ -34,6 +34,18 @@
         @Html.ValidationMessageFor(m => m.BirthDate)
     </div>
 </div>
+
+<div class="row modal-row">
+    @Html.LabelFor(m => m.Sex, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.EnumDropDownListFor(
+              x => x.Sex,
+              "Wybierz płeć",
+              new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Sex)
+    </div>
+</div>
+
 @if (Model.Positions != null && Model.Positions.Count > 0)
 {
     <div class="row modal-row">

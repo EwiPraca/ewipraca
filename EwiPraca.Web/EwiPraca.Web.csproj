@@ -246,6 +246,7 @@
     <Compile Include="App_Start\Identity\ApplicationRoleManager.cs" />
     <Compile Include="App_Start\Identity\ApplicationSignInManager.cs" />
     <Compile Include="App_Start\Identity\ApplicationUserManager.cs" />
+    <Compile Include="App_Start\Identity\CustomPasswordValidator .cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
@@ -269,6 +270,7 @@
     <Compile Include="Models\Employee\EmployeeViewModel.cs" />
     <Compile Include="Models\Employee\ImportEmployeesFromExcelViewModel.cs" />
     <Compile Include="Models\Employee\JobPartDictionaryValueViewMode.cs" />
+    <Compile Include="Models\Employee\MoveEmployeeViewModel.cs" />
     <Compile Include="Models\Employee\PositionDictionaryValueViewModel.cs" />
     <Compile Include="Models\Employee\JobPartDictionaryViewModel.cs" />
     <Compile Include="Models\Employee\PositionDictionaryViewModel.cs" />
@@ -322,6 +324,7 @@
     <Content Include="Views\Employee\_EditJobPartDictionaryValueViewModal.cshtml" />
     <Content Include="Views\SickLeave\EditorTemplates\SickLeaveViewModel.cshtml" />
     <Content Include="Views\SickLeave\_AddSickLeaveModal.cshtml" />
+    <Content Include="Views\Employee\_MoveEmployeeModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-dialog.css" />

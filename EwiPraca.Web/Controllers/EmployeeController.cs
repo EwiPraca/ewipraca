@@ -84,6 +84,49 @@ namespace EwiPraca.Controllers
 
             return View(viewName, model);
         }
+        
+
+        [HttpGet]
+        public ActionResult MoveEmployeeView(int employeeId)
+        {
+            var employee = _employeeService.GetById(employeeId);
+            var companies = employee.UserCompany.ApplicationUser.UserCompanies.Where(x => x.Id != employee.UserCompanyId).ToList();
+
+            return PartialView("_MoveEmployeeModal", new MoveEmployeeViewModel() { EmployeeId = employeeId, Companies = companies });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult MoveEmployee(MoveEmployeeViewModel model)
+        {
+            var result = new { Success = "true", Message = "Success" };
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var employee = _employeeService.GetById(model.EmployeeId);
+
+                    employee.UpdatedDate = DateTime.Now;
+                    employee.UserCompanyId = model.TargetCompanyId;
+                    _employeeService.Update(employee);
+                }
+                catch(Exception e)
+                {
+                    result = new { Success = "false", Message = e.Message };
+                }
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var error = ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault().ErrorMessage;
+
+                result = new { Success = "false", Message = error };
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         [HttpGet]
         public ActionResult AddEmployeeView(int companyId)

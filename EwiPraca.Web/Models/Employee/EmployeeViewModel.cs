@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using EwiPraca.Model;
+using EwiPraca.Enumerations;
 
 namespace EwiPraca.Models
 {
@@ -22,6 +23,9 @@ namespace EwiPraca.Models
 
         [DisplayName("PESEL")]
         public string PESEL { get; set; }
+
+        [DisplayName("Płeć")]
+        public Sex Sex { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayName("Data urodzenia")]
