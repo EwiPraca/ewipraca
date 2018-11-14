@@ -16,7 +16,7 @@
     function onJobPartDictionaryValueAddSuccess(e) {
         if (e.Success == "true") {
             showLoader();
-            var options = { "backdrop": "static", keyboard: true };
+            var options = { keyboard: true };
             var data = { companyId: @Model.UserCompanyId }
             $.ajax({
                 type: "GET",

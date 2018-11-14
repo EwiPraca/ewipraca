@@ -16,7 +16,7 @@
     function onOSHTrainingAddSuccess(e) {
         if (e.Success == "true") {           
             showLoader();
-            var options = { "backdrop": "static", keyboard: true };
+            var options = { keyboard: true };
             var data = { employeeId: @Model.EmployeeId }
             $.ajax({
                 type: "GET",

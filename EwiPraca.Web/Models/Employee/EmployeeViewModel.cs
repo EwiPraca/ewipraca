@@ -7,18 +7,23 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using EwiPraca.Model;
 using EwiPraca.Enumerations;
+using System.Web.Mvc;
 
 namespace EwiPraca.Models
 {
     [Validator(typeof(EmployeeValidator))]
     public class EmployeeViewModel : BaseViewModel
     {
+        public SelectList Gender { get; set; }
+
         public int Id { get; set; }
 
         [DisplayName("Imię")]
+        [RegularExpression(@"^[\p{L} \.'\-]+$", ErrorMessage = "Niepoprawne znaki w polu Imię.")]
         public string FirstName { get; set; }
 
         [DisplayName("Nazwisko")]
+        [RegularExpression(@"^[\p{L} \.'\-]+$", ErrorMessage = "Niepoprawne znaki w polu Nazwisko.")]
         public string Surname { get; set; }
 
         [DisplayName("PESEL")]
@@ -51,11 +56,13 @@ namespace EwiPraca.Models
 
         public OSHTrainingViewModel LastOSHTraining
         {
-            get {
+            get
+            {
                 return OSHTrainings?.OrderByDescending(x => x.NextCompletionDate ?? DateTime.MaxValue).FirstOrDefault();
             }
         }
-        public MedicalReportViewModel LastMedicalReport {
+        public MedicalReportViewModel LastMedicalReport
+        {
             get
             {
                 return MedicalReports?.OrderByDescending(x => x.NextCompletionDate ?? DateTime.MaxValue).FirstOrDefault();

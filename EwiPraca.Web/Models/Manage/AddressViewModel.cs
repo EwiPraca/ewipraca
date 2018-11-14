@@ -9,6 +9,7 @@ namespace EwiPraca.Models
     {
         public int Id { get; set; }
 
+        [RegularExpression(@"^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$", ErrorMessage = "Niepoprawne znaki w polu Miasto.")]
         [Display(Name = "Miasto")]
         public string City { get; set; }
 
@@ -21,7 +22,8 @@ namespace EwiPraca.Models
         [Display(Name = "Lokal")]
         public string PlaceNumber { get; set; }
 
-        [Display(Name = "Kod pocztowy")]
+        [RegularExpression(@"^[0-9]{2}\-[0-9]{3}$", ErrorMessage = "Niepoprawny format kodu pocztowego.")]
+        [Display(Name = "Kod pocztowy w formacie XX-XXX")]
         public string ZIPCode { get; set; }
 
         public int AddressTypeId { get; set; }

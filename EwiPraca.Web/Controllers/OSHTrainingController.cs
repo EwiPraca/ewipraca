@@ -11,10 +11,13 @@ namespace EwiPraca.Controllers
     public class OSHTrainingController : Controller
     {
         private readonly IOSHTrainingService _oshTrainingService;
+        private readonly IEmployeeService _employeeService;
 
-        public OSHTrainingController(IOSHTrainingService oshTrainingService)
+        public OSHTrainingController(IOSHTrainingService oshTrainingService,
+            IEmployeeService employeeService)
         {
             _oshTrainingService = oshTrainingService;
+            _employeeService = employeeService;
         }
 
         [HttpGet]
@@ -35,6 +38,23 @@ namespace EwiPraca.Controllers
 
             if (ModelState.IsValid)
             {
+                if (model.CompletionDate >= model.NextCompletionDate)
+                {
+                    result = new { Success = "false", Message = "Data ważności szkolenia nie może być wcześniejsza niż data odbytego szkolenia." };
+
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+
+                var employee = _employeeService.GetById(model.EmployeeId);
+                var lastCheck = employee.OSHTrainings?.Where(x => !x.IsDeleted).OrderByDescending(x => x.Id).FirstOrDefault();
+
+                if ((lastCheck != null && lastCheck.NextCompletionDate > model.NextCompletionDate))
+                {
+                    result = new { Success = "false", Message = "Data ważności nowego szkolenia musi być późniejsza od daty ważności poprzedniego." };
+
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+
                 var oshTraining = Mapper.Map<OSHTraining>(model);
 
                 oshTraining.UpdatedDate = DateTime.Now;
@@ -69,6 +89,23 @@ namespace EwiPraca.Controllers
             {
                 try
                 {
+                    if (model.CompletionDate >= model.NextCompletionDate)
+                    {
+                        result = new { Success = "false", Message = "Data ważności szkolenia nie może być wcześniejsza niż data odbytego szkolenia." };
+
+                        return Json(result, JsonRequestBehavior.AllowGet);
+                    }
+
+                    var employee = _employeeService.GetById(model.EmployeeId);
+                    var lastCheck = employee.OSHTrainings?.Where(x => !x.IsDeleted).OrderByDescending(x => x.Id).FirstOrDefault();
+
+                    if ((lastCheck != null && lastCheck.NextCompletionDate > model.NextCompletionDate))
+                    {
+                        result = new { Success = "false", Message = "Data ważności nowego szkolenia musi być późniejsza od daty ważności poprzedniego." };
+
+                        return Json(result, JsonRequestBehavior.AllowGet);
+                    }
+
                     var oshTraining = Mapper.Map<OSHTraining>(model);
 
                     oshTraining.CreatedDate = DateTime.Now;

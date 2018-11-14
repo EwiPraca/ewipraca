@@ -54,7 +54,7 @@
 <script type="text/javascript">
     $("#open-add-dictionary-job-part-value-modal").click(function () {
         showLoader();
-        var options = { "backdrop": "static", keyboard: true };
+        var options = { keyboard: true };
         var data = { dictionaryId: @Model.Id, companyId: @Model.UserCompanyId }
         $.ajax({
             type: "GET",
@@ -145,7 +145,7 @@
         var id = $(this).attr('data-id');
 
         showLoader();
-        var options = { "backdrop": "static", keyboard: true };
+        var options = { keyboard: true };
         var data = { id: id, companyId: @Model.UserCompanyId }
         $.ajax({
             type: "GET",
@@ -170,7 +170,7 @@
 
     function reloadModal(){
         showLoader();
-        var options = { "backdrop": "static", keyboard: true };
+        var options = { keyboard: true };
         var data = { companyId: @Model.UserCompanyId }
         $.ajax({
             type: "GET",

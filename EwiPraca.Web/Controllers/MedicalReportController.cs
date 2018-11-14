@@ -12,10 +12,13 @@ namespace EwiPraca.Controllers
     public class MedicalReportController : Controller
     {
         private readonly IMedicalReportService _medicalReportService;
+        private readonly IEmployeeService _employeeService;
 
-        public MedicalReportController(IMedicalReportService medicalReportService)
+        public MedicalReportController(IMedicalReportService medicalReportService,
+            IEmployeeService employeeService)
         {
             _medicalReportService = medicalReportService;
+            _employeeService = employeeService;
         }
 
         [HttpGet]
@@ -36,6 +39,23 @@ namespace EwiPraca.Controllers
 
             if (ModelState.IsValid)
             {
+                if (model.CompletionDate >= model.NextCompletionDate)
+                {
+                    result = new { Success = "false", Message = "Data ważności badania nie może być wcześniejsza niż data wykonania badania." };
+
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+
+                var employee = _employeeService.GetById(model.EmployeeId);
+                var lastCheck = employee.MedicalReports?.Where(x => !x.IsDeleted).OrderByDescending(x => x.Id).FirstOrDefault();
+
+                if ((lastCheck != null && lastCheck.NextCompletionDate > model.NextCompletionDate))
+                {
+                    result = new { Success = "false", Message = "Data ważności nowego badania musi być późniejsza od daty ważności poprzedniego." };
+
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+
                 var mReport = Mapper.Map<MedicalReport>(model);
 
                 mReport.UpdatedDate = DateTime.Now;
@@ -70,6 +90,23 @@ namespace EwiPraca.Controllers
             {
                 try
                 {
+                    if (model.CompletionDate >= model.NextCompletionDate)
+                    {
+                        result = new { Success = "false", Message = "Data ważności badania nie może być wcześniejsza niż data wykonania badania." };
+
+                        return Json(result, JsonRequestBehavior.AllowGet);
+                    }
+
+                    var employee = _employeeService.GetById(model.EmployeeId);
+                    var lastCheck = employee.MedicalReports?.Where(x => !x.IsDeleted).OrderByDescending(x => x.Id).FirstOrDefault();
+
+                    if ((lastCheck != null && lastCheck.NextCompletionDate > model.NextCompletionDate))
+                    {
+                        result = new { Success = "false", Message = "Data ważności nowego badania musi być późniejsza od poprzedniego." };
+
+                        return Json(result, JsonRequestBehavior.AllowGet);
+                    }
+
                     var mReport = Mapper.Map<MedicalReport>(model);
 
                     mReport.CreatedDate = DateTime.Now;

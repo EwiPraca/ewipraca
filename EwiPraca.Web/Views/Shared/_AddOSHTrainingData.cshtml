@@ -3,7 +3,7 @@
     $("#open-add-employee-osh-training-modal").click(function () {
         debugger;
         showLoader();
-        var options = { "backdrop": "static", keyboard: true };
+        var options = { keyboard: true };
         var data = { employeeId: @Model }
         $.ajax({
             type: "GET",

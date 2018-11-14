@@ -20,7 +20,7 @@ namespace EwiPraca.Models
         [DisplayName("Początek obowiązywania")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime? DateFrom { get; set; }
+        public DateTime DateFrom { get; set; } = DateTime.Now;
 
         [DisplayName("Data zakończenia obowiązywania")]
         [DataType(DataType.Date)]

@@ -30,7 +30,7 @@
 <div class="row modal-row">
     @Html.LabelFor(m => m.BirthDate, new { @class = "col-md-2 control-label" })
     <div class="col-md-10">
-        @Html.EditorFor(m => m.BirthDate, new { @class = "form-control" })
+        @Html.EditorFor(m => m.BirthDate, new { @class = "form-control", disabled = "disabled" })
         @Html.ValidationMessageFor(m => m.BirthDate)
     </div>
 </div>
@@ -73,3 +73,9 @@ else
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $("#BirthDate").attr('readonly', 'readonly');
+    });
+</script>

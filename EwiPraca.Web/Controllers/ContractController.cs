@@ -49,6 +49,23 @@ namespace EwiPraca.Controllers
 
             if (ModelState.IsValid)
             {
+                if (model.DateTo.HasValue && model.DateFrom >= model.DateTo.Value)
+                {
+                    result = new { Success = "false", Message = "Data zakończenia umowy musi być późniejsza niż data rozpoczęcia." };
+
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+
+                var employee = _employeeService.GetById(model.EmployeeId);
+                var lastContract = employee.Contracts?.Where(x => !x.IsDeleted).OrderByDescending(x => x.Id).FirstOrDefault();
+
+                if ((lastContract != null && !lastContract.DateTo.HasValue) || (lastContract != null && lastContract.DateTo.Value > model.DateFrom))
+                {
+                    result = new { Success = "false", Message = "Data rozpoczęcia nowej umowy musi być późniejsza niż data zakończenia poprzedniej." };
+
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+
                 var contract = Mapper.Map<Contract>(model);
 
                 contract.UpdatedDate = DateTime.Now;
@@ -84,6 +101,23 @@ namespace EwiPraca.Controllers
 
             if (ModelState.IsValid)
             {
+                if(model.DateTo.HasValue && model.DateFrom >=  model.DateTo.Value)
+                {
+                    result = new { Success = "false", Message = "Data zakończenia umowy musi być późniejsza niż data rozpoczęcia." };
+
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+
+                var employee = _employeeService.GetById(model.EmployeeId);
+                var lastContract = employee.Contracts?.Where(x => !x.IsDeleted).OrderByDescending(x => x.Id).FirstOrDefault();
+
+                if ((lastContract != null && !lastContract.DateTo.HasValue) || (lastContract != null && lastContract.DateTo.Value > model.DateFrom))
+                {
+                    result = new { Success = "false", Message = "Data rozpoczęcia nowej umowy musi być późniejsza niż data zakończenia poprzedniej." };
+
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+
                 try
                 {
                     var contract = Mapper.Map<Contract>(model);

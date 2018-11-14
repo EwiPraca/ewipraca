@@ -13,11 +13,13 @@ namespace EwiPraca.Controllers
     public class SickLeaveController : Controller
     {
         private readonly ISickLeaveService _sickLeaveService;
+        private readonly IEmployeeService _employeeService;
 
         public SickLeaveController(ISickLeaveService sickLeaveService,
             IEmployeeService employeeService)
         {
             _sickLeaveService = sickLeaveService;
+            _employeeService = employeeService;
         }
 
         public ActionResult Index()
@@ -41,6 +43,23 @@ namespace EwiPraca.Controllers
             {
                 try
                 {
+                    //if (model.DateFrom > model.DateTo)
+                    //{
+                    //    result = new { Success = "false", Message = "Data początku zwolnienia nie może być późniejsza niż data końca zwolnienia." };
+
+                    //    return Json(result, JsonRequestBehavior.AllowGet);
+                    //}
+
+                    //var employee = _employeeService.GetById(model.EmployeeId);
+                    //var lastLeave = employee.SickLeaves?.Where(x => !x.IsDeleted).OrderByDescending(x => x.Id).FirstOrDefault();
+
+                    //if ((lastLeave != null && model.DateFrom < lastLeave.DateTo && lastLeave.DateFrom < model.DateTo))
+                    //{
+                    //    result = new { Success = "false", Message = "Data ważności nowego szkolenia musi być późniejsza od daty ważności poprzedniego." };
+
+                    //    return Json(result, JsonRequestBehavior.AllowGet);
+                    //}
+
                     var sickLeave = Mapper.Map<SickLeave>(model);
 
                     sickLeave.CreatedDate = DateTime.Now;

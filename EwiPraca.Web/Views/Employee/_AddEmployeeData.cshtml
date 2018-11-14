@@ -2,7 +2,7 @@
 <script type="text/javascript">
     $("#open-add-employee-modal").click(function () {
         showLoader();
-        var options = { "backdrop": "static", keyboard: true };
+        var options = { keyboard: true };
         var data = { companyId: @Model }
         $.ajax({
             type: "GET",

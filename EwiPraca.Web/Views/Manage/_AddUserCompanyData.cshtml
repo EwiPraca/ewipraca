@@ -1,7 +1,7 @@
 ﻿<script type="text/javascript">
     $("#open-add-company-modal").click(function () {
         showLoader();
-        var options = { "backdrop": "static", keyboard: true };
+        var options = { keyboard: true };
         $.ajax({
             type: "GET",
             url: "@Url.Action("AddUserCompany", "Manage")",
