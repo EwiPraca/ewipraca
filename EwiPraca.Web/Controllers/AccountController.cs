@@ -5,6 +5,7 @@ using EwiPraca.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using NLog;
 using System;
 using System.Threading.Tasks;
 using System.Web;
@@ -17,6 +18,7 @@ namespace EwiPraca.Controllers
     {
         private readonly ApplicationUserManager _userManager;
         private readonly ApplicationSignInManager _signInManager;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public AccountController(
             ApplicationUserManager userManager,
@@ -86,28 +88,35 @@ namespace EwiPraca.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser
+                try
                 {
-                    UserName = EncryptionService.EncryptEmail(model.Email),
-                    Email = EncryptionService.EncryptEmail(model.Email),
-                    FirstName = EncryptionService.Encrypt(model.FirstName),
-                    Surname = EncryptionService.Encrypt(model.LastName),
-                    LastLoginDate = DateTime.Now
-                };
-                var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await _signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    var user = new ApplicationUser
+                    {
+                        UserName = EncryptionService.EncryptEmail(model.Email),
+                        Email = EncryptionService.EncryptEmail(model.Email),
+                        FirstName = EncryptionService.Encrypt(model.FirstName),
+                        Surname = EncryptionService.Encrypt(model.LastName),
+                        LastLoginDate = DateTime.Now
+                    };
+                    var result = await _userManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        await _signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home");
+                    }
+                    AddErrors(result);
                 }
-                AddErrors(result);
+                catch(Exception e)
+                {
+                    logger.Error(e, e.Message);
+                }
             }
 
             // If we got this far, something failed, redisplay form

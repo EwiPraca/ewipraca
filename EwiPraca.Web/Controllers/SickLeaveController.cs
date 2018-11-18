@@ -2,10 +2,9 @@
 using EwiPraca.Model;
 using EwiPraca.Models;
 using EwiPraca.Services.Interfaces;
+using NLog;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace EwiPraca.Controllers
@@ -14,6 +13,7 @@ namespace EwiPraca.Controllers
     {
         private readonly ISickLeaveService _sickLeaveService;
         private readonly IEmployeeService _employeeService;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public SickLeaveController(ISickLeaveService sickLeaveService,
             IEmployeeService employeeService)
@@ -69,7 +69,8 @@ namespace EwiPraca.Controllers
                 }
                 catch (Exception e)
                 {
-                    result = new { Success = "false", Message = e.Message };
+                    logger.Error(e, e.Message);
+                    result = new { Success = "false", Message = WebResources.ErrorMessage };
                 }
 
                 return Json(result, JsonRequestBehavior.AllowGet);
@@ -100,7 +101,8 @@ namespace EwiPraca.Controllers
             }
             catch (Exception e)
             {
-                result = new { Success = "false", Message = e.Message };
+                logger.Error(e, e.Message);
+                result = new { Success = "false", Message = WebResources.ErrorMessage };
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }

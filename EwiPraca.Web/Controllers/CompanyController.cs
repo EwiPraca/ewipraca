@@ -3,6 +3,7 @@ using EwiPraca.App_Start.Identity;
 using EwiPraca.Models;
 using EwiPraca.Services.Services;
 using Microsoft.AspNet.Identity;
+using NLog;
 using System;
 using System.Web.Mvc;
 
@@ -14,6 +15,7 @@ namespace EwiPraca.Controllers
         private readonly UserCompanyService _userCompanyService;
         private readonly AddressService _addressService;
         private readonly ApplicationUserManager _applicationUserManager;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public CompanyController(ApplicationUserManager applicationUserManager,
             UserCompanyService userCompanyService,
@@ -79,7 +81,8 @@ namespace EwiPraca.Controllers
                 }
                 catch (Exception e)
                 {
-                    ModelState.AddModelError("NotFound", e.Message);
+                    ModelState.AddModelError("", WebResources.ErrorMessage);
+                    logger.Error(e, e.Message);
                 }
             }
 

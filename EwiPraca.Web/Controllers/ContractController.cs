@@ -2,6 +2,7 @@
 using EwiPraca.Model;
 using EwiPraca.Models;
 using EwiPraca.Services.Interfaces;
+using NLog;
 using System;
 using System.Linq;
 using System.Web.Mvc;
@@ -14,6 +15,7 @@ namespace EwiPraca.Controllers
         private readonly IContractService _contractService;
         private readonly IEmployeeService _employeeService;
         private readonly IJobPartDictionaryService _jobPartDictionaryService;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public ContractController(IContractService contractService,
             IJobPartDictionaryService jobPartDictionaryService,
@@ -49,30 +51,39 @@ namespace EwiPraca.Controllers
 
             if (ModelState.IsValid)
             {
-                if (model.DateTo.HasValue && model.DateFrom >= model.DateTo.Value)
+                try
                 {
-                    result = new { Success = "false", Message = "Data zakończenia umowy musi być późniejsza niż data rozpoczęcia." };
+                    if (model.DateTo.HasValue && model.DateFrom >= model.DateTo.Value)
+                    {
+                        result = new { Success = "false", Message = "Data zakończenia umowy musi być późniejsza niż data rozpoczęcia." };
+
+                        return Json(result, JsonRequestBehavior.AllowGet);
+                    }
+
+                    var employee = _employeeService.GetById(model.EmployeeId);
+                    var lastContract = employee.Contracts?.Where(x => !x.IsDeleted).OrderByDescending(x => x.Id).FirstOrDefault();
+
+                    if ((lastContract != null && !lastContract.DateTo.HasValue) || (lastContract != null && lastContract.DateTo.Value > model.DateFrom))
+                    {
+                        result = new { Success = "false", Message = "Data rozpoczęcia nowej umowy musi być późniejsza niż data zakończenia poprzedniej." };
+
+                        return Json(result, JsonRequestBehavior.AllowGet);
+                    }
+
+                    var contract = Mapper.Map<Contract>(model);
+
+                    contract.UpdatedDate = DateTime.Now;
+
+                    _contractService.Update(contract);
 
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
-
-                var employee = _employeeService.GetById(model.EmployeeId);
-                var lastContract = employee.Contracts?.Where(x => !x.IsDeleted).OrderByDescending(x => x.Id).FirstOrDefault();
-
-                if ((lastContract != null && !lastContract.DateTo.HasValue) || (lastContract != null && lastContract.DateTo.Value > model.DateFrom))
+                catch(Exception e)
                 {
-                    result = new { Success = "false", Message = "Data rozpoczęcia nowej umowy musi być późniejsza niż data zakończenia poprzedniej." };
-
+                    logger.Error(e, e.Message);
+                    result = new { Success = "false", Message = WebResources.ErrorMessage };
                     return Json(result, JsonRequestBehavior.AllowGet);
-                }
-
-                var contract = Mapper.Map<Contract>(model);
-
-                contract.UpdatedDate = DateTime.Now;
-
-                _contractService.Update(contract);
-
-                return Json(result, JsonRequestBehavior.AllowGet);
+                }               
             }
             else
             {
@@ -129,7 +140,8 @@ namespace EwiPraca.Controllers
                 }
                 catch(Exception e)
                 {
-                    result = new { Success = "false", Message = e.Message };
+                    logger.Error(e, e.Message);
+                    result = new { Success = "false", Message = WebResources.ErrorMessage };
                 }               
 
                 return Json(result, JsonRequestBehavior.AllowGet);
@@ -160,7 +172,8 @@ namespace EwiPraca.Controllers
             }
             catch (Exception e)
             {
-                result = new { Success = "false", Message = e.Message };
+                logger.Error(e, e.Message);
+                result = new { Success = "false", Message = WebResources.ErrorMessage };
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }

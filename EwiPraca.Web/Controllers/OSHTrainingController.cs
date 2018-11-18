@@ -2,6 +2,7 @@
 using EwiPraca.Model;
 using EwiPraca.Models;
 using EwiPraca.Services.Interfaces;
+using NLog;
 using System;
 using System.Linq;
 using System.Web.Mvc;
@@ -12,6 +13,7 @@ namespace EwiPraca.Controllers
     {
         private readonly IOSHTrainingService _oshTrainingService;
         private readonly IEmployeeService _employeeService;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public OSHTrainingController(IOSHTrainingService oshTrainingService,
             IEmployeeService employeeService)
@@ -55,11 +57,19 @@ namespace EwiPraca.Controllers
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
 
-                var oshTraining = Mapper.Map<OSHTraining>(model);
+                try
+                {
+                    var oshTraining = Mapper.Map<OSHTraining>(model);
 
-                oshTraining.UpdatedDate = DateTime.Now;
+                    oshTraining.UpdatedDate = DateTime.Now;
 
-                _oshTrainingService.Update(oshTraining);
+                    _oshTrainingService.Update(oshTraining);
+                }
+                catch (Exception e)
+                {
+                    logger.Error(e, e.Message);
+                    result = new { Success = "false", Message = WebResources.ErrorMessage };
+                }
 
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
@@ -87,25 +97,25 @@ namespace EwiPraca.Controllers
 
             if (ModelState.IsValid)
             {
+                if (model.CompletionDate >= model.NextCompletionDate)
+                {
+                    result = new { Success = "false", Message = "Data ważności szkolenia nie może być wcześniejsza niż data odbytego szkolenia." };
+
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+
+                var employee = _employeeService.GetById(model.EmployeeId);
+                var lastCheck = employee.OSHTrainings?.Where(x => !x.IsDeleted).OrderByDescending(x => x.Id).FirstOrDefault();
+
+                if ((lastCheck != null && lastCheck.NextCompletionDate > model.NextCompletionDate))
+                {
+                    result = new { Success = "false", Message = "Data ważności nowego szkolenia musi być późniejsza od daty ważności poprzedniego." };
+
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+
                 try
                 {
-                    if (model.CompletionDate >= model.NextCompletionDate)
-                    {
-                        result = new { Success = "false", Message = "Data ważności szkolenia nie może być wcześniejsza niż data odbytego szkolenia." };
-
-                        return Json(result, JsonRequestBehavior.AllowGet);
-                    }
-
-                    var employee = _employeeService.GetById(model.EmployeeId);
-                    var lastCheck = employee.OSHTrainings?.Where(x => !x.IsDeleted).OrderByDescending(x => x.Id).FirstOrDefault();
-
-                    if ((lastCheck != null && lastCheck.NextCompletionDate > model.NextCompletionDate))
-                    {
-                        result = new { Success = "false", Message = "Data ważności nowego szkolenia musi być późniejsza od daty ważności poprzedniego." };
-
-                        return Json(result, JsonRequestBehavior.AllowGet);
-                    }
-
                     var oshTraining = Mapper.Map<OSHTraining>(model);
 
                     oshTraining.CreatedDate = DateTime.Now;
@@ -115,7 +125,8 @@ namespace EwiPraca.Controllers
                 }
                 catch (Exception e)
                 {
-                    result = new { Success = "false", Message = e.Message };
+                    logger.Error(e, e.Message);
+                    result = new { Success = "false", Message = WebResources.ErrorMessage };
                 }
 
                 return Json(result, JsonRequestBehavior.AllowGet);
@@ -146,7 +157,8 @@ namespace EwiPraca.Controllers
             }
             catch (Exception e)
             {
-                result = new { Success = "false", Message = e.Message };
+                logger.Error(e, e.Message);
+                result = new { Success = "false", Message = WebResources.ErrorMessage };
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }

@@ -9,6 +9,7 @@ using EwiPraca.Services.Interfaces;
 using EwiPraca.Services.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Logging;
 using Microsoft.Owin.Security;
 using System.Web;
 using System.Web.Mvc;

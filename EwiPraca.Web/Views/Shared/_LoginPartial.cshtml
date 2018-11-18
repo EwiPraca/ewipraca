@@ -1,15 +1,34 @@
 ﻿@using EwiPraca.Encryptor
 @using Microsoft.AspNet.Identity
+@using EwiPraca.App_Start.Identity
+@using Microsoft.AspNet.Identity.Owin;
 @model string
-
 @if (Request.IsAuthenticated)
 {
+    var user = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
 
-        <li class="@Model">@Html.ActionLink("Mój profil", "MyProfile", "Manage", routeValues: null, htmlAttributes: new { title = "Mój profil" })</li>
-
+        <li class="@Model">
+               @Html.ActionLink("Mój profil", "MyProfile", "Manage", routeValues: null, htmlAttributes: new { title = "Mój profil" })
+            <ul>
+                <li>
+                    <a href="#">Moje firmy</a>
+                    @if(user.UserCompanies != null)
+                    {
+                        <ul>
+                            @foreach (var company in user.UserCompanies)
+                            {
+                                <li>
+                                    @Html.ActionLink(company.CompanyName, "DisplayCompany", "Company", routeValues: new { id = company.Id }, htmlAttributes: new { title = company.CompanyName })
+                                </li>
+                            }
+                        </ul>
+                    }
+                </li>
+            </ul>
+        </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a></li>
     }
 }

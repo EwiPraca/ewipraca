@@ -1,4 +1,5 @@
-﻿@model EwiPraca.Models.CompanyEmployeesViewModel
+﻿@using System.ComponentModel.DataAnnotations
+@model EwiPraca.Models.CompanyEmployeesViewModel
 @{
     ViewBag.Title = Model.CompanyName + " - Pracownicy";
 }
@@ -42,6 +43,8 @@
                             <th>Imię</th>
                             <th>Nazwisko</th>
                             <th>PESEL</th>
+                            <th>Płeć</th>
+                            <th>Stanowisko</th>
                             <th>Akcje</th>
                         </tr>
                     </thead>
@@ -55,6 +58,14 @@
                                     <td>@employee.FirstName</td>
                                     <td>@employee.Surname</td>
                                     <td>@employee.PESEL</td>
+                                    @{ 
+                                        var sex = employee.Sex.GetAttribute<DisplayAttribute>().Name;
+                                    }
+                                    <td>@sex</td>
+                                    @{
+                                        var position = employee.Position?.Name ?? "Brak";
+                                    }
+                                    <td>@position</td>
                                     <td class="action-column"></td>
                                 </tr>
                             }
@@ -232,8 +243,14 @@
              {
                  "targets": [3]
              },
+             {
+                 "targets": [4]
+             },
+             {
+                 "targets": [5]
+             },
               {
-                  "targets": [4],
+                  "targets": [6],
                   mRender: function (data, type, row) {
 
                       return '<a class="button grid-button move-employee-button" data-id="' + row[0] + '">Przenieś</a><a class="button grid-button edit-button" data-id="' + row[0] + '">Edytuj</a><a class="button grid-button delete-button" data-id="' + row[0] + '">Usuń</a>'

@@ -45,7 +45,7 @@ namespace EwiPraca.Models
         public int? PositionDictionaryValueId { get; set; }
 
         [DisplayName("Stanowisko")]
-        public PositionDictionaryValue PositionDictionaryValue { get; set; }
+        public PositionDictionaryValue Position { get; set; }
 
         public List<PositionDictionaryValue> Positions { get; set; }
 

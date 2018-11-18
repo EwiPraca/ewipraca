@@ -61,6 +61,15 @@ namespace EwiPraca {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wystąpił błąd, spróbuj ponownie lub skontaktuj się z Administratorem aplikacji..
+        /// </summary>
+        internal static string ErrorMessage {
+            get {
+                return ResourceManager.GetString("ErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] EwiPracaImportPracownikowSzablon {

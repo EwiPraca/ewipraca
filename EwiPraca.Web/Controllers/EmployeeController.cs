@@ -6,6 +6,7 @@ using EwiPraca.Model;
 using EwiPraca.Models;
 using EwiPraca.Services.Interfaces;
 using Microsoft.AspNet.Identity;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,6 +25,7 @@ namespace EwiPraca.Controllers
         private readonly IImportEmployeeProcessor _employeeProcessor;
         private readonly IPositionDictionaryService _positionDictionaryService;
         private readonly IJobPartDictionaryService _jobPartDictionaryService;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public EmployeeController(IEmployeeService employeeService,
             IUserCompanyService userCompanyService,
@@ -113,7 +115,8 @@ namespace EwiPraca.Controllers
                 }
                 catch(Exception e)
                 {
-                    result = new { Success = "false", Message = e.Message };
+                    logger.Error(e, e.Message);
+                    result = new { Success = "false", Message = WebResources.ErrorMessage };
                 }
 
                 return Json(result, JsonRequestBehavior.AllowGet);
@@ -146,14 +149,23 @@ namespace EwiPraca.Controllers
 
             if (ModelState.IsValid)
             {
-                var employee = Mapper.Map<Employee>(model);
+                try
+                {
+                    var employee = Mapper.Map<Employee>(model);
 
-                employee.CreatedDate = DateTime.Now;
-                employee.UpdatedDate = employee.CreatedDate;
+                    employee.CreatedDate = DateTime.Now;
+                    employee.UpdatedDate = employee.CreatedDate;
 
-                _employeeService.Create(employee);
+                    _employeeService.Create(employee);
 
-                return Json(result, JsonRequestBehavior.AllowGet);
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+                catch(Exception e)
+                {
+                    logger.Error(e, e.Message);
+                    result = new { Success = "false", Message = WebResources.ErrorMessage };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
             }
             else
             {
@@ -185,7 +197,8 @@ namespace EwiPraca.Controllers
                 }
                 catch (Exception e)
                 {
-                    result = new { Success = "false", Message = e.Message };
+                    logger.Error(e, e.Message);
+                    result = new { Success = "false", Message = WebResources.ErrorMessage };
                 }
             }
             else
@@ -271,7 +284,8 @@ namespace EwiPraca.Controllers
                 }
                 catch (Exception e)
                 {
-                    result = new { Success = "false", Message = e.Message };
+                    logger.Error(e, e.Message);
+                    result = new { Success = "false", Message = WebResources.ErrorMessage };
                 }
             }
             else
@@ -318,7 +332,8 @@ namespace EwiPraca.Controllers
                 }
                 catch (Exception e)
                 {
-                    result = new { Success = "false", Message = e.Message };
+                    logger.Error(e, e.Message);
+                    result = new { Success = "false", Message = WebResources.ErrorMessage };
                 }
             }
             else
@@ -393,7 +408,8 @@ namespace EwiPraca.Controllers
                 }
                 catch (Exception e)
                 {
-                    result = new { Success = "false", Message = e.Message };
+                    logger.Error(e, e.Message);
+                    result = new { Success = "false", Message = WebResources.ErrorMessage };
                 }
             }
             else
@@ -440,7 +456,8 @@ namespace EwiPraca.Controllers
                 }
                 catch (Exception e)
                 {
-                    result = new { Success = "false", Message = e.Message };
+                    logger.Error(e, e.Message);
+                    result = new { Success = "false", Message = WebResources.ErrorMessage };
                 }
             }
             else
@@ -508,6 +525,7 @@ namespace EwiPraca.Controllers
 
                 var newFileName = Guid.NewGuid().ToString();
                 var newfullFileName = Path.Combine(folder, newFileName + extension);
+
                 try
                 {
                     model.SpreadsheetFile.SaveAs(newfullFileName);
@@ -522,7 +540,9 @@ namespace EwiPraca.Controllers
                 }
                 catch (Exception e)
                 {
-                    return Json(new { Success = "false", Message = e.Message }, JsonRequestBehavior.AllowGet);
+                    logger.Error(e, e.Message);
+                    result = new { Success = "false", Message = WebResources.ErrorMessage };
+                    return Json(result, JsonRequestBehavior.AllowGet);
                 }
             }
             else
@@ -549,7 +569,8 @@ namespace EwiPraca.Controllers
             }
             catch (Exception e)
             {
-                result = new { Success = "false", Message = e.Message };
+                logger.Error(e, e.Message);
+                result = new { Success = "false", Message = WebResources.ErrorMessage };
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -574,7 +595,8 @@ namespace EwiPraca.Controllers
             }
             catch (Exception e)
             {
-                result = new { Success = "false", Message = e.Message };
+                logger.Error(e, e.Message);
+                result = new { Success = "false", Message = WebResources.ErrorMessage };
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }

@@ -6,6 +6,7 @@ using EwiPraca.Models;
 using EwiPraca.Services.Interfaces;
 using EwiPraca.Services.Services;
 using Microsoft.AspNet.Identity;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace EwiPraca.Controllers
         private readonly ApplicationUserManager _applicationUserManager;
         private readonly AddressService _addressService;
         private readonly IUserCompanyService _userCompanyService;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public ManageController(ApplicationUserManager applicationUserManager,
             IUserCompanyService userCompanyService,
@@ -65,14 +67,22 @@ namespace EwiPraca.Controllers
 
             if (ModelState.IsValid)
             {
-                var user = _applicationUserManager.Users.FirstOrDefault(x => x.Id == model.Id);
+                try
+                {
+                    var user = _applicationUserManager.Users.FirstOrDefault(x => x.Id == model.Id);
 
-                user.FirstName = EncryptionService.Encrypt(model.FirstName);
-                user.Surname = EncryptionService.Encrypt(model.Surname);
-                user.Email = EncryptionService.EncryptEmail(model.Email);
-                user.UserName = user.Email;
+                    user.FirstName = EncryptionService.Encrypt(model.FirstName);
+                    user.Surname = EncryptionService.Encrypt(model.Surname);
+                    user.Email = EncryptionService.EncryptEmail(model.Email);
+                    user.UserName = user.Email;
 
-                _applicationUserManager.Update(user);
+                    _applicationUserManager.Update(user);
+                }
+                catch(Exception e)
+                {
+                    logger.Error(e, e.Message);
+                    result = new { Success = "false", Message = WebResources.ErrorMessage };
+                }
 
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
@@ -103,13 +113,21 @@ namespace EwiPraca.Controllers
             {
                 var newCompany = Mapper.Map<UserCompany>(model);
 
-                newCompany.CreatedDate = DateTime.Now;
-                newCompany.UpdatedDate = newCompany.CreatedDate;
+                try
+                {
+                    newCompany.CreatedDate = DateTime.Now;
+                    newCompany.UpdatedDate = newCompany.CreatedDate;
 
-                newCompany.Address.AddressType = _addressService.GetAddressTypeByName(Enumerations.AddressType.Zameldowania.ToString());
-                newCompany.ApplicationUserID = User.Identity.GetUserId();
+                    newCompany.Address.AddressType = _addressService.GetAddressTypeByName(Enumerations.AddressType.Zameldowania.ToString());
+                    newCompany.ApplicationUserID = User.Identity.GetUserId();
 
-                _userCompanyService.Create(newCompany);
+                    _userCompanyService.Create(newCompany);
+                }
+                catch(Exception e)
+                {
+                    logger.Error(e, e.Message);
+                    result = new { Success = "false", Message = WebResources.ErrorMessage };
+                }
 
                 return Json(result, JsonRequestBehavior.AllowGet);
             }

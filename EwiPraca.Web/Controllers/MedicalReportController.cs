@@ -2,6 +2,7 @@
 using EwiPraca.Model;
 using EwiPraca.Models;
 using EwiPraca.Services.Interfaces;
+using NLog;
 using System;
 using System.Linq;
 using System.Web.Mvc;
@@ -13,6 +14,7 @@ namespace EwiPraca.Controllers
     {
         private readonly IMedicalReportService _medicalReportService;
         private readonly IEmployeeService _employeeService;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public MedicalReportController(IMedicalReportService medicalReportService,
             IEmployeeService employeeService)
@@ -56,11 +58,19 @@ namespace EwiPraca.Controllers
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
 
-                var mReport = Mapper.Map<MedicalReport>(model);
+                try
+                {
+                    var mReport = Mapper.Map<MedicalReport>(model);
 
-                mReport.UpdatedDate = DateTime.Now;
+                    mReport.UpdatedDate = DateTime.Now;
 
-                _medicalReportService.Update(mReport);
+                    _medicalReportService.Update(mReport);
+                }
+                catch (Exception e)
+                {
+                    logger.Error(e, e.Message);
+                    result = new { Success = "false", Message = WebResources.ErrorMessage };
+                }
 
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
@@ -116,7 +126,8 @@ namespace EwiPraca.Controllers
                 }
                 catch (Exception e)
                 {
-                    result = new { Success = "false", Message = e.Message };
+                    logger.Error(e, e.Message);
+                    result = new { Success = "false", Message = WebResources.ErrorMessage };
                 }
 
                 return Json(result, JsonRequestBehavior.AllowGet);
@@ -147,7 +158,8 @@ namespace EwiPraca.Controllers
             }
             catch (Exception e)
             {
-                result = new { Success = "false", Message = e.Message };
+                logger.Error(e, e.Message);
+                result = new { Success = "false", Message = WebResources.ErrorMessage };
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
