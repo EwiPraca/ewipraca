@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Ewipraca.ImportProcessors;
+using EwiPraca.App_Start.Identity;
 using EwiPraca.Enumerations;
 using EwiPraca.Importers;
 using EwiPraca.Model;
@@ -25,6 +26,7 @@ namespace EwiPraca.Controllers
         private readonly IImportEmployeeProcessor _employeeProcessor;
         private readonly IPositionDictionaryService _positionDictionaryService;
         private readonly IJobPartDictionaryService _jobPartDictionaryService;
+        private readonly ApplicationUserManager _userManager;
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public EmployeeController(IEmployeeService employeeService,
@@ -32,7 +34,8 @@ namespace EwiPraca.Controllers
             IAddressService addressService,
             IEwiImporter companyEmployeeImporter,
             IImportEmployeeProcessor employeeProcessor,
-            IPositionDictionaryService positionDictionaryService,
+            IPositionDictionaryService positionDictionaryService, 
+            ApplicationUserManager userManager,
             IJobPartDictionaryService jobPartDictionaryService)
         {
             _employeeService = employeeService;
@@ -42,6 +45,7 @@ namespace EwiPraca.Controllers
             _employeeProcessor = employeeProcessor;
             _positionDictionaryService = positionDictionaryService;
             _jobPartDictionaryService = jobPartDictionaryService;
+            _userManager = userManager;
         }
 
         public ActionResult Index(int id, EmployeeListTypes viewType)
@@ -504,6 +508,44 @@ namespace EwiPraca.Controllers
         public ActionResult ImportEmployeesFromExcelView(int companyId)
         {
             return PartialView("_ImportEmployeesFromExcelModal", new ImportEmployeesFromExcelViewModel() { CompanyId = companyId });
+        }
+
+
+        [HttpGet]
+        public ActionResult ExportToExcelConfirmationView(int companyId)
+        {
+            return PartialView("_ExportToExcelConfirmationModal", new ExportEmployeesConfirmationViewModel() { CompanyId = companyId });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ExportEmployeesToExcel(ExportEmployeesConfirmationViewModel model)
+        {
+            var result = new { Success = "true", Message = "Success" };
+
+            if (ModelState.IsValid)
+            {
+                var userId = User.Identity.GetUserId();
+
+                var userName = _userManager.Users.FirstOrDefault(x => x.Id == userId).UserName;
+
+                var loggedinUser = _userManager.Find(userName, model.Password);
+
+                if (loggedinUser != null)
+                {
+                    
+                }
+                else
+                {
+                    return Json(new { Success = "false", Message = "Hasło jest nieprawidłowe." }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(new { Success = "false", Message = ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault().ErrorMessage }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

@@ -16,14 +16,17 @@
     <h1 class="page-title align-center">@ViewBag.Title</h1>
 </header>
 
+@Html.Partial("_TopBarCompanyNavigation", Model.CompanyId)
+
 <h2 class="slogan align-center">
     Dane pracowników
 </h2>
 
 <p class="align-center">
-   
+
     <a href="#" id="download-import-from-excel-template" class="button"><span class="glyphicon"></span>Pobierz szablon excel do importu</a>
     <a href="#" id="import-from-excel" class="button"><span class="glyphicon"></span>Importuj z pliku excel</a>
+    <a href="#" id="export-to-excel" class="button"><span class="glyphicon"></span>Eksportuj do  pliku excel</a>
     <a href="#" id="open-add-position-dictionary-modal" class="button"><span class="glyphicon"></span>Zarządzaj słownikiem stanowisk pracowników</a>
     <a href="#" id="open-add-job-part-dictionary-modal" class="button"><span class="glyphicon"></span>Zarządzaj słownikiem etatów</a>
     <a href="#" id="open-add-employee-modal" class="button"><span class="glyphicon glyphicon-plus"></span>Dodaj pracownika</a>
@@ -58,7 +61,7 @@
                                     <td>@employee.FirstName</td>
                                     <td>@employee.Surname</td>
                                     <td>@employee.PESEL</td>
-                                    @{ 
+                                    @{
                                         var sex = employee.Sex.GetAttribute<DisplayAttribute>().Name;
                                     }
                                     <td>@sex</td>
@@ -68,8 +71,8 @@
                                     <td>@position</td>
                                     <td class="action-column"></td>
                                 </tr>
-                            }
-                        }                       
+                                            }
+                                        }
                     </tbody>
                 </table>
             </div>
@@ -100,6 +103,14 @@
     <div class="modal-dialog popup-modal">
         <div class="modal-content">
             <div id='import-from-excel-modal-content'></div>
+        </div>
+    </div>
+</div>
+
+<div id='export-to-excel-modal' class='modal fade'>
+    <div class="modal-dialog popup-modal">
+        <div class="modal-content">
+            <div id='export-to-excel-modal-content'></div>
         </div>
     </div>
 </div>
@@ -292,6 +303,28 @@
             });
         });
 
+        $('#export-to-excel').click(function () {
+            var data = { companyId: '@Model.CompanyId' };
+            showLoader();
+            $.ajax({
+                type: "GET",
+                data: data,
+                url: "@Url.Action("ExportToExcelConfirmationView", "Employee")",
+                contentType: "application/json",
+                datatype: "json",
+                success: function (data) {
+                    $('#export-to-excel-modal-content').html(data);
+                    $('#export-to-excel-modal').modal('show');
+                    hideLoader();
+
+                },
+                error: function () {
+                    hideLoader();
+                    alert("Eksport nie powiódł się.");
+                }
+            });
+        });
+
         $('.delete-button').click(function (e) {
             var id = $(this).attr('data-id');
             var data = { id: id };
@@ -357,19 +390,27 @@
                 type: "GET",
                 url: "@Url.Action("MoveEmployeeView", "Employee")",
                 contentType: "application/json",
-            data: data,
-            datatype: "json",
-            success: function (data) {
-                $('#move-employee-modal-content').html(data);
-                $('#move-employee-modal').modal(options);
-                $('#move-employee-modal').modal('show');
-                hideLoader();
-            },
-            error: function () {
-                hideLoader();
-                alert("Dynamic content load failed.");
-            }
+                data: data,
+                datatype: "json",
+                success: function (data) {
+                    $('#move-employee-modal-content').html(data);
+                    $('#move-employee-modal').modal(options);
+                    $('#move-employee-modal').modal('show');
+                    hideLoader();
+                },
+                error: function () {
+                    hideLoader();
+                    alert("Dynamic content load failed.");
+                }
+            });
         });
     });
-    });
+
+    function onEmployeeExportSuccess(e)
+    {
+        if (e.Success == "false")
+        {
+            showErrorMessage(e.Message);
+        }
+    }
 </script>

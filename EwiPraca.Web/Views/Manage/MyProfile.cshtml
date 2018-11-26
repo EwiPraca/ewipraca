@@ -16,6 +16,25 @@
     Tutaj możesz edytować swoje dane.
 </h2>
 <span class="acc-trigger">
+    <a href="#">Moje firmy</a>
+</span>
+
+<div class="acc-container">
+    <div class="content">
+        <ul class="categories">
+            @if (Model != null && Model.UserCompanies != null)
+            {
+                foreach (var company in Model.UserCompanies)
+                {
+                    <li><a href="@Url.Action("DisplayCompany", "Company", new { id = company.Id })">@Html.Raw(company.CompanyName)</a></li>
+                }
+            }
+        </ul>
+        <a href="#" id="open-add-company-modal" class="button"><span class="glyphicon glyphicon-plus"></span> Dodaj</a>
+    </div>
+</div>
+
+<span class="acc-trigger">
     <a href="#">Moje dane</a>
 </span>
 
@@ -48,24 +67,6 @@
     </div>
 </div>
 
-<span class="acc-trigger">
-    <a href="#">Moje firmy</a>
-</span>
-
-<div class="acc-container">
-    <div class="content">
-        <ul class="categories">
-            @if (Model != null && Model.UserCompanies != null)
-            {
-                foreach (var company in Model.UserCompanies)
-                {
-                    <li><a href="@Url.Action("DisplayCompany", "Company", new { id = company.Id })">@Html.Raw(company.CompanyName)</a></li>
-                }
-            }
-        </ul>
-        <a href="#" id="open-add-company-modal" class="button"><span class="glyphicon glyphicon-plus"></span> Dodaj</a>
-    </div>
-</div>
 
 <span class="acc-trigger">
     <a href="#">Subskrypcja</a>
