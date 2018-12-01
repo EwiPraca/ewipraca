@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AddressType.cs" />
     <Compile Include="ContractType.cs" />
+    <Compile Include="EmailType.cs" />
     <Compile Include="EmployeeListTypes.cs" />
     <Compile Include="EnumExtensions.cs" />
     <Compile Include="MedicalResultType.cs" />

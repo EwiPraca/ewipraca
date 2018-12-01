@@ -2,6 +2,7 @@
 using Ewipraca.ImportProcessors;
 using EwiPraca.App_Start.Identity;
 using EwiPraca.Enumerations;
+using EwiPraca.Exporters;
 using EwiPraca.Importers;
 using EwiPraca.Model;
 using EwiPraca.Models;
@@ -23,6 +24,7 @@ namespace EwiPraca.Controllers
         private readonly IUserCompanyService _userCompanyService;
         private readonly IAddressService _addressService;
         private readonly IEwiImporter _companyEmployeeImporter;
+        private readonly IEwiExporter _companyEmployeeExporter;
         private readonly IImportEmployeeProcessor _employeeProcessor;
         private readonly IPositionDictionaryService _positionDictionaryService;
         private readonly IJobPartDictionaryService _jobPartDictionaryService;
@@ -33,8 +35,9 @@ namespace EwiPraca.Controllers
             IUserCompanyService userCompanyService,
             IAddressService addressService,
             IEwiImporter companyEmployeeImporter,
+            IEwiExporter companyEmployeeExporter,
             IImportEmployeeProcessor employeeProcessor,
-            IPositionDictionaryService positionDictionaryService, 
+            IPositionDictionaryService positionDictionaryService,
             ApplicationUserManager userManager,
             IJobPartDictionaryService jobPartDictionaryService)
         {
@@ -42,6 +45,7 @@ namespace EwiPraca.Controllers
             _userCompanyService = userCompanyService;
             _addressService = addressService;
             _companyEmployeeImporter = companyEmployeeImporter;
+            _companyEmployeeExporter = companyEmployeeExporter;
             _employeeProcessor = employeeProcessor;
             _positionDictionaryService = positionDictionaryService;
             _jobPartDictionaryService = jobPartDictionaryService;
@@ -90,7 +94,7 @@ namespace EwiPraca.Controllers
 
             return View(viewName, model);
         }
-        
+
 
         [HttpGet]
         public ActionResult MoveEmployeeView(int employeeId)
@@ -117,7 +121,7 @@ namespace EwiPraca.Controllers
                     employee.UserCompanyId = model.TargetCompanyId;
                     _employeeService.Update(employee);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     logger.Error(e, e.Message);
                     result = new { Success = "false", Message = WebResources.ErrorMessage };
@@ -164,7 +168,7 @@ namespace EwiPraca.Controllers
 
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     logger.Error(e, e.Message);
                     result = new { Success = "false", Message = WebResources.ErrorMessage };
@@ -521,7 +525,7 @@ namespace EwiPraca.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExportEmployeesToExcel(ExportEmployeesConfirmationViewModel model)
         {
-            var result = new { Success = "true", Message = "Success" };
+            var result = new { Success = "true", Message = "Success", FileGuid = string.Empty, FileName = string.Empty };
 
             if (ModelState.IsValid)
             {
@@ -533,7 +537,24 @@ namespace EwiPraca.Controllers
 
                 if (loggedinUser != null)
                 {
-                    
+                    try
+                    {
+                        var employees = _employeeService.GetByCompanyId(model.CompanyId);
+
+                        string handle = Guid.NewGuid().ToString();
+
+                        var ms = _companyEmployeeExporter.ExportEmployees(employees, handle);
+                        
+                        TempData[handle] = ms.ToArray();
+
+                        result = new { Success = "true", Message = "Success", FileGuid = handle, FileName = "EwiPracaExportPracownikow.xlsx" };
+                    }
+                    catch (Exception e)
+                    {
+                        logger.Error(e, e.Message);
+                        result = new { Success = "false", Message = WebResources.ErrorMessage, FileGuid = string.Empty, FileName = string.Empty };
+                    }
+
                 }
                 else
                 {
@@ -546,6 +567,20 @@ namespace EwiPraca.Controllers
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public virtual ActionResult DownloadEmployeeExportFile(string fileGuid, string fileName)
+        {
+            if (TempData[fileGuid] != null)
+            {
+                byte[] data = TempData[fileGuid] as byte[];
+                return File(data, "application/vnd.ms-excel", fileName);
+            }
+            else
+            {
+                return new EmptyResult();
+            }
         }
 
         [HttpPost]
@@ -571,6 +606,7 @@ namespace EwiPraca.Controllers
                 try
                 {
                     model.SpreadsheetFile.SaveAs(newfullFileName);
+
                     var results = _companyEmployeeImporter.Import(newfullFileName, model.CompanyId);
 
                     if (results.Count > 0)

@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "Błąd";
+}
+
+@section navigation{
+    @Html.Partial("_Menu", new MenuViewModel() { MyProfileSelected = true })
+}
+
+<h5>Wystąpił błąd. Spróbuj ponownie lub skontaktuj się z Administratorem systemu.</h5>
+

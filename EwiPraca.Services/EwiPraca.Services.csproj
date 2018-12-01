@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq" />
@@ -43,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Interfaces\IAddressService.cs" />
     <Compile Include="Interfaces\IContractService.cs" />
+    <Compile Include="Interfaces\IEmailMessageService.cs" />
     <Compile Include="Interfaces\IEmployeeService.cs" />
     <Compile Include="Interfaces\IMedicalReportService.cs" />
     <Compile Include="Interfaces\IOSHTrainingService.cs" />
@@ -51,9 +53,11 @@
     <Compile Include="Interfaces\IService.cs" />
     <Compile Include="Interfaces\ISickLeaveService.cs" />
     <Compile Include="Interfaces\IUserCompanyService.cs" />
+    <Compile Include="Interfaces\SendResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AddressService.cs" />
     <Compile Include="Services\ContractService.cs" />
+    <Compile Include="Services\EmailMessageService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\MedicalReportService.cs" />
     <Compile Include="Services\OSHTrainingService.cs" />
@@ -72,7 +76,9 @@
       <Name>EwiPraca.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

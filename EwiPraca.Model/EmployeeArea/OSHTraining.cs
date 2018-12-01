@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EwiPraca.Model
 {
-    public class OSHTraining : BaseModel
+    public class OSHTraining : BaseModel//, IReminder
     {
         [Key]
         public int Id { get; set; }
@@ -16,5 +16,6 @@ namespace EwiPraca.Model
         public DateTime? NextCompletionDate { get; set; }
 
         public string Notes { get; set; }
+        public bool ReminderSent { get; set; }
     }
 }

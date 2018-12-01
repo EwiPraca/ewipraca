@@ -9,6 +9,12 @@
 
 @section scripts{
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" media="screen" />
+    <script src="~/Scripts/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/jszip.min.js"></script>
+    <script src="~/Scripts/pdfmake.min.js"></script>
+    <script src="~/Scripts/vfs_fonts.js"></script>
+    <script src="~/Scripts/buttons.html5.min.js"></script>
+    <script src="~/Scripts/buttons.colVis.min.js"></script>
 }
 
 
@@ -74,7 +80,7 @@
 </div>
 
 <script>
-    $('#employees-data-table').DataTable({
+    var dt = $('#employees-data-table').DataTable({
         responsive: true,
         "columnDefs": [
         {
@@ -105,6 +111,36 @@
                 "sPrevious": "Poprzednia"
             },
             "sLengthMenu": "Pokaż na stronę: _MENU_",
-        }
+        },
+        buttons: [
+        {
+            extend: 'excelHtml5',
+            text: 'Eksportuj do pliku Excel',
+            exportOptions: {
+                columns: ':visible',
+                text: 'Eksportuj do pliku excel'
+            }
+        },
+        {
+            extend: 'pdfHtml5',
+            text: 'Eksportuj do PDF',
+            orientation: 'landscape',
+            pageSize: 'A4',
+            exportOptions: {
+                columns: ':visible'
+            },
+            customize: function (doc) {
+                doc.content[1].table.widths =
+                    Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+            }
+        },
+        {
+            extend: 'colvis',
+            text: 'Wybór kolumn'
+        },
+        ]
     });
+
+    dt.buttons().container()
+        .insertBefore('#employees-data-table_wrapper');
 </script>

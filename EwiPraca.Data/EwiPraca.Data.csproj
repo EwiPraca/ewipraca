@@ -96,6 +96,10 @@
     <Compile Include="Migrations\201811092209026_EmployeeSex.Designer.cs">
       <DependentUpon>201811092209026_EmployeeSex.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811301031240_EmailsPart1.cs" />
+    <Compile Include="Migrations\201811301031240_EmailsPart1.Designer.cs">
+      <DependentUpon>201811301031240_EmailsPart1.cs</DependentUpon>
+    </Compile>
     <Compile Include="RepositoryTransaction.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="EwiPracaDbContext.cs" />
@@ -151,6 +155,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811092209026_EmployeeSex.resx">
       <DependentUpon>201811092209026_EmployeeSex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811301031240_EmailsPart1.resx">
+      <DependentUpon>201811301031240_EmailsPart1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

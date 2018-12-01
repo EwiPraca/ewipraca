@@ -4984,4 +4984,7 @@ input[type=button] {
         margin-left: 0px !important;
     }
     
-        
+     .dt-button-collection   {
+         margin-top: 10px !important;
+         margin-bottom: 10px !important;
+     }

@@ -39,6 +39,13 @@ namespace EwiPraca.Services.Services
             return _medicalReportsRepository.Query(x => x.Id == id).FirstOrDefault();
         }
 
+        public List<MedicalReport> GetMedicalReportsToExpire(int daysBeforeExpiration)
+        {
+            var now = DateTime.Now;
+            return _medicalReportsRepository.Query(x => !x.IsDeleted && !x.ReminderSent && x.NextCompletionDate != null && x.NextCompletionDate.Value.AddDays(-daysBeforeExpiration) > now).ToList();
+
+        }
+
         public void Update(MedicalReport entity)
         {
             _medicalReportsRepository.Update(entity);

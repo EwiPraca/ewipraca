@@ -41,6 +41,12 @@ namespace EwiPraca.Services.Services
             return _oshTrainingRepository.Query(x => x.Id == id).FirstOrDefault();
         }
 
+        public List<OSHTraining> GetOSHTrainingsToExpire(int daysBeforeExpiration)
+        {
+            var now = DateTime.Now;
+            return _oshTrainingRepository.Query(x => !x.IsDeleted && !x.ReminderSent && x.NextCompletionDate != null && x.NextCompletionDate.Value.AddDays(-daysBeforeExpiration) > now).ToList();
+        }
+
         public void Update(OSHTraining entity)
         {
             _oshTrainingRepository.Update(entity);

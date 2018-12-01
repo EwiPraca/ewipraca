@@ -4,6 +4,7 @@ using EwiPraca.Model.UserArea;
 using EwiPraca.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace EwiPraca.Services.Services
 {
@@ -51,6 +52,11 @@ namespace EwiPraca.Services.Services
         public Employee GetByPESEL(string PESEL)
         {
             return _employeeRepository.Query(x => x.PESEL == PESEL).FirstOrDefault();
+        }
+
+        public List<Employee> GetByCompanyId(int companyId)
+        {
+            return _employeeRepository.Query(x => x.UserCompanyId == companyId && !x.IsDeleted).ToList();
         }
     }
 }

@@ -440,8 +440,39 @@
                 "sPrevious": "Poprzednia"
             },
             "sLengthMenu": "Pokaż na stronę: _MENU_",
-        }
+        },
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: 'Eksportuj do pliku Excel',
+                exportOptions: {
+                    columns: ':visible',
+                    text: 'Eksportuj do pliku excel'
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: 'Eksportuj do PDF',
+                title: '@Model.FirstName' +  ' ' + '@Model.Surname' + ' - spis umów',
+                orientation: 'landscape',
+                pageSize: 'A4',
+                exportOptions: {
+                    columns: ':visible'
+                },
+                customize: function (doc) {
+                    doc.content[1].table.widths =
+                        Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                }
+            },
+            {
+                extend: 'colvis',
+                text: 'Wybór kolumn'
+            },
+        ]
     });
+
+    dt.buttons().container()
+        .insertBefore('#contracts-data-table_wrapper');
 
     $('.edit-contract-button').click(function () {
         var id = $(this).attr('data-id');
@@ -551,8 +582,39 @@
                 "sPrevious": "Poprzednia"
             },
             "sLengthMenu": "Pokaż na stronę: _MENU_",
-        }
+        },
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: 'Eksportuj do pliku Excel',
+                exportOptions: {
+                    columns: ':visible',
+                    text: 'Eksportuj do pliku excel'
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: 'Eksportuj do PDF',
+                orientation: 'landscape',
+                title: '@Model.FirstName' +  ' ' + '@Model.Surname' + ' - badania lekarskie',
+                pageSize: 'A4',
+                exportOptions: {
+                    columns: ':visible'
+                },
+                customize: function (doc) {
+                    doc.content[1].table.widths =
+                        Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                }
+            },
+            {
+                extend: 'colvis',
+                text: 'Wybór kolumn'
+            },
+        ]
     });
+
+    dt.buttons().container()
+        .insertBefore('#medical-reports-data-table_wrapper');
 
     $('.edit-medical-report-button').click(function () {
         var id = $(this).attr('data-id');
@@ -660,8 +722,39 @@
                 "sPrevious": "Poprzednia"
             },
             "sLengthMenu": "Pokaż na stronę: _MENU_",
-        }
+        },
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: 'Eksportuj do pliku Excel',
+                exportOptions: {
+                    columns: ':visible',
+                    text: 'Eksportuj do pliku excel'
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: 'Eksportuj do PDF',
+                orientation: 'landscape',
+                title: '@Model.FirstName' +  ' ' + '@Model.Surname' + ' - szkolenia BHP',
+                pageSize: 'A4',
+                exportOptions: {
+                    columns: ':visible'
+                },
+                customize: function (doc) {
+                    doc.content[1].table.widths =
+                        Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                }
+            },
+            {
+                extend: 'colvis',
+                text: 'Wybór kolumn'
+            },
+        ]
     });
+
+    dt.buttons().container()
+        .insertBefore('#osh-trainings-data-table_wrapper');
 
     $('.edit-osh-training-button').click(function () {
         var id = $(this).attr('data-id');
@@ -771,8 +864,39 @@
                 "sPrevious": "Poprzednia"
             },
             "sLengthMenu": "Pokaż na stronę: _MENU_",
-        }
+        },
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: 'Eksportuj do pliku Excel',
+                exportOptions: {
+                    columns: ':visible',
+                    text: 'Eksportuj do pliku excel'
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: 'Eksportuj do PDF',
+                title: '@Model.FirstName' +  ' ' + '@Model.Surname' + ' - zwolnienia lekarskie',
+                orientation: 'landscape',
+                pageSize: 'A4',
+                exportOptions: {
+                    columns: ':visible'
+                },
+                customize: function (doc) {
+                    doc.content[1].table.widths =
+                        Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                }
+            },
+            {
+                extend: 'colvis',
+                text: 'Wybór kolumn'
+            },
+        ]
     });
+
+    dt.buttons().container()
+        .insertBefore('#sick-leaves-data-table_wrapper');
 
     $('.delete-button-sick-leave').click(function (e) {
         var id = $(this).attr('data-id');
@@ -876,7 +1000,7 @@
         //$("#Sex").removeAttr("disabled");
         //$("#Sex option:selected").removeAttr("selected");
         //$("#Sex option[value='"+ sex +"']").attr('selected', 'selected');
-        
+
         //$("#Sex").change();
         //$("#Sex").attr('disabled', 'disabled');
 

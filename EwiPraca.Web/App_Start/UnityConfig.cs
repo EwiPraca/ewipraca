@@ -2,6 +2,7 @@ using Ewipraca.ImportProcessors;
 using EwiPraca.App_Start.Identity;
 using EwiPraca.Data;
 using EwiPraca.Data.Interfaces;
+using EwiPraca.Exporters;
 using EwiPraca.Importers;
 using EwiPraca.Model;
 using EwiPraca.Model.UserArea;
@@ -9,7 +10,6 @@ using EwiPraca.Services.Interfaces;
 using EwiPraca.Services.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Owin.Logging;
 using Microsoft.Owin.Security;
 using System.Web;
 using System.Web.Mvc;
@@ -53,6 +53,7 @@ namespace EwiPraca
             container.RegisterType<IRepository<JobPartDictionary>, Repository<JobPartDictionary>>();
             container.RegisterType<IRepository<JobPartDictionaryValue>, Repository<JobPartDictionaryValue>>();
             container.RegisterType<IRepository<SickLeave>, Repository<SickLeave>>();
+            container.RegisterType<IRepository<EmailMessage>, Repository<EmailMessage>>();
 
             container.RegisterType<IUserCompanyService, UserCompanyService>();
             container.RegisterType<IAddressService, AddressService>();
@@ -63,10 +64,13 @@ namespace EwiPraca
             container.RegisterType<IPositionDictionaryService, PositionDictionaryService>();
             container.RegisterType<IJobPartDictionaryService, JobPartDictionaryService>();
             container.RegisterType<ISickLeaveService, SickLeaveService>();
+            container.RegisterType<IEmailMessageService, EmailMessageService>();
 
             container.RegisterType<IEwiImporter, CompanyEmployeeImporter>();
 
             container.RegisterType<IImportEmployeeProcessor, ImportEmployeeProcessor>();
+
+            container.RegisterType<IEwiExporter, EwiExporter>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

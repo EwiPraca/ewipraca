@@ -10,6 +10,12 @@
 
 @section scripts{
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" media="screen" />
+    <script src="~/Scripts/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/jszip.min.js"></script>
+    <script src="~/Scripts/pdfmake.min.js"></script>
+    <script src="~/Scripts/vfs_fonts.js"></script>
+    <script src="~/Scripts/buttons.html5.min.js"></script>
+    <script src="~/Scripts/buttons.colVis.min.js"></script>
 }
 
 <header class="page-header">
@@ -26,7 +32,7 @@
 
     <a href="#" id="download-import-from-excel-template" class="button"><span class="glyphicon"></span>Pobierz szablon excel do importu</a>
     <a href="#" id="import-from-excel" class="button"><span class="glyphicon"></span>Importuj z pliku excel</a>
-    <a href="#" id="export-to-excel" class="button"><span class="glyphicon"></span>Eksportuj do  pliku excel</a>
+    @*<a href="#" id="export-to-excel" class="button"><span class="glyphicon"></span>Eksportuj do  pliku excel</a>*@
     <a href="#" id="open-add-position-dictionary-modal" class="button"><span class="glyphicon"></span>Zarządzaj słownikiem stanowisk pracowników</a>
     <a href="#" id="open-add-job-part-dictionary-modal" class="button"><span class="glyphicon"></span>Zarządzaj słownikiem etatów</a>
     <a href="#" id="open-add-employee-modal" class="button"><span class="glyphicon glyphicon-plus"></span>Dodaj pracownika</a>
@@ -278,8 +284,38 @@
                     "sPrevious": "Poprzednia"
                 },
                 "sLengthMenu": "Pokaż na stronę: _MENU_",
-            }
+            },
+            buttons: [
+            {
+                extend: 'excelHtml5',
+                text: 'Eksportuj do pliku Excel',
+                exportOptions: {
+                    columns: ':visible',
+                    text: 'Eksportuj do pliku excel'
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: 'Eksportuj do PDF',
+                orientation: 'landscape',
+                pageSize: 'A4',
+                exportOptions: {
+                    columns: ':visible'
+                },
+                customize: function (doc) {
+                    doc.content[1].table.widths =
+                        Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                }
+            },
+            {
+                extend: 'colvis',
+                text: 'Wybór kolumn'
+            },
+            ]
         });
+
+        dt.buttons().container()
+        .insertBefore('#employees-data-table_wrapper');
 
         $('#import-from-excel').click(function () {
             var data = { companyId: '@Model.CompanyId' };
@@ -406,10 +442,8 @@
         });
     });
 
-    function onEmployeeExportSuccess(e)
-    {
-        if (e.Success == "false")
-        {
+    function onEmployeeExportSuccess(e) {
+        if (e.Success == "false") {
             showErrorMessage(e.Message);
         }
     }

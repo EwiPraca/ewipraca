@@ -24,6 +24,7 @@ namespace EwiPraca.Data
         public IDbSet<PositionDictionary> PositionDictionaries { get; set; }
         public IDbSet<JobPartDictionary> JobPartDictionaries { get; set; }
         public IDbSet<SickLeave> SickLeaves { get; set; }
+        public IDbSet<EmailMessage> EmailMessages { get; set; }
 
         public static EwiPracaDbContext Create()
         {

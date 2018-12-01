@@ -1,4 +1,3 @@
-2018-11-26 20:41:01.6274|ERROR|EwiPraca.MvcApplication|The parameters dictionary contains a null entry for parameter 'id' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult Index(Int32, EwiPraca.Enumerations.EmployeeListTypes)' in 'EwiPraca.Controllers.EmployeeController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
-Parameter name: parameters
-2018-11-26 20:41:25.9536|ERROR|EwiPraca.MvcApplication|C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Web\Views\Employee\Index.cshtml(2): error CS1003: Syntax error, '(' expected
-2018-11-26 21:19:18.2634|ERROR|EwiPraca.MvcApplication|The model item passed into the dictionary is of type 'EwiPraca.Models.ImportEmployeesFromExcelViewModel', but this dictionary requires a model item of type 'EwiPraca.Models.ExportEmployeesConfirmationViewModel'.
+2018-11-30 08:38:05.7748|ERROR|EwiPraca.MvcApplication|The controller for path '/Shared/Error' was not found or does not implement IController.
+2018-11-30 08:46:38.5663|ERROR|EwiPraca.MvcApplication|The controller for path '/Shared/Error' was not found or does not implement IController.
+2018-11-30 08:46:52.8217|ERROR|EwiPraca.MvcApplication|A public action method 'DisplayCompa' was not found on controller 'EwiPraca.Controllers.CompanyController'.

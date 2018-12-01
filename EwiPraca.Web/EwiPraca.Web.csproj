@@ -254,7 +254,9 @@
     <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\ContractController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MedicalReportController.cs" />
@@ -285,11 +287,18 @@
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\SickLeave\SickLeaveViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingsHandler.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Validators\EmployeeValidator.cs" />
     <Compile Include="Validators\UserCompanyAddressValidator.cs" />
     <Compile Include="Validators\UserCompanyValidator.cs" />
+    <Content Include="Scripts\buttons.colVis.min.js" />
+    <Content Include="Scripts\buttons.html5.min.js" />
+    <Content Include="Scripts\dataTables.buttons.min.js" />
+    <Content Include="Scripts\jszip.min.js" />
+    <Content Include="Scripts\pdfmake.min.js" />
     <Content Include="Content\Templates\EwiPracaImportPracownikowSzablon.xlsx" />
+    <Content Include="Scripts\vfs_fonts.js" />
     <Content Include="Views\Shared\_AddContractData.cshtml" />
     <Content Include="Views\Contract\_AddContractModal.cshtml" />
     <Content Include="Views\Contract\EditorTemplates\ContractViewModel.cshtml" />
@@ -328,6 +337,7 @@
     <Content Include="Views\Employee\_MoveEmployeeModal.cshtml" />
     <Content Include="Views\Shared\_TopBarCompanyNavigation.cshtml" />
     <Content Include="Views\Employee\_ExportToExcelConfirmationModal.cshtml" />
+    <Content Include="Views\Error\ErrorPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-dialog.css" />
@@ -822,6 +832,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Email\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -842,6 +853,10 @@
     <ProjectReference Include="..\EwiPraca.Enumerations\EwiPraca.Enumerations.csproj">
       <Project>{41bd3ff4-f94e-44fe-a070-7e1edb64fedc}</Project>
       <Name>EwiPraca.Enumerations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EwiPraca.Exporters\EwiPraca.Exporters.csproj">
+      <Project>{49367651-0184-4222-BF1C-C457CE54DCA8}</Project>
+      <Name>EwiPraca.Exporters</Name>
     </ProjectReference>
     <ProjectReference Include="..\EwiPraca.Importers\EwiPraca.Importers.csproj">
       <Project>{35F3ACB1-E683-4381-AC8F-CFECC3F1F0F7}</Project>

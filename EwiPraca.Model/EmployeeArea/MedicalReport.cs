@@ -4,7 +4,7 @@ using System;
 
 namespace EwiPraca.Model
 {
-    public class MedicalReport : BaseModel
+    public class MedicalReport : BaseModel, IReminder
     {
         public int Id { get; set; }
         public int EmployeeId { get; set; }
@@ -15,5 +15,6 @@ namespace EwiPraca.Model
         public MedicalResultType Result { get; set; }
 
         public string Notes { get; set; }
+        public bool ReminderSent { get; set; }
     }
 }

@@ -116,6 +116,42 @@ namespace EwiPraca {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Witaj, w dniu {0} upływa termin ważności badań lekarskich dla Twojego pracownika {1} w firmie {2}. Pozdrawiamy, zespół EwiPraca..
+        /// </summary>
+        internal static string MedicalResultToExpireReminderEmailBody {
+            get {
+                return ResourceManager.GetString("MedicalResultToExpireReminderEmailBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upływa termin ważności badań lekarskich..
+        /// </summary>
+        internal static string MedicalResultToExpireReminderEmailTitle {
+            get {
+                return ResourceManager.GetString("MedicalResultToExpireReminderEmailTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Witaj, w dniu {0} upływa termin ważności szkolenia BHP  dla Twojego pracownika {1} w firmie {2}. Pozdrawiamy, zespół EwiPraca. .
+        /// </summary>
+        internal static string OSHTrainingToExpireReminderEmailBody {
+            get {
+                return ResourceManager.GetString("OSHTrainingToExpireReminderEmailBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upływa termin ważności szkolenia BHP..
+        /// </summary>
+        internal static string OSHTrainingToExpireReminderEmailTitle {
+            get {
+                return ResourceManager.GetString("OSHTrainingToExpireReminderEmailTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pole Notatki może mieć maksymalnie 1000 znaków..
         /// </summary>
         internal static string TooLongCompanyNotesMessage {

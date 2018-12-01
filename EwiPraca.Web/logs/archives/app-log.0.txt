@@ -1,3 +1,5 @@
-2018-11-18 14:15:31.5393|ERROR|EwiPraca.MvcApplication|Object reference not set to an instance of an object.
-2018-11-18 14:23:05.0015|ERROR|EwiPraca.MvcApplication|Path '/Views/Employee/EditorTemplates/EmployeeViewModel.cshtml' was not found.
-2018-11-18 14:40:54.5307|ERROR|EwiPraca.MvcApplication|The controller for path '/DisplayCompany/Company/1' was not found or does not implement IController.
+2018-11-29 11:48:55.3070|ERROR|EwiPraca.MvcApplication|The parameters dictionary contains a null entry for parameter 'id' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult Index(Int32, EwiPraca.Enumerations.EmployeeListTypes)' in 'EwiPraca.Controllers.EmployeeController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
+Parameter name: parameters
+2018-11-29 15:38:48.3681|ERROR|EwiPraca.MvcApplication|Section not defined: "navigation".
+2018-11-29 15:42:15.1157|ERROR|EwiPraca.MvcApplication|Section not defined: "navigation".
+2018-11-29 15:43:52.3343|ERROR|EwiPraca.MvcApplication|Section not defined: "navigation".
