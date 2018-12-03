@@ -54,6 +54,8 @@ namespace EwiPraca
             container.RegisterType<IRepository<JobPartDictionaryValue>, Repository<JobPartDictionaryValue>>();
             container.RegisterType<IRepository<SickLeave>, Repository<SickLeave>>();
             container.RegisterType<IRepository<EmailMessage>, Repository<EmailMessage>>();
+            container.RegisterType<IRepository<Setting>, Repository<Setting>>();
+            container.RegisterType<IRepository<UserSetting>, Repository<UserSetting>>();
 
             container.RegisterType<IUserCompanyService, UserCompanyService>();
             container.RegisterType<IAddressService, AddressService>();
@@ -65,6 +67,7 @@ namespace EwiPraca
             container.RegisterType<IJobPartDictionaryService, JobPartDictionaryService>();
             container.RegisterType<ISickLeaveService, SickLeaveService>();
             container.RegisterType<IEmailMessageService, EmailMessageService>();
+            container.RegisterType<ISettingService, SettingService>();
 
             container.RegisterType<IEwiImporter, CompanyEmployeeImporter>();
 

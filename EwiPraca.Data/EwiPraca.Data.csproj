@@ -100,11 +100,24 @@
     <Compile Include="Migrations\201811301031240_EmailsPart1.Designer.cs">
       <DependentUpon>201811301031240_EmailsPart1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812031945021_SettingsForUsers.cs" />
+    <Compile Include="Migrations\201812031945021_SettingsForUsers.Designer.cs">
+      <DependentUpon>201812031945021_SettingsForUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812032044040_InitialUserSettings.cs" />
+    <Compile Include="Migrations\201812032044040_InitialUserSettings.Designer.cs">
+      <DependentUpon>201812032044040_InitialUserSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="RepositoryTransaction.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="EwiPracaDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
+    <Compile Include="DbResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbResources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -130,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MigrationsReadMe.txt" />
+    <Content Include="Scripts\InitialSettings.sql" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201810211144046_InitialMigration.resx">
@@ -158,6 +172,16 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811301031240_EmailsPart1.resx">
       <DependentUpon>201811301031240_EmailsPart1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812031945021_SettingsForUsers.resx">
+      <DependentUpon>201812031945021_SettingsForUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812032044040_InitialUserSettings.resx">
+      <DependentUpon>201812032044040_InitialUserSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DbResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DbResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

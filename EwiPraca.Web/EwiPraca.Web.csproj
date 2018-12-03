@@ -280,6 +280,8 @@
     <Compile Include="Models\Manage\BaseViewModel.cs" />
     <Compile Include="Models\Manage\AddressViewModel.cs" />
     <Compile Include="Models\Manage\UserCompanyViewModel.cs" />
+    <Compile Include="Models\Manage\UserSettingsViewModel.cs" />
+    <Compile Include="Models\Manage\UserSettingViewModel.cs" />
     <Compile Include="Models\Manage\UserViewModel.cs" />
     <Compile Include="Models\MedicalReport\MedicalReportViewModel.cs" />
     <Compile Include="Models\MenuViewModel.cs" />
@@ -338,6 +340,7 @@
     <Content Include="Views\Shared\_TopBarCompanyNavigation.cshtml" />
     <Content Include="Views\Employee\_ExportToExcelConfirmationModal.cshtml" />
     <Content Include="Views\Error\ErrorPage.cshtml" />
+    <Content Include="Views\Manage\UserSettings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-dialog.css" />

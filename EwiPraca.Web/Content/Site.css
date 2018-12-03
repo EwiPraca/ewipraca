@@ -1072,7 +1072,7 @@ input.placeholder, textarea.placeholder {
 #main {
     float: left;
     margin: 0 40px 50px 0;
-    width: 680px;
+    width: 940px;
 }
 
 .sidebar-left #main {
@@ -4987,4 +4987,8 @@ input[type=button] {
      .dt-button-collection   {
          margin-top: 10px !important;
          margin-bottom: 10px !important;
+     }
+
+     .not-found-container{
+         padding-top: 25%;
      }

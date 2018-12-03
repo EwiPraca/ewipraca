@@ -70,6 +70,8 @@
     <Compile Include="EmployeeArea\Dictionaries\PositionDictionaryValue.cs" />
     <Compile Include="Identity\ApplicationUser.cs" />
     <Compile Include="IReminder.cs" />
+    <Compile Include="Manage\Setting.cs" />
+    <Compile Include="Manage\UserSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserArea\AddressType.cs" />
     <Compile Include="UserArea\UserCompany.cs" />

@@ -62,6 +62,13 @@ namespace EwiPraca
                 cfg.CreateMap<SickLeaveViewModel, SickLeave>();
 
                 cfg.CreateMap<EmployeeImportRow, EmployeeViewModel>();
+                cfg.CreateMap<UserSetting, UserSettingViewModel>()
+                .ForMember(d => d.SettingDescription,
+                 opt => opt.MapFrom(x => x.Setting.SettingDescription))
+                 .ForMember(d => d.SettingType,
+                 opt => opt.MapFrom(x => x.Setting.SettingValueType))
+                 .ForMember(d => d.SettingValue,
+                 opt => opt.MapFrom(x => x.SettingValue));
 
                 cfg.CreateMap<Contract, ContractViewModel>();
                 cfg.CreateMap<ContractViewModel, Contract>().ForMember(d => d.Employee,

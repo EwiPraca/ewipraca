@@ -18,16 +18,20 @@ namespace EwiPraca.Controllers
     public class ManageController : Controller
     {
         private readonly ApplicationUserManager _applicationUserManager;
+        private readonly ISettingService _settingService;
         private readonly AddressService _addressService;
         private readonly IUserCompanyService _userCompanyService;
         private static Logger logger = LogManager.GetCurrentClassLogger();
+        private const int _defaultNumberOfDays = 7;
 
         public ManageController(ApplicationUserManager applicationUserManager,
             IUserCompanyService userCompanyService,
+            ISettingService settingService,
             AddressService addressService)
         {
             _applicationUserManager = applicationUserManager;
             _userCompanyService = userCompanyService;
+            _settingService = settingService;
             _addressService = addressService;
         }
 
@@ -94,6 +98,49 @@ namespace EwiPraca.Controllers
 
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [HttpGet]
+        public ActionResult UserSettings()
+        {
+            string userId = User.Identity.GetUserId();
+
+            var settings = Mapper.Map<List<UserSettingViewModel>>(_settingService.AllUserSetting(userId));
+
+            if(settings == null || settings.Count == 0)
+            {
+                settings = new List<UserSettingViewModel>();
+
+                var defaultSettings = _settingService.AllSettings();
+
+                foreach(var setting in defaultSettings)
+                {
+                    var userSettingViewModel = new UserSettingViewModel()
+                    {
+                        SettingDescription = setting.SettingDescription,
+                        SettingType = setting.SettingValueType
+                    };
+
+                    if(setting.SettingValueType == "System.Int32")
+                    {
+                        userSettingViewModel.SettingValue = _defaultNumberOfDays.ToString();
+                    }
+                    else
+                    {
+                        userSettingViewModel.SettingValue = string.Empty;
+                    }
+
+                    settings.Add(userSettingViewModel);
+                }
+            }
+
+            var model = new UserSettingsViewModel()
+            {
+                UserId = userId,
+                Settings = settings
+            };
+
+            return View(model);
         }
 
         [HttpGet]

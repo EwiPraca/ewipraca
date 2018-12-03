@@ -1,5 +1,3 @@
-2018-11-29 11:48:55.3070|ERROR|EwiPraca.MvcApplication|The parameters dictionary contains a null entry for parameter 'id' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult Index(Int32, EwiPraca.Enumerations.EmployeeListTypes)' in 'EwiPraca.Controllers.EmployeeController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
-Parameter name: parameters
-2018-11-29 15:38:48.3681|ERROR|EwiPraca.MvcApplication|Section not defined: "navigation".
-2018-11-29 15:42:15.1157|ERROR|EwiPraca.MvcApplication|Section not defined: "navigation".
-2018-11-29 15:43:52.3343|ERROR|EwiPraca.MvcApplication|Section not defined: "navigation".
+2018-11-30 08:38:05.7748|ERROR|EwiPraca.MvcApplication|The controller for path '/Shared/Error' was not found or does not implement IController.
+2018-11-30 08:46:38.5663|ERROR|EwiPraca.MvcApplication|The controller for path '/Shared/Error' was not found or does not implement IController.
+2018-11-30 08:46:52.8217|ERROR|EwiPraca.MvcApplication|A public action method 'DisplayCompa' was not found on controller 'EwiPraca.Controllers.CompanyController'.

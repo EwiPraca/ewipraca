@@ -1,4 +1,5 @@
-﻿using EwiPraca.Model.UserArea;
+﻿using EwiPraca.Model;
+using EwiPraca.Model.UserArea;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
@@ -21,6 +22,7 @@ namespace EwiPraca.Data
         public bool IsDeleted { get; set; }
 
         public virtual List<UserCompany> UserCompanies { get; set; }
+        public virtual List<UserSetting> UserSettings { get; set; }
 
         [Required]
         public DateTime LastLoginDate { get; set; }
