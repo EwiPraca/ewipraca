@@ -1,4 +1,5 @@
-2018-11-26 20:41:01.6274|ERROR|EwiPraca.MvcApplication|The parameters dictionary contains a null entry for parameter 'id' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult Index(Int32, EwiPraca.Enumerations.EmployeeListTypes)' in 'EwiPraca.Controllers.EmployeeController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
+2018-11-29 11:48:55.3070|ERROR|EwiPraca.MvcApplication|The parameters dictionary contains a null entry for parameter 'id' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult Index(Int32, EwiPraca.Enumerations.EmployeeListTypes)' in 'EwiPraca.Controllers.EmployeeController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
 Parameter name: parameters
-2018-11-26 20:41:25.9536|ERROR|EwiPraca.MvcApplication|C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Web\Views\Employee\Index.cshtml(2): error CS1003: Syntax error, '(' expected
-2018-11-26 21:19:18.2634|ERROR|EwiPraca.MvcApplication|The model item passed into the dictionary is of type 'EwiPraca.Models.ImportEmployeesFromExcelViewModel', but this dictionary requires a model item of type 'EwiPraca.Models.ExportEmployeesConfirmationViewModel'.
+2018-11-29 15:38:48.3681|ERROR|EwiPraca.MvcApplication|Section not defined: "navigation".
+2018-11-29 15:42:15.1157|ERROR|EwiPraca.MvcApplication|Section not defined: "navigation".
+2018-11-29 15:43:52.3343|ERROR|EwiPraca.MvcApplication|Section not defined: "navigation".

@@ -1,0 +1,54 @@
+﻿@model EwiPraca.Models.UserSettingViewModel
+
+@{ 
+    var inputType = Model.SettingType == "System.Int32" ? "number" : Model.SettingType == "System.DateTime" ? "date" : "text";
+}
+
+<div class="modal-wrapper">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="myModalLabel">Edytuj ustawienia</h4>
+    </div>
+    @using (Ajax.BeginForm("EditUserSetting", "Manage", new AjaxOptions() { HttpMethod = "POST", OnSuccess = "onUserSettingEditSuccess", OnFailure = "onFailureModalEdit" })) // { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(x => x.Id)
+        @Html.HiddenFor(x => x.SettingType)
+        @Html.HiddenFor(x => x.SettingId)
+        <div class="row modal-row">
+            @Html.LabelFor(m => m.SettingDescription, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DisplayFor(m => m.SettingDescription, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row modal-row">
+            @Html.LabelFor(m => m.SettingValue, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.SettingValue, new { @class = "form-control",  @type = inputType })
+                @Html.ValidationMessageFor(m => m.SettingValue)
+            </div>
+        </div>
+        <div class="row modal-row">
+            <div class="col-md-12">
+                <div class="float-right">
+                    <input type="submit" class="btn btn-default" value="Zapisz" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    function onUserSettingEditSuccess(e) {
+        if (e.Success == "true") {
+            $('#edit-user-setting-modal').modal('hide');
+            window.location.reload();
+        }
+        else {
+            BootstrapDialog.show({
+                title: 'Informacja',
+                message: e.Message
+            });
+        }
+    }
+</script>

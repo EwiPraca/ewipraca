@@ -1,3 +1,1 @@
-2018-11-18 14:15:31.5393|ERROR|EwiPraca.MvcApplication|Object reference not set to an instance of an object.
-2018-11-18 14:23:05.0015|ERROR|EwiPraca.MvcApplication|Path '/Views/Employee/EditorTemplates/EmployeeViewModel.cshtml' was not found.
-2018-11-18 14:40:54.5307|ERROR|EwiPraca.MvcApplication|The controller for path '/DisplayCompany/Company/1' was not found or does not implement IController.
+2018-11-28 21:29:44.8125|ERROR|EwiPraca.Controllers.EmployeeController|Object reference not set to an instance of an object.

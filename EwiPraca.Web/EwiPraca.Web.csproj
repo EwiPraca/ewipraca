@@ -341,6 +341,7 @@
     <Content Include="Views\Employee\_ExportToExcelConfirmationModal.cshtml" />
     <Content Include="Views\Error\ErrorPage.cshtml" />
     <Content Include="Views\Manage\UserSettings.cshtml" />
+    <Content Include="Views\Manage\_EditUserSettingView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-dialog.css" />

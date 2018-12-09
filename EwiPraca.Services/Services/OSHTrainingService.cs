@@ -41,10 +41,28 @@ namespace EwiPraca.Services.Services
             return _oshTrainingRepository.Query(x => x.Id == id).FirstOrDefault();
         }
 
-        public List<OSHTraining> GetOSHTrainingsToExpire(int daysBeforeExpiration)
+        public List<OSHTraining> GetOSHTrainingsToExpire(int defaultDaysBeforeExpiration)
         {
             var now = DateTime.Now;
-            return _oshTrainingRepository.Query(x => !x.IsDeleted && !x.ReminderSent && x.NextCompletionDate != null && x.NextCompletionDate.Value.AddDays(-daysBeforeExpiration) > now).ToList();
+            var trainings = _oshTrainingRepository.Query(x => !x.IsDeleted && !x.ReminderSent && x.NextCompletionDate != null).ToList();
+
+            if (trainings.Count > 0)
+            {
+                var training = trainings.FirstOrDefault();
+
+                var userSetting = training.Employee.UserCompany.ApplicationUser.UserSettings?.FirstOrDefault(x => x.Setting.SettingName == "MedicalResultNumberOfDaysBeforeWarning");
+
+                if (userSetting != null)
+                {
+                    defaultDaysBeforeExpiration = Convert.ToInt32(userSetting.SettingValue);
+                }
+
+                return trainings.Where(x => x.NextCompletionDate.Value.AddDays(-defaultDaysBeforeExpiration) > now).ToList();
+            }
+            else
+            {
+                return new List<OSHTraining>();
+            }
         }
 
         public void Update(OSHTraining entity)

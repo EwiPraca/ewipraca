@@ -33,9 +33,11 @@
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>ID ustawienia</th>
                             <th>Typ ustawienia</th>
                             <th>Opis</th>
                             <th>Wartość</th>
+                            <th>Akcje</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,9 +47,11 @@
                             {
                                 <tr>
                                     <td>@setting.Id</td>
+                                    <td>@setting.SettingId</td>
                                     <td>@setting.SettingType</td>
                                     <td>@setting.SettingDescription</td>
                                     <td>@setting.SettingValue</td>
+                                    <td class="action-column"></td>
                                 </tr>
                             }
                         }
@@ -74,10 +78,22 @@
                  "searchable": false
              },
              {
-                 "targets": [2]
+                 "targets": [2],
+                 "visible": false,
+                 "searchable": false
              },
              {
                  "targets": [3]
+             },
+             {
+                 "targets": [4]
+             },
+             {
+                 "targets": [5],
+                 mRender: function (data, type, row) {
+
+                     return '<a class="button grid-button edit-settings-button" data-id="' + row[0] + '" data-settingId="' + row[1] + '" data-value="' + row[4] + '">Edytuj</a>'
+                 }
              }
             ],
             "oLanguage": {
@@ -92,6 +108,42 @@
                 "sLengthMenu": "Pokaż na stronę: _MENU_",
             }
         });
+
+        $('.edit-settings-button').click(function () {
+            var id = $(this).attr('data-id');
+            var settingId = $(this).attr('data-settingId');
+            var val = $(this).attr('data-value');
+
+            showLoader();
+
+            var options = { keyboard: true };
+            var data = { userSettingId: id, settingValue: val, settingId: settingId }
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("EditUserSettingView", "Manage")",
+                contentType: "application/json",
+                data: data,
+                datatype: "json",
+                success: function (data) {
+                    $('#edit-user-settings-modal-content').html(data);
+                    $('#edit-user-settings-modal').modal(options);
+                    $('#edit-user-settings-modal').modal('show');
+                    hideLoader();
+                },
+                error: function () {
+                    hideLoader();
+                    alert("Dynamic content load failed.");
+                }
+            });
+        });
     });
 
 </script>
+
+<div id='edit-user-settings-modal' class='modal fade'>
+    <div class="modal-dialog popup-modal">
+        <div class="modal-content">
+            <div id='edit-user-settings-modal-content'></div>
+        </div>
+    </div>
+</div>

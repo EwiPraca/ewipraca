@@ -39,11 +39,28 @@ namespace EwiPraca.Services.Services
             return _medicalReportsRepository.Query(x => x.Id == id).FirstOrDefault();
         }
 
-        public List<MedicalReport> GetMedicalReportsToExpire(int daysBeforeExpiration)
+        public List<MedicalReport> GetMedicalReportsToExpire(int defaultDaysBeforeExpiration)
         {
             var now = DateTime.Now;
-            return _medicalReportsRepository.Query(x => !x.IsDeleted && !x.ReminderSent && x.NextCompletionDate != null && x.NextCompletionDate.Value.AddDays(-daysBeforeExpiration) > now).ToList();
+            var reports = _medicalReportsRepository.Query(x => !x.IsDeleted && !x.ReminderSent && x.NextCompletionDate != null).ToList();
 
+            if(reports.Count > 0)
+            {
+                var report = reports.FirstOrDefault();
+
+                var userSetting = report.Employee.UserCompany.ApplicationUser.UserSettings?.FirstOrDefault(x => x.Setting.SettingName == "MedicalResultNumberOfDaysBeforeWarning");
+
+                if(userSetting != null)
+                {
+                    defaultDaysBeforeExpiration = Convert.ToInt32(userSetting.SettingValue);
+                }
+
+                return reports.Where(x => x.NextCompletionDate.Value.AddDays(-defaultDaysBeforeExpiration) > now).ToList();
+            }
+            else
+            {
+                return new List<MedicalReport>();
+            }
         }
 
         public void Update(MedicalReport entity)

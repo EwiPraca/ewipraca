@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EwiPraca.App_Start.Identity;
 using EwiPraca.Encryptor;
+using EwiPraca.Model;
 using EwiPraca.Model.UserArea;
 using EwiPraca.Models;
 using EwiPraca.Services.Interfaces;
@@ -22,7 +23,7 @@ namespace EwiPraca.Controllers
         private readonly AddressService _addressService;
         private readonly IUserCompanyService _userCompanyService;
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        private const int _defaultNumberOfDays = 7;
+        private readonly int _defaultNumberOfDays = SettingsHandler.DaysBeforeIntervalReminder;
 
         public ManageController(ApplicationUserManager applicationUserManager,
             IUserCompanyService userCompanyService,
@@ -82,7 +83,7 @@ namespace EwiPraca.Controllers
 
                     _applicationUserManager.Update(user);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     logger.Error(e, e.Message);
                     result = new { Success = "false", Message = WebResources.ErrorMessage };
@@ -101,37 +102,127 @@ namespace EwiPraca.Controllers
         }
 
         [HttpGet]
+        public ActionResult EditUserSettingView(int userSettingId, int settingId, string settingValue)
+        {
+            UserSettingViewModel model = null;
+
+            if (userSettingId > 0)
+            {
+                var setting = _settingService.GetUserSettingById(userSettingId);
+
+                if (setting == null || User.Identity.GetUserId() != setting.ApplicationUserID)
+                {
+                    throw new Exception("Ustawienie nie istnieje lub próbujesz edytować nie swoje ustawienia!");
+                }
+                model = Mapper.Map<UserSettingViewModel>(setting);
+            }
+            else
+            {
+                var setting = _settingService.GetSettingById(settingId);
+
+                if (setting == null)
+                {
+                    throw new Exception("Ustawienie nie istnieje!");
+                }
+
+                model = new UserSettingViewModel()
+                {
+                    Id = 0,
+                    SettingId = setting.Id,
+                    SettingDescription = setting.SettingDescription,
+                    SettingType = setting.SettingValueType,
+                    SettingValue = settingValue
+                };
+            }
+
+            return PartialView("_EditUserSettingView", model);
+        }
+
+        [HttpPost]
+        public ActionResult EditUserSetting(UserSettingViewModel model)
+        {
+            var result = new { Success = "true", Message = "Success" };
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var userId = User.Identity.GetUserId();
+
+                    if (model.Id == 0) //setting for the user doesnt exist yet
+                    {
+                        var userSetting = new UserSetting()
+                        {
+                            ApplicationUserID = userId,
+                            SettingId = model.SettingId,
+                            SettingValue = model.SettingValue
+                        };
+
+                        _settingService.CreateUserSetting(userSetting);
+                    }
+                    else
+                    {
+                        var setting = _settingService.GetUserSettingById(model.Id);
+
+                        if (setting != null)
+                        {
+                            setting.SettingValue = model.SettingValue;
+
+                            _settingService.UpdateUserSetting(setting);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    logger.Error(e, e.Message);
+                    result = new { Success = "false", Message = WebResources.ErrorMessage };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                var error = ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault().ErrorMessage;
+
+                result = new { Success = "false", Message = error };
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpGet]
         public ActionResult UserSettings()
         {
             string userId = User.Identity.GetUserId();
 
             var settings = Mapper.Map<List<UserSettingViewModel>>(_settingService.AllUserSetting(userId));
 
-            if(settings == null || settings.Count == 0)
+            var existingSettingsId = settings.Select(x => x.Id).ToList();
+
+            var defaultSettings = _settingService.AllSettings().Where(x => !existingSettingsId.Contains(x.Id)).ToList();
+
+            foreach (var setting in defaultSettings)
             {
-                settings = new List<UserSettingViewModel>();
-
-                var defaultSettings = _settingService.AllSettings();
-
-                foreach(var setting in defaultSettings)
+                var userSettingViewModel = new UserSettingViewModel()
                 {
-                    var userSettingViewModel = new UserSettingViewModel()
-                    {
-                        SettingDescription = setting.SettingDescription,
-                        SettingType = setting.SettingValueType
-                    };
+                    Id = 0,
+                    SettingId = setting.Id,
+                    SettingDescription = setting.SettingDescription,
+                    SettingType = setting.SettingValueType
+                };
 
-                    if(setting.SettingValueType == "System.Int32")
-                    {
-                        userSettingViewModel.SettingValue = _defaultNumberOfDays.ToString();
-                    }
-                    else
-                    {
-                        userSettingViewModel.SettingValue = string.Empty;
-                    }
-
-                    settings.Add(userSettingViewModel);
+                if (setting.SettingValueType == "System.Int32")
+                {
+                    userSettingViewModel.SettingValue = _defaultNumberOfDays.ToString();
                 }
+                else
+                {
+                    userSettingViewModel.SettingValue = string.Empty;
+                }
+
+                settings.Add(userSettingViewModel);
             }
 
             var model = new UserSettingsViewModel()
@@ -170,7 +261,7 @@ namespace EwiPraca.Controllers
 
                     _userCompanyService.Create(newCompany);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     logger.Error(e, e.Message);
                     result = new { Success = "false", Message = WebResources.ErrorMessage };

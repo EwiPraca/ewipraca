@@ -1,3 +1,1 @@
-2018-11-30 08:38:05.7748|ERROR|EwiPraca.MvcApplication|The controller for path '/Shared/Error' was not found or does not implement IController.
-2018-11-30 08:46:38.5663|ERROR|EwiPraca.MvcApplication|The controller for path '/Shared/Error' was not found or does not implement IController.
-2018-11-30 08:46:52.8217|ERROR|EwiPraca.MvcApplication|A public action method 'DisplayCompa' was not found on controller 'EwiPraca.Controllers.CompanyController'.
+2018-12-08 18:07:26.8149|ERROR|EwiPraca.MvcApplication|The context cannot be used while the model is being created. This exception may be thrown if the context is used inside the OnModelCreating method or if the same context instance is accessed by multiple threads concurrently. Note that instance members of DbContext and related classes are not guaranteed to be thread safe.
