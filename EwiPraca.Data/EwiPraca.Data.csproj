@@ -108,6 +108,10 @@
     <Compile Include="Migrations\201812032044040_InitialUserSettings.Designer.cs">
       <DependentUpon>201812032044040_InitialUserSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812091405264_EwiPracaFilesPartI.cs" />
+    <Compile Include="Migrations\201812091405264_EwiPracaFilesPartI.Designer.cs">
+      <DependentUpon>201812091405264_EwiPracaFilesPartI.cs</DependentUpon>
+    </Compile>
     <Compile Include="RepositoryTransaction.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="EwiPracaDbContext.cs" />
@@ -182,6 +186,9 @@
     <EmbeddedResource Include="DbResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>DbResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812091405264_EwiPracaFilesPartI.resx">
+      <DependentUpon>201812091405264_EwiPracaFilesPartI.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

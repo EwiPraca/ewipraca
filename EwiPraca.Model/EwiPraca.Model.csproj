@@ -68,6 +68,7 @@
     <Compile Include="EmployeeArea\OSHTraining.cs" />
     <Compile Include="EmployeeArea\Dictionaries\PositionDictionary.cs" />
     <Compile Include="EmployeeArea\Dictionaries\PositionDictionaryValue.cs" />
+    <Compile Include="Files\EwiFile.cs" />
     <Compile Include="Identity\ApplicationUser.cs" />
     <Compile Include="IReminder.cs" />
     <Compile Include="Manage\Setting.cs" />

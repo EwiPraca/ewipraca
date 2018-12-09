@@ -102,6 +102,10 @@
 
             <hr />
 
+            <h5>Załączniki</h5>
+            <input id="input-contract-files" name="input-contract-files" type="file" class="file" data-browse-on-zone-click="true" multiple>
+            <hr />
+
             <h5>Historia zatrudnienia</h5>
             <div class="row">
                 <div class="col-md-12">
@@ -1015,4 +1019,15 @@
               dt.getMonth()==m-1 &&
               dt.getFullYear()==y;
     }
+
+    $("#input-contract-files").fileinput({
+        uploadUrl:"@Html.Raw(Url.Action("UploadFile", "Employee", new { employeeId = Model.Id, fileType = (int)EwiPraca.Enumerations.FileType.ContractFile }))",
+        uploadAsync: true,
+        minFileCount: 1,
+        maxFileCount: 10,
+        overwriteInitial: false,
+        initialPreview: "",
+        initialPreviewConfig:"",
+        uploadExtraData: ""
+    });
 </script>

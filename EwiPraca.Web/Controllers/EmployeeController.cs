@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace EwiPraca.Controllers
@@ -21,6 +22,7 @@ namespace EwiPraca.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;
+        private readonly IEwiFileService _fileService;
         private readonly IUserCompanyService _userCompanyService;
         private readonly IAddressService _addressService;
         private readonly IEwiImporter _companyEmployeeImporter;
@@ -39,7 +41,8 @@ namespace EwiPraca.Controllers
             IImportEmployeeProcessor employeeProcessor,
             IPositionDictionaryService positionDictionaryService,
             ApplicationUserManager userManager,
-            IJobPartDictionaryService jobPartDictionaryService)
+            IJobPartDictionaryService jobPartDictionaryService,
+            IEwiFileService fileService)
         {
             _employeeService = employeeService;
             _userCompanyService = userCompanyService;
@@ -50,6 +53,7 @@ namespace EwiPraca.Controllers
             _positionDictionaryService = positionDictionaryService;
             _jobPartDictionaryService = jobPartDictionaryService;
             _userManager = userManager;
+            _fileService = fileService;
         }
 
         public ActionResult Index(int id, EmployeeListTypes viewType)
@@ -544,7 +548,7 @@ namespace EwiPraca.Controllers
                         string handle = Guid.NewGuid().ToString();
 
                         var ms = _companyEmployeeExporter.ExportEmployees(employees, handle);
-                        
+
                         TempData[handle] = ms.ToArray();
 
                         result = new { Success = "true", Message = "Success", FileGuid = handle, FileName = "EwiPracaExportPracownikow.xlsx" };
@@ -702,6 +706,63 @@ namespace EwiPraca.Controllers
                 result = new { Success = "false", Message = e.Message };
             }
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult UploadFile(int employeeId, int fileType)
+        {
+            foreach (string item in Request.Files)
+            {
+                HttpPostedFileBase file = Request.Files[item] as HttpPostedFileBase;
+                if (file.ContentLength == 0)
+                    continue;
+                if (file.ContentLength > 0)
+                {
+                    try
+                    {
+                        string fileName = file.FileName;
+                        string uploadPath = "C:/MediaFiles/";
+
+                        if (!Directory.Exists(uploadPath))
+                        {
+                            Directory.CreateDirectory(uploadPath);
+                        }
+
+                        string guidFolder = Guid.NewGuid().ToString();
+                        string path = uploadPath + guidFolder;
+
+                        Directory.CreateDirectory(path);
+
+                        path = path + "/" + fileName;
+
+                        string extension = Path.GetExtension(file.FileName);
+
+                        file.SaveAs(path);
+
+                        var now = DateTime.Now;
+
+                        EwiFile newFile = new EwiFile()
+                        {
+                            ParentObjectId = employeeId,
+                            FileName = path,
+                            FileType = (FileType)fileType,
+                            CreatedDate = now,
+                            UpdatedDate = now,
+                            ContentType = file.ContentType
+                        };
+
+                        _fileService.Create(newFile);
+                    }
+                    catch (Exception e)
+                    {
+                        logger.Error(e, e.Message);
+                    }
+                }
+            }
+
+
+
+            return Json("");
         }
 
     }

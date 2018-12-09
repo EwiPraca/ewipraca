@@ -27,6 +27,7 @@ namespace EwiPraca.Data
         public IDbSet<EmailMessage> EmailMessages { get; set; }
         public IDbSet<Setting> Settings { get; set; }
         public IDbSet<UserSetting> UserSettings { get; set; }
+        public IDbSet<EwiFile> EwiFiles { get; set; }
 
         public static EwiPracaDbContext Create()
         {

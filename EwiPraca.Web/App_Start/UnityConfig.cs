@@ -56,6 +56,7 @@ namespace EwiPraca
             container.RegisterType<IRepository<EmailMessage>, Repository<EmailMessage>>();
             container.RegisterType<IRepository<Setting>, Repository<Setting>>();
             container.RegisterType<IRepository<UserSetting>, Repository<UserSetting>>();
+            container.RegisterType<IRepository<EwiFile>, Repository<EwiFile>>();
 
             container.RegisterType<IUserCompanyService, UserCompanyService>();
             container.RegisterType<IAddressService, AddressService>();
@@ -68,6 +69,7 @@ namespace EwiPraca
             container.RegisterType<ISickLeaveService, SickLeaveService>();
             container.RegisterType<IEmailMessageService, EmailMessageService>();
             container.RegisterType<ISettingService, SettingService>();
+            container.RegisterType<IEwiFileService, EwiFileService>();
 
             container.RegisterType<IEwiImporter, CompanyEmployeeImporter>();
 

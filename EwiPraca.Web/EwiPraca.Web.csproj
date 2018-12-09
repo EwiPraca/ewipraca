@@ -294,12 +294,15 @@
     <Compile Include="Validators\EmployeeValidator.cs" />
     <Compile Include="Validators\UserCompanyAddressValidator.cs" />
     <Compile Include="Validators\UserCompanyValidator.cs" />
+    <Content Include="Content\fileinput.min.css" />
     <Content Include="Scripts\buttons.colVis.min.js" />
     <Content Include="Scripts\buttons.html5.min.js" />
     <Content Include="Scripts\dataTables.buttons.min.js" />
+    <Content Include="Scripts\fileinput.min.js" />
     <Content Include="Scripts\jszip.min.js" />
     <Content Include="Scripts\pdfmake.min.js" />
     <Content Include="Content\Templates\EwiPracaImportPracownikowSzablon.xlsx" />
+    <Content Include="Scripts\purify.min.js" />
     <Content Include="Scripts\vfs_fonts.js" />
     <Content Include="Views\Shared\_AddContractData.cshtml" />
     <Content Include="Views\Contract\_AddContractModal.cshtml" />

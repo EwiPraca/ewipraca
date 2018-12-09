@@ -4992,3 +4992,14 @@ input[type=button] {
      .not-found-container{
          padding-top: 25%;
      }
+
+     .btn-primary{
+         background-color: #f15a23 !important;
+         border-color: #f15a23 !important;
+     }
+
+@media screen and (min-width: 768px) {
+    .modal-dialog {
+        left: unset !important;
+    }
+}

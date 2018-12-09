@@ -46,6 +46,7 @@
     <Compile Include="Interfaces\IContractService.cs" />
     <Compile Include="Interfaces\IEmailMessageService.cs" />
     <Compile Include="Interfaces\IEmployeeService.cs" />
+    <Compile Include="Interfaces\IEwiFileService.cs" />
     <Compile Include="Interfaces\IMedicalReportService.cs" />
     <Compile Include="Interfaces\IOSHTrainingService.cs" />
     <Compile Include="Interfaces\IJobPartDictionaryService.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Services\ContractService.cs" />
     <Compile Include="Services\EmailMessageService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
+    <Compile Include="Services\EwiFileService.cs" />
     <Compile Include="Services\MedicalReportService.cs" />
     <Compile Include="Services\OSHTrainingService.cs" />
     <Compile Include="Services\JobPartDictionaryService.cs" />
@@ -72,6 +74,10 @@
     <ProjectReference Include="..\EwiPraca.Data\EwiPraca.Data.csproj">
       <Project>{AE691EC9-0EFD-4FEF-A200-EEE5153C6F37}</Project>
       <Name>EwiPraca.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EwiPraca.Enumerations\EwiPraca.Enumerations.csproj">
+      <Project>{41BD3FF4-F94E-44FE-A070-7E1EDB64FEDC}</Project>
+      <Name>EwiPraca.Enumerations</Name>
     </ProjectReference>
     <ProjectReference Include="..\EwiPraca.Model\EwiPraca.Model.csproj">
       <Project>{2850AE3F-AA71-4269-B740-FACCC4CFF9A8}</Project>
