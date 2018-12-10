@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Moje dokumenty";
+}
+
+@section navigation{
+    @Html.Partial("_Menu", new MenuViewModel() { MyProfileSelected = true })
+}
+
+<header class="page-header">
+    <h1 class="page-title align-center">@ViewBag.Title</h1>
+</header>

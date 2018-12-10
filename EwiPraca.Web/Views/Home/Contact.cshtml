@@ -8,17 +8,91 @@
 
 }
 
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<section id="content" class="clearfix">
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+    <div class="container clearfix">
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+        <header class="page-header">
+            <h1 class="page-title align-center">@ViewBag.Title</h1>
+        </header>
+
+    </div><!-- end .container -->
+
+    <section id="map">
+        <div class="mapouter"><div class="gmap_canvas"><iframe width="940" height="440" id="gmap_canvas" src="https://maps.google.com/maps?q=wr%C3%B3blewskiego%2059a%20%C5%82%C3%B3d%C5%BA&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.pureblack.de">pure black</a></div>
+        <style>
+            .mapouter {
+                text-align: right;
+                height: 440px;
+                width: 940px;
+            }
+
+            .gmap_canvas {
+                overflow: hidden;
+                background: none !important;
+                height: 440px;
+                width: 940px;
+            }
+        </style></div>
+    </section><!-- end #map -->
+
+    <div class="container clearfix">
+
+        <div class="one-fourth">
+
+            <h3>Dane kontaktowe</h3>
+
+            <p>
+                30 South Park Avenue<br />
+                San Francisco, CA 94108<br />
+                USA
+            </p>
+
+            <p>
+                Phone: (123) 456-7890<br />
+                Fax: +08 (123) 456-7890<br />
+                Email: contact@companyname.com<br />
+                Web: companyname.com
+            </p>
+
+        </div><!-- end .one-fourth -->
+
+        <div class="three-fourth last">
+
+            <h3>Bądźmy w kontakcie</h3>
+
+            <form action="php/contact-send.php" method="post" class="contact-form">
+
+                <p class="input-block">
+                    <label for="contact-name"><strong>Imię</strong> (wymagane)</label>
+                    <input type="text" name="name" value="" id="contact-name" required>
+                </p>
+
+                <p class="input-block">
+                    <label for="contact-email"><strong>Email</strong> (wymagane)</label>
+                    <input type="email" name="email" value="" id="contact-email" required>
+                </p>
+
+                <p class="input-block">
+                    <label for="contact-subject"><strong>Temat</strong></label>
+                    <input type="text" name="subject" value="" id="contact-subject">
+                </p>
+
+                <p class="textarea-block">
+                    <label for="contact-message"><strong>Wiadomość</strong> (wymagane)</label>
+                    <textarea name="message" id="contact-message" cols="88" rows="6" required></textarea>
+                </p>
+                <input type="submit" value="Wyślij">
+
+                <div class="clear"></div>
+
+            </form>
+
+        </div><!-- end .three-fourth.last -->
+
+    </div><!-- end .container -->
+
+</section><!-- end #content -->
+
+<div class="row last-row">
+    </div>

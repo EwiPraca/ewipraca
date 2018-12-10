@@ -277,6 +277,7 @@
     <Compile Include="Models\Employee\PositionDictionaryValueViewModel.cs" />
     <Compile Include="Models\Employee\JobPartDictionaryViewModel.cs" />
     <Compile Include="Models\Employee\PositionDictionaryViewModel.cs" />
+    <Compile Include="Models\EwiFileViewModel.cs" />
     <Compile Include="Models\Manage\BaseViewModel.cs" />
     <Compile Include="Models\Manage\AddressViewModel.cs" />
     <Compile Include="Models\Manage\UserCompanyViewModel.cs" />
@@ -345,6 +346,7 @@
     <Content Include="Views\Error\ErrorPage.cshtml" />
     <Content Include="Views\Manage\UserSettings.cshtml" />
     <Content Include="Views\Manage\_EditUserSettingView.cshtml" />
+    <Content Include="Views\Manage\UserDocuments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-dialog.css" />

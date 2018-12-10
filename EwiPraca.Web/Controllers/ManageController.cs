@@ -234,6 +234,14 @@ namespace EwiPraca.Controllers
             return View(model);
         }
 
+
+        [HttpGet]
+        public ActionResult UserDocuments()
+        {
+            return View();
+        }
+
+
         [HttpGet]
         public ActionResult AddUserCompany()
         {

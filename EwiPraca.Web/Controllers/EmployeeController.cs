@@ -231,6 +231,8 @@ namespace EwiPraca.Controllers
 
             employeeViewModel.Positions = _positionDictionaryService.GetByUserCompanyId(employee.UserCompanyId)?.Values;
 
+            employeeViewModel.Files = Mapper.Map<List<EwiFileViewModel>>(_fileService.GetFilesForEmployee(employee.Id));
+
             return PartialView("_EditEmployeeModal", employeeViewModel);
         }
 
@@ -483,6 +485,45 @@ namespace EwiPraca.Controllers
         }
 
         [HttpGet]
+        public ActionResult PostEmployeeFile(int id)
+        {
+            string handle = Guid.NewGuid().ToString();
+
+            var ewiFile = _fileService.GetById(id);
+
+            using (MemoryStream ms = new MemoryStream(WebResources.EwiPracaImportPracownikowSzablon))
+            {
+                using (FileStream file = new FileStream(ewiFile.FileName, FileMode.Open, FileAccess.Read))
+                {
+                    file.CopyTo(ms);
+                }
+
+                ms.Position = 0;
+                TempData[handle] = ms.ToArray();
+            }
+
+            string[] path = ewiFile.FileName.Split('/');
+
+            var result = new { FileGuid = handle, FileName = path[path.Length - 1], ContentType = ewiFile.ContentType };
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public virtual ActionResult DownloadEmployeeFile(string fileGuid, string fileName, string contentType)
+        {
+            if (TempData[fileGuid] != null)
+            {
+                byte[] data = TempData[fileGuid] as byte[];
+                return File(data, contentType, fileName);
+            }
+            else
+            {
+                return new EmptyResult();
+            }
+        }
+
+        [HttpGet]
         public ActionResult PostExcelTemplate()
         {
             string handle = Guid.NewGuid().ToString();
@@ -647,6 +688,28 @@ namespace EwiPraca.Controllers
                 if (employee != null)
                 {
                     _employeeService.Delete(employee);
+                }
+            }
+            catch (Exception e)
+            {
+                logger.Error(e, e.Message);
+                result = new { Success = "false", Message = WebResources.ErrorMessage };
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteFile(int id)
+        {
+            var result = new { Success = "true", Message = "Success" };
+
+            try
+            {
+                var file = _fileService.GetById(id);
+
+                if (file != null)
+                {
+                    _fileService.Delete(file);
                 }
             }
             catch (Exception e)

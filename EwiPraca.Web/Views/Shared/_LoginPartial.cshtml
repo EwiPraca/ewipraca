@@ -28,6 +28,9 @@
                     }
                 </li>
                 <li>
+                    @Html.ActionLink("Moje dokumenty", "UserDocuments", "Manage", routeValues: null, htmlAttributes: new { title = "Moje dokumenty" })
+                </li>
+                <li>
                     @Html.ActionLink("Ustawienia", "UserSettings", "Manage", routeValues: null, htmlAttributes: new { title = "Ustawienia" })
                 </li>
             </ul>

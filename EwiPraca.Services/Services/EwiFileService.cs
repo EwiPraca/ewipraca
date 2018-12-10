@@ -40,12 +40,12 @@ namespace EwiPraca.Services.Services
 
         public IEnumerable<EwiFile> GetFilesForEmployee(int employeeId)
         {
-            return _fileRepository.Query(x => x.ParentObjectId == employeeId).AsEnumerable();
+            return _fileRepository.Query(x => !x.IsDeleted && x.ParentObjectId == employeeId).AsEnumerable();
         }
 
         public IEnumerable<EwiFile> GetFilesForEmployeeByFileType(int employeeId, FileType fileType)
         {
-            return _fileRepository.Query(x => x.ParentObjectId == employeeId && x.FileType == fileType).AsEnumerable();
+            return _fileRepository.Query(x => !x.IsDeleted && x.ParentObjectId == employeeId && x.FileType == fileType).AsEnumerable();
         }
 
         public void Update(EwiFile entity)

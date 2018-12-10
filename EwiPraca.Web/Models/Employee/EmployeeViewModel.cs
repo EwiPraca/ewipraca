@@ -50,6 +50,7 @@ namespace EwiPraca.Models
         public List<PositionDictionaryValue> Positions { get; set; }
 
         public List<ContractViewModel> Contracts { get; set; }
+        public List<EwiFileViewModel> Files { get; set; }
         public List<MedicalReportViewModel> MedicalReports { get; set; }
         public List<OSHTrainingViewModel> OSHTrainings { get; set; }
         public List<SickLeaveViewModel> SickLeaves { get; set; }
