@@ -798,8 +798,6 @@ namespace EwiPraca.Controllers
 
                         path = path + "/" + fileName;
 
-                        string extension = Path.GetExtension(file.FileName);
-
                         file.SaveAs(path);
 
                         var now = DateTime.Now;
@@ -822,8 +820,6 @@ namespace EwiPraca.Controllers
                     }
                 }
             }
-
-
 
             return Json("");
         }

@@ -1,6 +1,0 @@
-2018-12-03 20:19:08.1240|ERROR|EwiPraca.MvcApplication|A public action method 'UserSettings' was not found on controller 'EwiPraca.Controllers.ManageController'.
-2018-12-03 20:20:42.5609|ERROR|EwiPraca.MvcApplication|A public action method 'UserSettings' was not found on controller 'EwiPraca.Controllers.ManageController'.
-2018-12-03 20:21:28.2186|ERROR|EwiPraca.MvcApplication|A public action method 'UserSettings' was not found on controller 'EwiPraca.Controllers.ManageController'.
-2018-12-03 20:21:43.3500|ERROR|EwiPraca.MvcApplication|A public action method 'UserSettings' was not found on controller 'EwiPraca.Controllers.ManageController'.
-2018-12-03 20:22:45.6803|ERROR|EwiPraca.MvcApplication|A public action method 'UserSettings' was not found on controller 'EwiPraca.Controllers.ManageController'.
-2018-12-03 20:23:03.4047|ERROR|EwiPraca.MvcApplication|A public action method 'UserSettings' was not found on controller 'EwiPraca.Controllers.ManageController'.

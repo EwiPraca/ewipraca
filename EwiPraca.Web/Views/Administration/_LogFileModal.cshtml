@@ -1,0 +1,14 @@
+﻿@model EwiPraca.Models.ErrorLogViewModel
+
+
+<div class="modal-wrapper">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="closbtncontract">×</button>
+        <h4 class="modal-title" id="myModalLabel">Zawartość logu @Model.FileName</h4>
+    </div>
+    <div class="row modal-row">        
+        <div class="col-md-12">
+            @Html.DisplayFor(m => m.FileContent, new { @class = "form-control" })
+        </div>
+    </div>
+</div>

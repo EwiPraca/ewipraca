@@ -10,7 +10,9 @@ using Microsoft.AspNet.Identity;
 using NLog;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace EwiPraca.Controllers
@@ -24,12 +26,18 @@ namespace EwiPraca.Controllers
         private readonly IUserCompanyService _userCompanyService;
         private static Logger logger = LogManager.GetCurrentClassLogger();
         private readonly int _defaultNumberOfDays = SettingsHandler.DaysBeforeIntervalReminder;
+        private readonly string userFilePath= "C:/MediaFiles/EwiPracaUserFiles";
 
         public ManageController(ApplicationUserManager applicationUserManager,
             IUserCompanyService userCompanyService,
             ISettingService settingService,
             AddressService addressService)
         {
+            if (!Directory.Exists(userFilePath))
+            {
+                Directory.CreateDirectory(userFilePath);
+            }
+
             _applicationUserManager = applicationUserManager;
             _userCompanyService = userCompanyService;
             _settingService = settingService;
@@ -238,9 +246,64 @@ namespace EwiPraca.Controllers
         [HttpGet]
         public ActionResult UserDocuments()
         {
-            return View();
+            var userId = User.Identity.GetUserId();
+
+            var model = new UserDocumentsViewModel();
+
+            if(!string.IsNullOrEmpty(userId))
+            {
+                string userFolderPath = userFilePath + "/" + userId;
+                if (!Directory.Exists(userFolderPath))
+                {
+                    Directory.CreateDirectory(userFolderPath);
+                }
+                List<string> files = new List<string>();
+
+                if (Directory.Exists(userFolderPath))
+                {
+                    files.AddRange(Directory.GetFiles(userFolderPath, "*.*", SearchOption.AllDirectories).ToList());
+
+                    foreach(var file in files)
+                    {
+                        model.Files.Add(new UserFileViewModel()
+                        {
+                            FileName = file,
+                            ParentFolderName = userId
+                        });
+                    }
+                }
+            }
+
+            return View(model);
         }
 
+        [HttpPost]
+        public ActionResult UploadUserFile()
+        {
+            foreach (string item in Request.Files)
+            {
+                HttpPostedFileBase file = Request.Files[item] as HttpPostedFileBase;
+                if (file.ContentLength == 0)
+                    continue;
+                if (file.ContentLength > 0)
+                {
+                    try
+                    {
+                        var userId = User.Identity.GetUserId();
+
+                        string path = string.Format("{0}/{1}/{2}", userFilePath, userId, file.FileName);
+
+                        file.SaveAs(path);
+                    }
+                    catch (Exception e)
+                    {
+                        logger.Error(e, e.Message);
+                    }
+                }
+            }
+
+            return Json("");
+        }
 
         [HttpGet]
         public ActionResult AddUserCompany()

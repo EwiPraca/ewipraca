@@ -16,6 +16,7 @@
     <script src="~/Scripts/vfs_fonts.js"></script>
     <script src="~/Scripts/buttons.html5.min.js"></script>
     <script src="~/Scripts/buttons.colVis.min.js"></script>
+    <script src="~/Scripts/dataTables.colReorder.min.js"></script>
 }
 
 <header class="page-header">
@@ -245,6 +246,7 @@
 
         var dt = $('#employees-data-table').DataTable({
             responsive: true,
+            colReorder: true,
             "columnDefs": [
             {
                 "targets": [0],

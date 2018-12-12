@@ -277,10 +277,13 @@
     <Compile Include="Models\Employee\PositionDictionaryValueViewModel.cs" />
     <Compile Include="Models\Employee\JobPartDictionaryViewModel.cs" />
     <Compile Include="Models\Employee\PositionDictionaryViewModel.cs" />
+    <Compile Include="Models\ErrorLogsViewModel.cs" />
+    <Compile Include="Models\ErrorLogViewModel.cs" />
     <Compile Include="Models\EwiFileViewModel.cs" />
     <Compile Include="Models\Manage\BaseViewModel.cs" />
     <Compile Include="Models\Manage\AddressViewModel.cs" />
     <Compile Include="Models\Manage\UserCompanyViewModel.cs" />
+    <Compile Include="Models\Manage\UserDocumentsViewModel.cs" />
     <Compile Include="Models\Manage\UserSettingsViewModel.cs" />
     <Compile Include="Models\Manage\UserSettingViewModel.cs" />
     <Compile Include="Models\Manage\UserViewModel.cs" />
@@ -289,6 +292,7 @@
     <Compile Include="Models\OSHTraining\OSHTrainingViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\SickLeave\SickLeaveViewModel.cs" />
+    <Compile Include="Models\UserFileViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsHandler.cs" />
     <Compile Include="Startup.cs" />
@@ -296,9 +300,11 @@
     <Compile Include="Validators\UserCompanyAddressValidator.cs" />
     <Compile Include="Validators\UserCompanyValidator.cs" />
     <Content Include="Content\fileinput.min.css" />
+    <Content Include="Content\img\large_folder_icon.png" />
     <Content Include="Scripts\buttons.colVis.min.js" />
     <Content Include="Scripts\buttons.html5.min.js" />
     <Content Include="Scripts\dataTables.buttons.min.js" />
+    <Content Include="Scripts\dataTables.colReorder.min.js" />
     <Content Include="Scripts\fileinput.min.js" />
     <Content Include="Scripts\jszip.min.js" />
     <Content Include="Scripts\pdfmake.min.js" />
@@ -322,6 +328,8 @@
     <Content Include="Views\Employee\_AddJobPartDictionaryViewModal.cshtml" />
     <Content Include="Views\Employee\_AddSickLeaveData.cshtml" />
     <Content Include="Views\Employee\SickLeaves.cshtml" />
+    <Content Include="Views\Administration\Logs.cshtml" />
+    <Content Include="Views\Administration\_LogFileModal.cshtml" />
     <None Include="Views\Employee\_EditEmployeeModal.cshtml" />
     <Compile Include="WebResources.Designer.cs">
       <AutoGen>True</AutoGen>

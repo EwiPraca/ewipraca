@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace EwiPraca.Controllers
 {
+    [Authorize]
     public class SickLeaveController : Controller
     {
         private readonly ISickLeaveService _sickLeaveService;

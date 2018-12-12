@@ -1,3 +1,0 @@
-2018-11-30 08:38:05.7748|ERROR|EwiPraca.MvcApplication|The controller for path '/Shared/Error' was not found or does not implement IController.
-2018-11-30 08:46:38.5663|ERROR|EwiPraca.MvcApplication|The controller for path '/Shared/Error' was not found or does not implement IController.
-2018-11-30 08:46:52.8217|ERROR|EwiPraca.MvcApplication|A public action method 'DisplayCompa' was not found on controller 'EwiPraca.Controllers.CompanyController'.

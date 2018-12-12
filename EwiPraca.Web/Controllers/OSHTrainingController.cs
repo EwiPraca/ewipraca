@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace EwiPraca.Controllers
 {
+    [Authorize]
     public class OSHTrainingController : Controller
     {
         private readonly IOSHTrainingService _oshTrainingService;

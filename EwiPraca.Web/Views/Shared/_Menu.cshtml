@@ -19,7 +19,17 @@
         </li>
         @if (Request.IsAuthenticated && User.IsInRole(RolesNames.Administrator))
         {
-            <li class="@administrationSelected">@Html.ActionLink("Administracja", "Index", "Administration")</li>
+            <li class="@administrationSelected">
+                <a href="#">Administracja</a>
+                <ul>
+                    <li>
+                        @Html.ActionLink("Logi błędów", "Logs", "Administration", routeValues: null, htmlAttributes: new { title = "Logi błędów" })
+                    </li>
+                    <li>
+                        @Html.ActionLink("Użytkownicy", "Index", "Administration", routeValues: null, htmlAttributes: new { title = "Użytkownicy" })
+                    </li>
+                </ul>
+            </li>
         }
         @Html.Partial("_LoginPartial", (object)myProfileSelected)
     </ul>
