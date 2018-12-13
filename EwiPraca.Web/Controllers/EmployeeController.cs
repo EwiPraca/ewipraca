@@ -488,10 +488,9 @@ namespace EwiPraca.Controllers
         public ActionResult PostEmployeeFile(int id)
         {
             string handle = Guid.NewGuid().ToString();
-
             var ewiFile = _fileService.GetById(id);
 
-            using (MemoryStream ms = new MemoryStream(WebResources.EwiPracaImportPracownikowSzablon))
+            using (MemoryStream ms = new MemoryStream())
             {
                 using (FileStream file = new FileStream(ewiFile.FileName, FileMode.Open, FileAccess.Read))
                 {
