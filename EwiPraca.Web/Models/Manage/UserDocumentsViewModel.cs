@@ -6,6 +6,9 @@ namespace EwiPraca.Models
     {
         public List<UserFileViewModel> Files { get; set; }
 
+        public string CurrentFolderGuid { get; set; }
+        public string ParentFolderGuid { get; set; }
+
         public UserDocumentsViewModel()
         {
             if (Files == null)

@@ -827,7 +827,7 @@ input.placeholder, textarea.placeholder {
 }
 
 .one-fourth {
-    width: 220px;
+    width: 210px;
 }
 
 .three-fourth {
@@ -2313,7 +2313,6 @@ h6.acc-trigger.active a {
 .projects-carousel > li .categories, #portfolio-items > article .categories {
     color: #aeaeae;
     display: block;
-    font-style: italic;
     margin: -1px 0 20px;
 }
 
@@ -3233,8 +3232,7 @@ a:hover > .post-format {
 #footer {
     background: #3a3a3a;
     color: #868686;
-    margin-top: 80px;
-    padding: 35px 0 30px;
+    padding: 15px 0 10px;
     position: fixed;
     right: 0;
     bottom: 0;
@@ -4946,7 +4944,7 @@ input[type=button] {
     }
 
     .last-row{
-        margin-bottom: 140px !important;
+        margin-bottom: 160px !important;
     }
 
     .grid-button{
@@ -5002,4 +5000,21 @@ input[type=button] {
     .modal-dialog {
         left: unset !important;
     }
+}
+
+#file-area{
+    cursor: pointer;
+}
+
+.files-options{
+    text-align: center;
+    margin: 0 auto;
+}
+
+.files-options a{
+    display: inline-block !important;
+}
+
+.action-user-file{
+    cursor: pointer !important;
 }

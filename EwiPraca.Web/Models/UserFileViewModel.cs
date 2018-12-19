@@ -9,14 +9,18 @@ namespace EwiPraca.Models
     {
         public string ParentFolderName { get; set; }
         public string FileName { get; set; }
+        public string ContentType { get; set; }
         public string DisplayedFileName
         {
             get
             {
-                string[] path = FileName.Split('\\');
+                string[] path = FileName.Split('/');
 
                 return path[path.Length - 1];
             }
         }
+
+        public string FolderGuid { get; set; }
+        public string FileGuid { get; set; }
     }
 }

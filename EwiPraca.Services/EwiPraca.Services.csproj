@@ -46,6 +46,8 @@
     <Compile Include="Interfaces\IContractService.cs" />
     <Compile Include="Interfaces\IEmailMessageService.cs" />
     <Compile Include="Interfaces\IEmployeeService.cs" />
+    <Compile Include="Interfaces\ISharedLinkService.cs" />
+    <Compile Include="Interfaces\IUserFileService.cs" />
     <Compile Include="Interfaces\IEwiFileService.cs" />
     <Compile Include="Interfaces\IMedicalReportService.cs" />
     <Compile Include="Interfaces\IOSHTrainingService.cs" />
@@ -61,6 +63,8 @@
     <Compile Include="Services\ContractService.cs" />
     <Compile Include="Services\EmailMessageService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
+    <Compile Include="Services\SharedLinkService.cs" />
+    <Compile Include="Services\UserFileService.cs" />
     <Compile Include="Services\EwiFileService.cs" />
     <Compile Include="Services\MedicalReportService.cs" />
     <Compile Include="Services\OSHTrainingService.cs" />

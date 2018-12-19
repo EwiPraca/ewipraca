@@ -28,6 +28,9 @@ namespace EwiPraca.Data
         public IDbSet<Setting> Settings { get; set; }
         public IDbSet<UserSetting> UserSettings { get; set; }
         public IDbSet<EwiFile> EwiFiles { get; set; }
+        public IDbSet<UserFile> UserFiles { get; set; }
+        public IDbSet<SharedFileLink> SharedFileLinks { get; set; }
+        
 
         public static EwiPracaDbContext Create()
         {

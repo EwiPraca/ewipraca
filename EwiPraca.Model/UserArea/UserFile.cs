@@ -1,29 +1,32 @@
 ﻿using EwiPraca.Data;
-using EwiPraca.Enumerations;
 using EwiPraca.Model.Base;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EwiPraca.Model
 {
-    public class EwiFile : BaseModel
+    public class UserFile : BaseModel
     {
-        public int Id { get;  set; }
-
+        public int Id { get; set; }
         [Required]
         [StringLength(260)]
         public string FileName { get; set; }
 
         [StringLength(100)]
         public string ContentType { get; set; }
-        public FileType FileType { get; set; }
+        public int? ParentFileId { get; set; }
 
-        [Index]
-        public int ParentObjectId { get; set; }
+        [ForeignKey("ParentFileId")]
+        public virtual UserFile ParentFile { get; set; }
 
         [ForeignKey("ApplicationUser")]
         public string ApplicationUserID { get; set; }
 
         public virtual ApplicationUser ApplicationUser { get; set; }
+
+        [Required]
+        [StringLength(36)]
+        [Index]
+        public string FileGuid { get; set; }
     }
 }

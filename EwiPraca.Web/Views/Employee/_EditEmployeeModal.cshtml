@@ -17,9 +17,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h4 class="modal-title" id="myModalLabel">Edytuj dane Twojego Pracownika</h4>
     </div>
-
     <ul class="tabs-nav">
-
         <li id="employee-data-tab" class="active">
             <a href="#tab1">Dane osobowe</a>
         </li>
@@ -1390,6 +1388,10 @@
         initialPreview: "",
         initialPreviewConfig:"",
         uploadExtraData: ""
+    });
+
+    $('#input-contract-files').on('fileuploaded', function(event, data, previewId, index) {
+        console.log('File uploaded triggered');
     });
 
     $("#input-medical-report-files").fileinput({

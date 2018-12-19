@@ -514,6 +514,7 @@ namespace EwiPraca.Controllers
             if (TempData[fileGuid] != null)
             {
                 byte[] data = TempData[fileGuid] as byte[];
+                TempData[fileGuid] = null;
                 return File(data, contentType, fileName);
             }
             else

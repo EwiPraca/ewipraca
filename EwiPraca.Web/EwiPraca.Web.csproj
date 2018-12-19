@@ -93,6 +93,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
@@ -300,7 +301,8 @@
     <Compile Include="Validators\UserCompanyAddressValidator.cs" />
     <Compile Include="Validators\UserCompanyValidator.cs" />
     <Content Include="Content\fileinput.min.css" />
-    <Content Include="Content\img\large_folder_icon.png" />
+    <Content Include="Content\img\document-icon.png" />
+    <Content Include="Content\img\folder_icon.png" />
     <Content Include="Scripts\buttons.colVis.min.js" />
     <Content Include="Scripts\buttons.html5.min.js" />
     <Content Include="Scripts\dataTables.buttons.min.js" />

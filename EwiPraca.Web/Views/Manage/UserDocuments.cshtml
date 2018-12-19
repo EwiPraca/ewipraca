@@ -10,7 +10,7 @@
 
 @section scripts{
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" media="screen" />
-    }
+}
 
 <header class="page-header">
     <h1 class="page-title align-center">@ViewBag.Title</h1>
@@ -19,66 +19,181 @@
 <h2 class="slogan align-center">
     Tutaj możesz zarządzać swoimi dokumentami.
 </h2>
+<p class="align-center">
+    @if (!string.IsNullOrEmpty(Model.CurrentFolderGuid))
+    {
+        <a href="@Url.Action("UserDocuments", "Manage", new { currentFolderGuid = Model.ParentFolderGuid })" class="button"><span class="glyphicon glyphicon-arrow-up"></span>Wróć wyżej</a>
+    }
+    <a href="#" id="add-folder" class="button"><span class="glyphicon glyphicon-plus"></span>Dodaj folder</a>
+</p>
 
-<input id="user-files" name="user-files" type="file" class="file" data-browse-on-zone-click="true" multiple>
+@if (Model.Files == null || Model.Files.Count() == 0)
+{
+    <div class="row">
+        <p class="align-center">Brak plików do wyświetlenia</p>
+    </div>
+}
+else
+{
+    <section id="portfolio-items" class="clearfix">
+        @foreach (var userFile in Model.Files)
+        {
+            if (userFile.ContentType == null)
+            {
+                <article class="one-fourth illustration design isotope-item" data-categories="illustration design" style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-primary list-panel" id="list-panel">
-            <div class="panel-heading list-panel-heading">
-                <h1 class="panel-title list-panel-title">Lista plików</h1>
-            </div>
-            <div class="panel-body">
-                <table id="files-data-table" class="table table-striped table-bordered" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Nazwa pliku</th>
-                            <th>Akcje</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model.Files != null)
-                        {
-                            foreach (var setting in Model.Files)
-                            {
-                                <tr>
-                                    <td>@setting.DisplayedFileName</td>
-                                    <td class="action-column"></td>
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
+                    <a href="@Url.Action("UserDocuments", "Manage", new { currentFolderGuid = userFile.FolderGuid })" title="@userFile.DisplayedFileName" style="height: 85px; width: 110px;">
+                        <img src="~/Content/img/folder_icon.png" alt="">
+                        <span class="zoom">&nbsp;</span>
+                    </a>
+
+                    <div class="files-options">
+                        <h5 class="title">@userFile.DisplayedFileName</h5>
+                        <span class="categories"><a class="action-user-file delete-file" data-id="@userFile.FileGuid">Usuń</a>&nbsp;<a class="action-user-file share-file" data-id="@userFile.FileGuid">Udostępnij</a></span>
+                    </div>
+
+                </article>
+            }
+            else
+            {
+                <article class="one-fourth illustration design isotope-item" data-categories="illustration design" style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">
+
+                    <a href="#" title="@userFile.DisplayedFileName" style="height: 85px; width: 110px;">
+                        <img src="~/Content/img/document-icon.png" alt="">
+                        <span class="zoom">&nbsp;</span>
+                    </a>
+
+                    <div class="files-options">
+                        <h5 class="title">@userFile.DisplayedFileName</h5>
+                        <span class="categories"><a class="action-user-file download-file" data-id="@userFile.FileGuid">Pobierz</a>&nbsp;<a class="action-user-file delete-file" data-id="@userFile.FileGuid">Usuń</a>&nbsp;<a class="action-user-file share-file" data-id="@userFile.FileGuid">Udostępnij</a></span>
+                    </div>
+
+                </article>
+            }
+
+        }
+    </section>
+}
+
+<div id='add-folder-modal' class='modal fade'>
+    <div class="modal-dialog popup-modal">
+        <div class="modal-content">
+            <div id='add-folder-modal-content'>
+                <div class="modal-wrapper">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="closbtndictvalue">×</button>
+                        <h4 class="modal-title" id="myModalLabel">Dodaj folder</h4>
+                    </div>
+
+                    @using (Html.BeginForm("CreateUserFolder", "Manage", FormMethod.Post))
+                    {
+                        <div class="row modal-row">
+                            @Html.AntiForgeryToken()
+                            <input id="CurrentFolderGuid" type="hidden" name="CurrentFolderGuid" class="form-control" value="@Model.CurrentFolderGuid" hidden="hidden" />
+                            <div class="col-md-2">
+                                @Html.Label("Nazwa folderu", new { @class = "col-md-2 control-label" })
+                            </div>
+                            <div class="col-md-10" style="padding-bottom: 10px !important">
+                                <input id="folderName" type="text" name="folderName" class="form-control" required oninvalid="this.setCustomValidity('Enter User Name Here')" oninput="this.setCustomValidity('')" />
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="float-right">
+                                    <input type="submit" class="btn btn-default" value="Dodaj" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<div id='share-file-modal' class='modal fade'>
+    <div class="modal-dialog popup-modal">
+        <div class="modal-content">
+            <div id='share-file-modal-content'>
+                <div class="modal-wrapper">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="closbtndictvalue">×</button>
+                        <h4 class="modal-title" id="myModalLabel">Udostępnij</h4>
+                    </div>
+                    @using (Ajax.BeginForm("GenerateSharedFileLink", "Manage", new AjaxOptions() { HttpMethod = "POST", OnSuccess = "onGenerateLinkSuccess", OnFailure = "onFailureModalEdit" })) 
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="row modal-row">
+                            @Html.AntiForgeryToken()
+                            <input id="currentFileGuid" type="hidden" name="currentFileGuid" class="form-control" value="" hidden="hidden" />
+                            <div class="col-md-3">
+                                @Html.Label("Link do pliku", new { @class = "col-md-6 control-label" })
+                            </div>
+                            <div class="col-md-9" style="padding-bottom: 10px !important">
+                                <input id="shared-link" type="text" name="shared-link" class="form-control" />
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="float-right">
+                                    <input id="submitShareLink" type="submit" class="btn btn-default" value="Generuj" />
+                                    <input id="copyLink" type="button" class="btn btn-default" value="Skopiuj"/>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <input id="user-files" name="user-files" type="file" class="file" data-browse-on-zone-click="true" multiple>
+</div>
 <div class="row last-row">
 </div>
-<script>
-    $(document).ready(function () {
-        $('#files-data-table').DataTable({
-            responsive: true,
-            "oLanguage": {
-                "sSearch": "Szukaj: ",
-                "sEmptyTable": "Brak danych do wyświetlenia",
-                "sInfo": "_START_ do _END_ z _TOTAL_ wierszy",
-                "sInfoEmpty": "0 z 0 z 0 wierszy",
-                "oPaginate": {
-                    "sNext": "Następna",
-                    "sPrevious": "Poprzednia"
-                },
-                "sLengthMenu": "Pokaż na stronę: _MENU_",
-            }
-        });
-    });
-
-</script>
 
 <script type="text/javascript">
+    function onGenerateLinkSuccess(e){
+        if (e.Success == "true") {
+            $("#shared-link").val(e.Url);
+            $("#submitShareLink").hide();
+            $("#copyLink").show();
+        }
+        else {
+            showErrorMessage(e.Message);
+        }
+    }
+
     $(document).ready(function () {
+        $("#copyLink").hide();
+
+        $('#copyLink').on("click", function () {
+            var value = $("#shared-link").val(); 
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val(value).select();
+            document.execCommand("copy");
+            $temp.remove();
+            showErrorMessage("Skopiowano link do schowka.")
+        })
+
+        $("#add-folder").click(function () {
+            var options = { keyboard: true };
+            $('#add-folder-modal').modal(options);
+            $('#add-folder-modal').modal('show');
+        });
+
+        $(".share-file").click(function () {
+            var guid = $(this).attr('data-id');
+            $("#currentFileGuid").val(guid);
+            var options = { keyboard: true };
+            $('#share-file-modal').modal(options);
+            $('#share-file-modal').modal('show');
+        });
+
         $("#user-files").fileinput({
-            uploadUrl: "@Html.Raw(Url.Action("UploadUserFile", "Manage"))",
+            uploadUrl: "@Html.Raw(Url.Action("UploadUserFile", "Manage", new { folderGuid = Model.CurrentFolderGuid }))",
             uploadAsync: true,
             minFileCount: 1,
             maxFileCount: 10,
@@ -88,4 +203,57 @@
             uploadExtraData: ""
         });
     });
+
+    $('.delete-file').click(function (e) {
+        var guid = $(this).attr('data-id');
+        var data = { guid: guid };
+
+        var ok = confirm("Czy na pewno chcesz usunąć ten plik?");
+        if (ok) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("DeleteUserFile", "Manage")",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                datatype: "json",
+                success: function (data) {
+                    if (data.Success == "true") {
+                        window.location.reload();
+                    }
+                    else {
+                        showErrorMessage(e.Message);
+                    }
+                },
+                error: function (e) {
+                    showErrorMessage("Wystąpił błąd. " + e);
+                }
+            });
+        }
+        else {
+            e.preventDefault();
+        }
+    });
+
+    $('.download-file').click(function () {
+        var guid = $(this).attr('data-id');
+        var data = { guid: guid };
+
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("PostUserDataFile", "Manage")",
+            contentType: "application/json",
+            data: data,
+            datatype: "json",
+            success: function (data) {
+                hideLoader();
+                var url = '@Html.Raw(Url.Action("DownloadUserFile", "Manage", new { fileGuid = "XXXFILEGUID", filename = "XXXFILENAME", contentType = "XXXCONTENTTYPE" }))';
+                url = url.replace('XXXFILEGUID', data.FileGuid).replace('XXXFILENAME', data.FileName).replace('XXXCONTENTTYPE', data.ContentType);
+                window.location = url;
+            },
+            error: function (e) {
+                showErrorMessage(e);
+            }
+        });
+    });
+
 </script>

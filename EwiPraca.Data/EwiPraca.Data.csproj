@@ -112,6 +112,22 @@
     <Compile Include="Migrations\201812091405264_EwiPracaFilesPartI.Designer.cs">
       <DependentUpon>201812091405264_EwiPracaFilesPartI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812141614508_UserDocumentsFiles.cs" />
+    <Compile Include="Migrations\201812141614508_UserDocumentsFiles.Designer.cs">
+      <DependentUpon>201812141614508_UserDocumentsFiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812141712247_UserDocumentsFiles2.cs" />
+    <Compile Include="Migrations\201812141712247_UserDocumentsFiles2.Designer.cs">
+      <DependentUpon>201812141712247_UserDocumentsFiles2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812141747329_UserDocumentsFiles3.cs" />
+    <Compile Include="Migrations\201812141747329_UserDocumentsFiles3.Designer.cs">
+      <DependentUpon>201812141747329_UserDocumentsFiles3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812171711590_UserDocumentsFiles4.cs" />
+    <Compile Include="Migrations\201812171711590_UserDocumentsFiles4.Designer.cs">
+      <DependentUpon>201812171711590_UserDocumentsFiles4.cs</DependentUpon>
+    </Compile>
     <Compile Include="RepositoryTransaction.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="EwiPracaDbContext.cs" />
@@ -189,6 +205,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812091405264_EwiPracaFilesPartI.resx">
       <DependentUpon>201812091405264_EwiPracaFilesPartI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812141614508_UserDocumentsFiles.resx">
+      <DependentUpon>201812141614508_UserDocumentsFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812141712247_UserDocumentsFiles2.resx">
+      <DependentUpon>201812141712247_UserDocumentsFiles2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812141747329_UserDocumentsFiles3.resx">
+      <DependentUpon>201812141747329_UserDocumentsFiles3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812171711590_UserDocumentsFiles4.resx">
+      <DependentUpon>201812171711590_UserDocumentsFiles4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
