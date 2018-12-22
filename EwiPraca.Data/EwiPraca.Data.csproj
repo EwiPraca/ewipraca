@@ -128,6 +128,10 @@
     <Compile Include="Migrations\201812171711590_UserDocumentsFiles4.Designer.cs">
       <DependentUpon>201812171711590_UserDocumentsFiles4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812221529160_ResetPasswordFunctionality.cs" />
+    <Compile Include="Migrations\201812221529160_ResetPasswordFunctionality.Designer.cs">
+      <DependentUpon>201812221529160_ResetPasswordFunctionality.cs</DependentUpon>
+    </Compile>
     <Compile Include="RepositoryTransaction.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="EwiPracaDbContext.cs" />
@@ -217,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812171711590_UserDocumentsFiles4.resx">
       <DependentUpon>201812171711590_UserDocumentsFiles4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812221529160_ResetPasswordFunctionality.resx">
+      <DependentUpon>201812221529160_ResetPasswordFunctionality.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

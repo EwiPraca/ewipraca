@@ -30,7 +30,8 @@ namespace EwiPraca.Data
         public IDbSet<EwiFile> EwiFiles { get; set; }
         public IDbSet<UserFile> UserFiles { get; set; }
         public IDbSet<SharedFileLink> SharedFileLinks { get; set; }
-        
+        public IDbSet<ResetPasswordRequest> PasswordResetLinks { get; set; }
+
 
         public static EwiPracaDbContext Create()
         {

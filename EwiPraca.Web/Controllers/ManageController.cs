@@ -565,7 +565,7 @@ namespace EwiPraca.Controllers
 
             if(file.ContentType == null)
             {
-                //TODO zipping with folders
+                return null;
             }
             else
             {
