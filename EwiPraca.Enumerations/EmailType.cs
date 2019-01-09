@@ -3,6 +3,7 @@
     public enum EmailType
     {
         OSHTrainingExpiredReminder,
-        MedicalReportExpiredReminder
+        MedicalReportExpiredReminder,
+        PasswordResetRequest
     }
 }

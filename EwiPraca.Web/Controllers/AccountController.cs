@@ -1,7 +1,9 @@
 ﻿using EwiPraca.App_Start.Identity;
 using EwiPraca.Data;
 using EwiPraca.Encryptor;
+using EwiPraca.Model;
 using EwiPraca.Models;
+using EwiPraca.Services.Interfaces;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -18,15 +20,21 @@ namespace EwiPraca.Controllers
     {
         private readonly ApplicationUserManager _userManager;
         private readonly ApplicationSignInManager _signInManager;
+        private readonly IResetPasswordService _resetPasswordService;
+        private readonly IEmailMessageService _emailMessageService;
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public AccountController(
             ApplicationUserManager userManager,
-            ApplicationSignInManager signInManager
+            ApplicationSignInManager signInManager,
+            IResetPasswordService resetPasswordService,
+            IEmailMessageService emailMessageService
             )
         {
+            _resetPasswordService = resetPasswordService;
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailMessageService = emailMessageService;
         }
 
         //
@@ -113,7 +121,7 @@ namespace EwiPraca.Controllers
                     }
                     AddErrors(result);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     logger.Error(e, e.Message);
                 }
@@ -123,41 +131,81 @@ namespace EwiPraca.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/ForgotPassword
-        //[AllowAnonymous]
-        //public ActionResult ForgotPassword()
-        //{
-        //    return View();
-        //}
+        [AllowAnonymous]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
 
-        ////
-        //// POST: /Account/ForgotPassword
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var user = await UserManager.FindByNameAsync(model.Email);
-        //        if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
-        //        {
-        //            // Don't reveal that the user does not exist or is not confirmed
-        //            return View("ForgotPasswordConfirmation");
-        //        }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByNameAsync(EncryptionService.EncryptEmail(model.Email));
+                if (user == null)// || !(await _userManager.IsEmailConfirmedAsync(user.Id)))
+                {
+                    // Don't reveal that the user does not exist or is not confirmed
+                    return View("ForgotPasswordConfirmation");
+                }
 
-        //        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-        //        // Send an email with this link
-        //        // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-        //        // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-        //        // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-        //        // return RedirectToAction("ForgotPasswordConfirmation", "Account");
-        //    }
+                try
+                {
+                    string guid = Guid.NewGuid().ToString();
 
-        //    // If we got this far, something failed, redisplay form
-        //    return View(model);
-        //}
+                    int hoursValidLink = SettingsHandler.PasswordResetEmailValidDuration;
+                    var validTo = DateTime.Now.AddHours(hoursValidLink);
+
+                    ResetPasswordRequest request = new ResetPasswordRequest()
+                    {
+                        ApplicationUserID = user.Id,
+                        ResetGuid = guid,
+                        ValidTo = validTo
+                    };
+
+                    _resetPasswordService.Create(request);
+
+                    var message = CreateForgottenPasswordMessage(user.Id, guid, validTo, model.Email);
+
+                    _emailMessageService.SendEmailMessage(message);
+
+                    request.MailSentDate = message.SentDate;
+
+                    _resetPasswordService.Update(request);
+                }
+                catch(Exception e)
+                {
+                    logger.Error(e, e.Message);
+                }
+
+
+                return View("ForgotPasswordConfirmation");
+
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        private EmailMessage CreateForgottenPasswordMessage(string id, string guid, DateTime validTo, string email)
+        {
+            string link = Url.Action("ResetPassword", "Account", new { guid = guid }, Request.Url.Scheme);
+
+            EmailMessage message = new EmailMessage()
+            {
+                ApplicationUserID = id,
+                EmailType = Enumerations.EmailType.PasswordResetRequest,
+                Recipient = email,
+                Body = WebResources.PasswordResetEmailBody.Replace("XXXLINK", link).Replace("XXXDATE", validTo.ToShortDateString()),
+                Subject = WebResources.PasswordResetEmailTitle
+            };
+
+            _emailMessageService.Create(message);
+
+            return message;
+        }
 
         //
         // GET: /Account/ForgotPasswordConfirmation

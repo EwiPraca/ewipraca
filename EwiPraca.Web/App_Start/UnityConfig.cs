@@ -59,6 +59,7 @@ namespace EwiPraca
             container.RegisterType<IRepository<EwiFile>, Repository<EwiFile>>();
             container.RegisterType<IRepository<UserFile>, Repository<UserFile>>();
             container.RegisterType<IRepository<SharedFileLink>, Repository<SharedFileLink>>();
+            container.RegisterType<IRepository<ResetPasswordRequest>, Repository<ResetPasswordRequest>>();
 
             container.RegisterType<IUserCompanyService, UserCompanyService>();
             container.RegisterType<IAddressService, AddressService>();
@@ -74,6 +75,7 @@ namespace EwiPraca
             container.RegisterType<IEwiFileService, EwiFileService>();
             container.RegisterType<IUserFileService, UserFileService>();
             container.RegisterType<ISharedLinkService, SharedLinkService>();
+            container.RegisterType<IResetPasswordService, ResetPasswordService>();
 
             container.RegisterType<IEwiImporter, CompanyEmployeeImporter>();
 

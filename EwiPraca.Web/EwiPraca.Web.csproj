@@ -281,6 +281,7 @@
     <Compile Include="Models\ErrorLogsViewModel.cs" />
     <Compile Include="Models\ErrorLogViewModel.cs" />
     <Compile Include="Models\EwiFileViewModel.cs" />
+    <Compile Include="Models\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\Manage\BaseViewModel.cs" />
     <Compile Include="Models\Manage\AddressViewModel.cs" />
     <Compile Include="Models\Manage\UserCompanyViewModel.cs" />

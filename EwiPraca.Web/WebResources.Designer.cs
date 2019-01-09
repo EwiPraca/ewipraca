@@ -152,6 +152,28 @@ namespace EwiPraca {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;p&gt;Witaj!&lt;/p&gt;
+        ///&lt;p&gt;Oto link do zresetowania Twojego hasla w aplikacji EwiPraca:&lt;/p&gt;
+        ///&lt;a href=&quot;XXXLINK&quot;&gt;Kliknij tutaj&lt;/a&gt;
+        ///&lt;p&gt;Link jest wazny do XXXDATE.&lt;/p&gt;
+        ///&lt;p&gt;Jesli to nie Ty generowales link, zignoruj te wiadomosc.&lt;/p&gt;.
+        /// </summary>
+        internal static string PasswordResetEmailBody {
+            get {
+                return ResourceManager.GetString("PasswordResetEmailBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resetowanie hasła EwiPraca.
+        /// </summary>
+        internal static string PasswordResetEmailTitle {
+            get {
+                return ResourceManager.GetString("PasswordResetEmailTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pole Notatki może mieć maksymalnie 1000 znaków..
         /// </summary>
         internal static string TooLongCompanyNotesMessage {

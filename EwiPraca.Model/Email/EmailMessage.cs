@@ -13,7 +13,7 @@ namespace EwiPraca.Model
         public string Recipient { get; set; }
         public DateTime? SentDate { get; set; }
         public EmailType EmailType { get; set; }
-        public int EmployeeId { get; set; }
+        public int? EmployeeId { get; set; }
         public virtual Employee Employee { get; set; }
         [ForeignKey("ApplicationUser")]
         public string ApplicationUserID { get; set; }

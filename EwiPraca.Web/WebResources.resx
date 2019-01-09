@@ -148,6 +148,16 @@
   <data name="OSHTrainingToExpireReminderEmailTitle" xml:space="preserve">
     <value>Upływa termin ważności szkolenia BHP.</value>
   </data>
+  <data name="PasswordResetEmailBody" xml:space="preserve">
+    <value>&lt;p&gt;Witaj!&lt;/p&gt;
+&lt;p&gt;Oto link do zresetowania Twojego hasla w aplikacji EwiPraca:&lt;/p&gt;
+&lt;a href="XXXLINK"&gt;Kliknij tutaj&lt;/a&gt;
+&lt;p&gt;Link jest wazny do XXXDATE.&lt;/p&gt;
+&lt;p&gt;Jesli to nie Ty generowales link, zignoruj te wiadomosc.&lt;/p&gt;</value>
+  </data>
+  <data name="PasswordResetEmailTitle" xml:space="preserve">
+    <value>Resetowanie hasła EwiPraca</value>
+  </data>
   <data name="TooLongCompanyNotesMessage" xml:space="preserve">
     <value>Pole Notatki może mieć maksymalnie 1000 znaków.</value>
   </data>

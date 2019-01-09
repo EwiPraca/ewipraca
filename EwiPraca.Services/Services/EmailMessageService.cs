@@ -43,13 +43,16 @@ namespace EwiPraca.Services.Services
             return _emailMessageRepository.Query(x => x.Id == id).FirstOrDefault();
         }
 
+        public SendResult SendPasswordResetMessage()
+        {
+            SendResult result = GetSendResult();
+
+            return result;
+        }
+
         public SendResult SendEmailMessage(EmailMessage message)
         {
-            SendResult result = new SendResult()
-            {
-                Success = true,
-                Message = string.Empty
-            };
+            SendResult result = GetSendResult();
 
             try
             {
@@ -86,6 +89,17 @@ namespace EwiPraca.Services.Services
         public void Update(EmailMessage entity)
         {
             _emailMessageRepository.Update(entity);
+        }
+
+        private SendResult GetSendResult()
+        {
+            SendResult result = new SendResult()
+            {
+                Success = true,
+                Message = string.Empty
+            };
+
+            return result;
         }
     }
 }
