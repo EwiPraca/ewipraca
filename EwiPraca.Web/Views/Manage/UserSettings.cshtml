@@ -16,12 +16,31 @@
     <script src="~/Scripts/vfs_fonts.js"></script>
     <script src="~/Scripts/buttons.html5.min.js"></script>
     <script src="~/Scripts/buttons.colVis.min.js"></script>
-<script src="~/Scripts/dataTables.colReorder.min.js"></script>
+    <script src="~/Scripts/dataTables.colReorder.min.js"></script>
 }
 
 <header class="page-header">
     <h1 class="page-title align-center">@ViewBag.Title</h1>
 </header>
+<div class="row">
+    <div class="col-md-8">
+        <div class="form-group">
+            <div class="col-md-10">
+                @if (!Model.TwoFactorEnabled)
+                {
+                    @Html.ActionLink("Skonfiguruj logowanie dwuskładnikowe", "SetupTwoFactorAuthentication", "Account", routeValues: null, htmlAttributes: new { @class = "configureTwoFactorLink" })
+                }
+                else
+                {
+                    @Html.ActionLink("Deaktywuj logowanie dwuskładnikowe", "SetupTwoFactorAuthentication", "Account");
+                }
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
 
 <div class="row">
     <div class="col-md-12">

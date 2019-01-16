@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using EwiPraca.Model;
+﻿using System.Collections.Generic;
 
 namespace EwiPraca.Models
 {
@@ -10,5 +6,6 @@ namespace EwiPraca.Models
     {
         public string UserId { get; set; }
         public IEnumerable<UserSettingViewModel> Settings { get; set; }
+        public bool TwoFactorEnabled { get; set; }
     }
 }

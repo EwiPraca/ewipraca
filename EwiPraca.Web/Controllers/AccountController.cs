@@ -4,6 +4,7 @@ using EwiPraca.Encryptor;
 using EwiPraca.Model;
 using EwiPraca.Models;
 using EwiPraca.Services.Interfaces;
+using Google.Authenticator;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -57,14 +58,20 @@ namespace EwiPraca.Controllers
             {
                 return View(model);
             }
-
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await _signInManager.PasswordSignInAsync(EncryptionService.EncryptEmail(model.Email), model.Password, model.RememberMe, shouldLockout: false);
+            bool status = false;
+            var result = await _signInManager.PasswordSignInAsync(EncryptionService.EncryptEmail(model.Email), model.Password, model.RememberMe, shouldLockout: true);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    TwoFactorAuthenticator TwoFacAuth = new TwoFactorAuthenticator();
+                    string UserUniqueKey = (model.Email + EwiPracaConstants.GoogleKeys.TwoFactorAuthenticatorKey);
+                    Session["UserUniqueKey"] = UserUniqueKey;
+                    //var setupInfo = TwoFacAuth.GenerateSetupCode("EwiPraca", model.Email, UserUniqueKey, 300, 300);
+                    //ViewBag.BarcodeImageUrl = setupInfo.QrCodeSetupImageUrl;
+                    //ViewBag.SetupCode = setupInfo.ManualEntryKey;
+                    status = true;
+                    ViewBag.Status = status;
+                    return View();
 
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -75,8 +82,25 @@ namespace EwiPraca.Controllers
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Błędne hasło lub adres email.");
+                    ViewBag.Status = status;
                     return View(model);
             }
+        }
+
+        public ActionResult TwoFactorAuthenticate(string CodeDigit)
+        {
+            var token = CodeDigit;
+            TwoFactorAuthenticator TwoFacAuth = new TwoFactorAuthenticator();
+            string UserUniqueKey = Session["UserUniqueKey"].ToString();
+            bool isValid = TwoFacAuth.ValidateTwoFactorPIN(UserUniqueKey, token);
+
+            if (isValid)
+            {
+                Session["IsValidTwoFactorAuthentication"] = true;
+                return RedirectToAction("Index", "Home");
+            }
+
+            return RedirectToAction("Login", "Home");
         }
 
         //
@@ -218,36 +242,65 @@ namespace EwiPraca.Controllers
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        public ActionResult ResetPassword(string guid)
         {
-            return code == null ? View("Error") : View();
+            var resetRequest = _resetPasswordService.GetByGuid(guid);
+
+            if(resetRequest == null || resetRequest.ValidTo < DateTime.Now || resetRequest.IsCompleted)
+            {
+                return View("ResetPasswordError");
+            }
+
+            ResetPasswordViewModel model = new ResetPasswordViewModel()
+            {
+                Guid = resetRequest.ResetGuid,
+                Email = resetRequest.ApplicationUser.Email
+            };
+
+            return View(model);
         }
 
-        //
-        // POST: /Account/ResetPassword
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-        //    var user = await UserManager.FindByNameAsync(model.Email);
-        //    if (user == null)
-        //    {
-        //        // Don't reveal that the user does not exist
-        //        return RedirectToAction("ResetPasswordConfirmation", "Account");
-        //    }
-        //    var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-        //    if (result.Succeeded)
-        //    {
-        //        return RedirectToAction("ResetPasswordConfirmation", "Account");
-        //    }
-        //    AddErrors(result);
-        //    return View();
-        //}
+       [HttpPost]
+       [AllowAnonymous]
+       [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+
+            if (user == null)
+            {
+                // Don't reveal that the user does not exist
+                return RedirectToAction("ResetPasswordConfirmation", "Account");
+            }
+
+            try
+            {
+                var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user.Id);
+                var result = await _userManager.ResetPasswordAsync(user.Id, resetToken, model.Password);
+
+                if (result.Succeeded)
+                {
+                    var resetPasswordRequest = _resetPasswordService.GetByGuid(model.Guid);
+                    resetPasswordRequest.IsCompleted = true;
+                    _resetPasswordService.Update(resetPasswordRequest);
+
+                    return RedirectToAction("ResetPasswordConfirmation", "Account");
+                }
+
+                AddErrors(result);
+            }
+            catch(Exception e)
+            {
+                logger.Error(e, e.Message);
+            }
+
+            return View();
+        }
 
         //
         // GET: /Account/ResetPasswordConfirmation

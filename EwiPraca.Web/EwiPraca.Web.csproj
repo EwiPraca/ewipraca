@@ -72,6 +72,10 @@
       <HintPath>..\packages\FluentValidation.ValidatorAttribute.8.0.0\lib\net45\FluentValidation.ValidatorAttribute.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Google.Authenticator, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GoogleAuthenticator.1.2.1\lib\net45\Google.Authenticator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -268,6 +272,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account\LoginViewModel.cs" />
+    <Compile Include="Models\Account\ResetPasswordViewModel.cs" />
     <Compile Include="Models\Contract\ContractViewModel.cs" />
     <Compile Include="Models\Employee\CompanyEmployeesViewModel.cs" />
     <Compile Include="Models\Employee\EmployeeViewModel.cs" />
@@ -293,6 +298,7 @@
     <Compile Include="Models\MenuViewModel.cs" />
     <Compile Include="Models\OSHTraining\OSHTrainingViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
+    <Compile Include="Models\SetupTwoFactorAuthentication.cs" />
     <Compile Include="Models\SickLeave\SickLeaveViewModel.cs" />
     <Compile Include="Models\UserFileViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -333,6 +339,7 @@
     <Content Include="Views\Employee\SickLeaves.cshtml" />
     <Content Include="Views\Administration\Logs.cshtml" />
     <Content Include="Views\Administration\_LogFileModal.cshtml" />
+    <Content Include="Views\Account\ResetPasswordError.cshtml" />
     <None Include="Views\Employee\_EditEmployeeModal.cshtml" />
     <Compile Include="WebResources.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -5018,3 +5018,7 @@ input[type=button] {
 .action-user-file{
     cursor: pointer !important;
 }
+
+.configureTwoFactorLink{
+    font-size: 16px !important;
+}

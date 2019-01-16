@@ -235,10 +235,13 @@ namespace EwiPraca.Controllers
                 settings.Add(userSettingViewModel);
             }
 
+            var user = _applicationUserManager.FindById(userId);
+
             var model = new UserSettingsViewModel()
             {
                 UserId = userId,
-                Settings = settings
+                Settings = settings,
+                TwoFactorEnabled = user.TwoFactorEnabled
             };
 
             return View(model);

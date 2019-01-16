@@ -26,6 +26,14 @@ namespace EwiPraca.App_Start.Identity
             UserLockoutEnabledByDefault = true;
             DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
             MaxFailedAccessAttemptsBeforeLockout = 5;
+
+            var dataProtectionProvider = Startup.DataProtectionProvider;
+
+            if (dataProtectionProvider != null)
+            {
+                UserTokenProvider =
+                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+            }
         }
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
