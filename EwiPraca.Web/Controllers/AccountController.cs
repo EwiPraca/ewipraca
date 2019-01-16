@@ -64,14 +64,15 @@ namespace EwiPraca.Controllers
             {
                 case SignInStatus.Success:
                     TwoFactorAuthenticator TwoFacAuth = new TwoFactorAuthenticator();
-                    string UserUniqueKey = (model.Email + EwiPracaConstants.GoogleKeys.TwoFactorAuthenticatorKey);
-                    Session["UserUniqueKey"] = UserUniqueKey;
-                    //var setupInfo = TwoFacAuth.GenerateSetupCode("EwiPraca", model.Email, UserUniqueKey, 300, 300);
-                    //ViewBag.BarcodeImageUrl = setupInfo.QrCodeSetupImageUrl;
-                    //ViewBag.SetupCode = setupInfo.ManualEntryKey;
-                    status = true;
-                    ViewBag.Status = status;
-                    return View();
+                    //string UserUniqueKey = (model.Email + EwiPracaConstants.GoogleKeys.TwoFactorAuthenticatorKey);
+                    //Session["UserUniqueKey"] = UserUniqueKey;
+                    ////var setupInfo = TwoFacAuth.GenerateSetupCode("EwiPraca", model.Email, UserUniqueKey, 300, 300);
+                    ////ViewBag.BarcodeImageUrl = setupInfo.QrCodeSetupImageUrl;
+                    ////ViewBag.SetupCode = setupInfo.ManualEntryKey;
+                    //status = true;
+                    //ViewBag.Status = status;
+                    //return View();
+                    return RedirectToAction("Index", "Home");
 
                 case SignInStatus.LockedOut:
                     return View("Lockout");
