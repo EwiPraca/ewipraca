@@ -340,6 +340,8 @@
     <Content Include="Views\Administration\Logs.cshtml" />
     <Content Include="Views\Administration\_LogFileModal.cshtml" />
     <Content Include="Views\Account\ResetPasswordError.cshtml" />
+    <Content Include="Views\Account\SetupTwoFactorAuthentication.cshtml" />
+    <Content Include="Views\Account\AuthenticateLogin.cshtml" />
     <None Include="Views\Employee\_EditEmployeeModal.cshtml" />
     <Compile Include="WebResources.Designer.cs">
       <AutoGen>True</AutoGen>

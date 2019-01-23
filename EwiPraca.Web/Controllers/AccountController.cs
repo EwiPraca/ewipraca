@@ -40,10 +40,50 @@ namespace EwiPraca.Controllers
 
         //
         // GET: /Account/Login
-        [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult SetupTwoFactorAuthentication()
         {
-            ViewBag.ReturnUrl = returnUrl;
+            string userId = User.Identity.GetUserId();
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                RedirectToAction("Index", "Home");
+            }
+
+            var user = _userManager.FindById(userId);
+
+            if (user.TwoFactorEnabled)
+            {
+                RedirectToAction("Index", "Home");
+            }
+
+            TwoFactorAuthenticator TwoFacAuth = new TwoFactorAuthenticator();
+
+            var email = EncryptionService.DecryptEmail(user.Email);
+
+            string UserUniqueKey = (email + EwiPracaConstants.GoogleKeys.TwoFactorAuthenticatorKey);
+            Session["UserUniqueKey"] = UserUniqueKey;
+
+            var setupInfo = TwoFacAuth.GenerateSetupCode("EwiPraca", email, UserUniqueKey, 300, 300);
+            ViewBag.BarcodeImageUrl = setupInfo.QrCodeSetupImageUrl;
+            ViewBag.SetupCode = setupInfo.ManualEntryKey;
+
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult AuthenticateLogin()
+        {
+            if(Session["UserEmail"] == null || Session["UserUniqueKey"] == null || Session["RememberMe"] == null || Session["UserPassword"] == null)
+            {
+                RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
 
@@ -52,42 +92,46 @@ namespace EwiPraca.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            bool status = false;
-            var result = await _signInManager.PasswordSignInAsync(EncryptionService.EncryptEmail(model.Email), model.Password, model.RememberMe, shouldLockout: true);
-            switch (result)
+
+            var loggedinUser = _userManager.Find(EncryptionService.EncryptEmail(model.Email), model.Password);
+
+            if (loggedinUser != null)
             {
-                case SignInStatus.Success:
-                    TwoFactorAuthenticator TwoFacAuth = new TwoFactorAuthenticator();
-                    //string UserUniqueKey = (model.Email + EwiPracaConstants.GoogleKeys.TwoFactorAuthenticatorKey);
-                    //Session["UserUniqueKey"] = UserUniqueKey;
-                    ////var setupInfo = TwoFacAuth.GenerateSetupCode("EwiPraca", model.Email, UserUniqueKey, 300, 300);
-                    ////ViewBag.BarcodeImageUrl = setupInfo.QrCodeSetupImageUrl;
-                    ////ViewBag.SetupCode = setupInfo.ManualEntryKey;
-                    //status = true;
-                    //ViewBag.Status = status;
-                    //return View();
+                if (loggedinUser.TwoFactorEnabled)
+                {
+                    string userUniqueKey = (model.Email + EwiPracaConstants.GoogleKeys.TwoFactorAuthenticatorKey);
+
+                    Session["UserUniqueKey"] = userUniqueKey;
+                    Session["UserEmail"] = model.Email;
+                    Session["UserPassword"] = model.Password;
+                    Session["RememberMe"] = model.RememberMe;
+
+                    return RedirectToAction("AuthenticateLogin", "Account");
+                }
+                else
+                {
+                    _signInManager.PasswordSignIn(EncryptionService.EncryptEmail(model.Email), model.Password, model.RememberMe, true);
                     return RedirectToAction("Index", "Home");
-
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Błędne hasło lub adres email.");
-                    ViewBag.Status = status;
-                    return View(model);
+                }
             }
-        }
+            else
+            {
+                ModelState.AddModelError("", "Błędne hasło lub adres email.");
+                return View(model);
+            }
 
+
+        }
+        
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public ActionResult TwoFactorAuthenticate(string CodeDigit)
         {
             var token = CodeDigit;
@@ -97,11 +141,62 @@ namespace EwiPraca.Controllers
 
             if (isValid)
             {
-                Session["IsValidTwoFactorAuthentication"] = true;
+                string email = Session["UserEmail"].ToString();
+                string password = Session["UserPassword"].ToString();
+                bool rememberMe = (bool)Session["RememberMe"];
+
+                CleanSessionValues();
+
+                var result = _signInManager.PasswordSignIn(EncryptionService.EncryptEmail(email), password, rememberMe, true);
+
+                if(result == SignInStatus.Success)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                return RedirectToAction("Login", "Home");
+            }
+
+            CleanSessionValues();
+
+            return RedirectToAction("Login", "Home");
+        }
+
+        private void CleanSessionValues()
+        {
+            Session["UserEmail"] = null;
+            Session["UserPassword"] = null;
+            Session["UserUniqueKey"] = null;
+            Session["RememberMe"] = null;
+        }
+
+        public ActionResult TwoFactorAuthenticateSetup(string CodeDigit)
+        {
+            string userId = User.Identity.GetUserId();
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                RedirectToAction("Index", "Home");
+            }
+
+            var token = CodeDigit;
+            TwoFactorAuthenticator TwoFacAuth = new TwoFactorAuthenticator();
+            string UserUniqueKey = Session["UserUniqueKey"].ToString();
+            bool isValid = TwoFacAuth.ValidateTwoFactorPIN(UserUniqueKey, token);
+
+            var user = _userManager.FindById(userId);
+
+            if (isValid)
+            {
+                Session["UserUniqueKey"] = null;
+
+                user.TwoFactorEnabled = true;
+                _userManager.Update(user);
+
                 return RedirectToAction("Index", "Home");
             }
 
-            return RedirectToAction("Login", "Home");
+            return RedirectToAction("UserSettings", "Home");
         }
 
         //
@@ -200,7 +295,7 @@ namespace EwiPraca.Controllers
 
                     _resetPasswordService.Update(request);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     logger.Error(e, e.Message);
                 }
@@ -240,6 +335,26 @@ namespace EwiPraca.Controllers
             return View();
         }
 
+        public ActionResult DeactivateTwoFactorAuthentication()
+        {
+            string userId = User.Identity.GetUserId();
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                RedirectToAction("Index", "Home");
+            }
+
+            var user = _userManager.FindById(userId);
+
+            if (user != null)
+            {
+                user.TwoFactorEnabled = false;
+                _userManager.Update(user);
+            }
+
+            return RedirectToAction("UserSettings", "Manage");
+        }
+
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
@@ -247,7 +362,7 @@ namespace EwiPraca.Controllers
         {
             var resetRequest = _resetPasswordService.GetByGuid(guid);
 
-            if(resetRequest == null || resetRequest.ValidTo < DateTime.Now || resetRequest.IsCompleted)
+            if (resetRequest == null || resetRequest.ValidTo < DateTime.Now || resetRequest.IsCompleted)
             {
                 return View("ResetPasswordError");
             }
@@ -261,9 +376,9 @@ namespace EwiPraca.Controllers
             return View(model);
         }
 
-       [HttpPost]
-       [AllowAnonymous]
-       [ValidateAntiForgeryToken]
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
             if (!ModelState.IsValid)
@@ -295,7 +410,7 @@ namespace EwiPraca.Controllers
 
                 AddErrors(result);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 logger.Error(e, e.Message);
             }

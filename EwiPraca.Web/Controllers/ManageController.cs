@@ -207,6 +207,11 @@ namespace EwiPraca.Controllers
         {
             string userId = User.Identity.GetUserId();
 
+            if(!string.IsNullOrEmpty(userId))
+            {
+                RedirectToAction("Index", "Home");
+            }
+
             var settings = Mapper.Map<List<UserSettingViewModel>>(_settingService.AllUserSetting(userId));
 
             var existingSettingsId = settings.Select(x => x.Id).ToList();
