@@ -40,6 +40,9 @@ namespace EwiPraca.Models
             get { return EncryptionService.DecryptEmail(Email); }
         }
 
+        [Display(Name = "Czy zablokowany")]
+        public bool IsActive { get; set; }
+
         public List<UserCompanyViewModel> UserCompanies { get; set; }
     }
 }

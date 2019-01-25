@@ -19,7 +19,9 @@
                         <tr>
                             <th>Imię</th>
                             <th>Nazwisko</th>
+                            <th>Czy zablokowany</th>
                             <th>Email</th>
+                            <th>Akcje</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,7 +30,9 @@
                             <tr>
                                 <td>@user.FirstNameDecrypted</td>
                                 <td>@user.SurnameDecrypted</td>
+                                <td>@user.IsActive</td>
                                 <td>@user.EmailDecrypted</td>
+                                <td></td>
                             </tr>
                         }
                     </tbody>
@@ -58,9 +62,62 @@
                         "sPrevious": "Poprzednia"
                     },
                     "sLengthMenu": "Pokaż na stronę: _MENU_",
-                }
+                },
+                "columnDefs": [
+                 {
+                     "targets": [0],
+                 },
+                 {
+                     "targets": [1],
+                 },
+                  {
+                      "targets": [2],
+                      "visible": false,
+                  },
+                  {
+                      "targets": [3],
+                  },
+                 {
+                     "targets": [4],
+                     mRender: function (data, type, row) {
+
+                         var text = row[2] == "True" ? "Zablokuj" : "Odblokuj";
+                         return '<a class="button grid-button lock-user-button" data-id="' + row[3] + '" data-locked="' + row[2] + '">' + text + '</a>'
+                     }
+                 },
+                ],
             });
+
+            $('.lock-user-button').click(function () {
+                var email = $(this).attr('data-id');
+                var isLocked = $(this).attr('data-locked');
+
+                showLoader();
+                var options = { keyboard: true };
+                var data = { userId: email, locked: isLocked }
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("LockUser", "Administration")",
+                    contentType: "application/json",
+                    data: JSON.stringify(data),
+                    datatype: "json",
+                    success: function (data) {
+                        if (data.Success == true)
+                            window.location.reload();
+                        else
+                            showErrorMessage(data.Message);
+
+                        hideLoader();
+                    },
+                    error: function (e) {
+                        hideLoader();
+                    }
+                });
+            });
+
         });
+
+
     </script>
 
 }

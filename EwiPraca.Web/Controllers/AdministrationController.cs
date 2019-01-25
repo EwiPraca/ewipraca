@@ -2,11 +2,13 @@
 using EwiPraca.App_Start.Identity;
 using EwiPraca.Constants;
 using EwiPraca.Models;
+using Microsoft.AspNet.Identity;
 using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace EwiPraca.Controllers
@@ -75,6 +77,52 @@ namespace EwiPraca.Controllers
             }
 
             return PartialView("_LogFileModal", model);
+        }
+
+        [HttpPost]
+        [OutputCache(Duration = 0)]
+        public async Task<JsonResult> LockUser(string userId, bool locked)
+        {
+            var result = new { Success = true, Message = "Success" };
+
+            try
+            {
+                var email = Encryptor.EncryptionService.EncryptEmail(userId);
+                var user = await _applicationUserManager.FindByEmailAsync(email);
+
+                user.IsActive = !locked;
+
+                if (!locked)
+                {
+                    user.LockoutEndDateUtc = DateTime.UtcNow;
+                    user.LastLoginDate = DateTime.UtcNow;
+                }
+                else
+                {
+                    user.LockoutEndDateUtc = DateTime.MaxValue;
+                }
+
+                var identityResult = await _applicationUserManager.UpdateAsync(user);
+
+                if (identityResult.Succeeded)
+                {
+                    if (locked)
+                    {
+                        _applicationUserManager.UpdateSecurityStamp(user.Id);
+                    }
+                }
+                else
+                {
+                    result = new { Success = false, Message = identityResult.Errors.First() };
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, ex.Message);
+                result = new { Success = false, ex.Message };
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

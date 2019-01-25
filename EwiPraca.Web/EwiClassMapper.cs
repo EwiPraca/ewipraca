@@ -15,14 +15,16 @@ namespace EwiPraca
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<ApplicationUser, UserViewModel>();
+                cfg.CreateMap<ApplicationUser, UserViewModel>().ForMember(d => d.IsActive,
+                 opt => opt.MapFrom(x => x.IsActive)); ;
                 cfg.CreateMap<AddressViewModel, Address>();
                 cfg.CreateMap<Address, AddressViewModel>();
                 cfg.CreateMap<UserCompany, UserCompanyViewModel>().ForMember(d => d.UserCompanyAddress,
                  opt => opt.MapFrom(x => x.Address));
                 cfg.CreateMap<UserCompanyViewModel, UserCompany>().ForMember(d => d.Address,
                  opt => opt.MapFrom(x => x.UserCompanyAddress));
-                cfg.CreateMap<UserViewModel, ApplicationUser>();
+                cfg.CreateMap<UserViewModel, ApplicationUser>().ForMember(d => d.IsActive,
+                 opt => opt.MapFrom(x => x.IsActive));
                 cfg.CreateMap<EmployeeViewModel, Employee>();
                 cfg.CreateMap<Employee, EmployeeViewModel>().ForMember(d => d.MedicalReports,
                  opt => opt.MapFrom(x => x.MedicalReports.Where(s => !s.IsDeleted).ToList()))

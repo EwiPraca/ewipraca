@@ -103,22 +103,31 @@ namespace EwiPraca.Controllers
 
             if (loggedinUser != null)
             {
-                if (loggedinUser.TwoFactorEnabled)
+                if(loggedinUser.IsActive)
                 {
-                    string userUniqueKey = (model.Email + EwiPracaConstants.GoogleKeys.TwoFactorAuthenticatorKey);
+                    if (loggedinUser.TwoFactorEnabled)
+                    {
+                        string userUniqueKey = (model.Email + EwiPracaConstants.GoogleKeys.TwoFactorAuthenticatorKey);
 
-                    Session["UserUniqueKey"] = userUniqueKey;
-                    Session["UserEmail"] = model.Email;
-                    Session["UserPassword"] = model.Password;
-                    Session["RememberMe"] = model.RememberMe;
+                        Session["UserUniqueKey"] = userUniqueKey;
+                        Session["UserEmail"] = model.Email;
+                        Session["UserPassword"] = model.Password;
+                        Session["RememberMe"] = model.RememberMe;
 
-                    return RedirectToAction("AuthenticateLogin", "Account");
+                        return RedirectToAction("AuthenticateLogin", "Account");
+                    }
+                    else
+                    {
+                        _signInManager.PasswordSignIn(EncryptionService.EncryptEmail(model.Email), model.Password, model.RememberMe, true);
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {
-                    _signInManager.PasswordSignIn(EncryptionService.EncryptEmail(model.Email), model.Password, model.RememberMe, true);
-                    return RedirectToAction("Index", "Home");
+                    ModelState.AddModelError("", "Twoje konto jest zablokowane. Skontaktuj się z Administratorem systemu.");
+                    return View(model);
                 }
+               
             }
             else
             {
@@ -224,7 +233,8 @@ namespace EwiPraca.Controllers
                         Email = EncryptionService.EncryptEmail(model.Email),
                         FirstName = EncryptionService.Encrypt(model.FirstName),
                         Surname = EncryptionService.Encrypt(model.LastName),
-                        LastLoginDate = DateTime.Now
+                        LastLoginDate = DateTime.Now,
+                        IsActive = true
                     };
                     var result = await _userManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)

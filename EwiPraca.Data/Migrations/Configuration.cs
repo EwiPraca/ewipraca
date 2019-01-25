@@ -53,7 +53,8 @@ namespace EwiPraca.Data.Migrations
                 PasswordHash = password,
                 LockoutEnabled = true,
                 LastLoginDate = DateTime.Now,
-                SecurityStamp = Guid.NewGuid().ToString()
+                SecurityStamp = Guid.NewGuid().ToString(),
+                IsActive = true
             }))
             {
                 if (context.Users.FirstOrDefault(u => u.UserName == user.UserName) == null)
