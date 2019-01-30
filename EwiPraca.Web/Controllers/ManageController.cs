@@ -24,8 +24,8 @@ namespace EwiPraca.Controllers
         private readonly ApplicationUserManager _applicationUserManager;
         private readonly ISettingService _settingService;
         private readonly AddressService _addressService;
-        private readonly IUserCompanyService _userCompanyService; 
-        private readonly ISharedLinkService _sharedFileService; 
+        private readonly IUserCompanyService _userCompanyService;
+        private readonly ISharedLinkService _sharedFileService;
         private readonly IUserFileService _userFileService;
         private static Logger logger = LogManager.GetCurrentClassLogger();
         private readonly int _defaultNumberOfDays = SettingsHandler.DaysBeforeIntervalReminder;
@@ -34,7 +34,7 @@ namespace EwiPraca.Controllers
         public ManageController(ApplicationUserManager applicationUserManager,
             IUserCompanyService userCompanyService,
             ISettingService settingService,
-            IUserFileService userFileService, 
+            IUserFileService userFileService,
             ISharedLinkService sharedFileService,
             AddressService addressService)
         {
@@ -62,6 +62,13 @@ namespace EwiPraca.Controllers
             return View(userProfileModel);
         }
 
+
+        [HttpGet]
+        public ActionResult ChangePasswordView()
+        {
+            return PartialView("ChangePasswordViewModal", new ChangePasswordViewModel());
+        }
+
         [HttpGet]
         public ActionResult EditProfile()
         {
@@ -73,6 +80,57 @@ namespace EwiPraca.Controllers
             userProfileModel.Email = userProfileModel.EmailDecrypted;
 
             return PartialView("_EditUserModal", userProfileModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeUserPassword(ChangePasswordViewModel model)
+        {
+            var result = new { Success = "true", Message = "Success" };
+
+            if (ModelState.IsValid)
+            {
+                var userId = User.Identity.GetUserId();
+                if (string.IsNullOrEmpty(userId))
+                {
+                    throw new Exception("UserId cannot be empty!");
+                }
+
+                var user = _applicationUserManager.FindById(userId);
+
+                if (user == null)
+                {
+                    throw new Exception("User not found!");
+                }
+
+                var loggedUser = _applicationUserManager.Find(user.Email, model.CurrentPassword);
+
+                if (loggedUser == null)
+                {
+                    return Json(new { Success = "false", Message = "Stare hasło jest nieprawidłowe." }, JsonRequestBehavior.AllowGet);
+                }
+
+                var resetToken = _applicationUserManager.GeneratePasswordResetToken(user.Id);
+                var res = _applicationUserManager.ResetPassword(user.Id, resetToken, model.Password);
+
+                if (res.Succeeded)
+                {
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    logger.Warn(string.Format("{0} {1} {2}", res.Errors.FirstOrDefault(), "UserId", userId));
+                    return Json(new { Success = "false", Message = "Zmiana hasła nie powiodła się." }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                var error = ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault().ErrorMessage;
+
+                result = new { Success = "false", Message = error };
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpPost]
@@ -207,7 +265,7 @@ namespace EwiPraca.Controllers
         {
             string userId = User.Identity.GetUserId();
 
-            if(!string.IsNullOrEmpty(userId))
+            if (!string.IsNullOrEmpty(userId))
             {
                 RedirectToAction("Index", "Home");
             }
@@ -525,7 +583,7 @@ namespace EwiPraca.Controllers
 
             string guid = Guid.NewGuid().ToString();
 
-            if(string.IsNullOrEmpty(currentFileGuid))
+            if (string.IsNullOrEmpty(currentFileGuid))
             {
                 throw new Exception("Brak takiego pliku!");
             }
@@ -545,7 +603,7 @@ namespace EwiPraca.Controllers
 
                 result = new { Success = "true", Message = "", Url = url };
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 logger.Error(e, e.Message);
                 result = new { Success = "false", Message = WebResources.ErrorMessage, Url = "" };
@@ -559,7 +617,7 @@ namespace EwiPraca.Controllers
         {
             string fileLink = _sharedFileService.GetByGuid(guid)?.FileGuid;
 
-            if(string.IsNullOrEmpty(fileLink))
+            if (string.IsNullOrEmpty(fileLink))
             {
                 throw new Exception("Link nie istnieje!");
             }
@@ -571,7 +629,7 @@ namespace EwiPraca.Controllers
                 throw new Exception("Plik nie istnieje!");
             }
 
-            if(file.ContentType == null)
+            if (file.ContentType == null)
             {
                 return null;
             }

@@ -1,4 +1,5 @@
 ﻿using EwiPraca.Encryptor;
+using EwiPracaConstants;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -43,6 +44,6 @@ namespace EwiPraca.Models
         [Display(Name = "Czy zablokowany")]
         public bool IsActive { get; set; }
 
-        public List<UserCompanyViewModel> UserCompanies { get; set; }
+        public List<UserCompanyViewModel> UserCompanies { get; set; }        
     }
 }
