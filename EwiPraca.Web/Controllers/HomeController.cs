@@ -1,7 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using EwiPraca.Attributes;
+using System.Web.Mvc;
 
 namespace EwiPraca.Controllers
 {
+    [CookieConsent]
     public class HomeController : Controller
     {
         public ActionResult Index()

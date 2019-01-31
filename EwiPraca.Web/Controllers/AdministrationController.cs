@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EwiPraca.App_Start.Identity;
+using EwiPraca.Attributes;
 using EwiPraca.Constants;
 using EwiPraca.Models;
 using Microsoft.AspNet.Identity;
@@ -14,6 +15,7 @@ using System.Web.Mvc;
 namespace EwiPraca.Controllers
 {
     [Authorize(Roles = RolesNames.Administrator)]
+    [CookieConsent]
     public class AdministrationController : Controller
     {
         private readonly ApplicationUserManager _applicationUserManager;

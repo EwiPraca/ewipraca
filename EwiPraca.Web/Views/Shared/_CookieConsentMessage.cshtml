@@ -1,0 +1,33 @@
+﻿<div id="cookie-alert">
+    <div id="cookie-alert-content">
+        <div >
+            <p><strong>Cookies:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In semper tellus dui. Vivamus semper bibendum nibh, ac aliquam dui. Quisque fermentum mi neque, non aliquam metus euismod efficitur. Suspendisse a tempor est. Nullam molestie tincidunt interdum. Cras placerat tempor mi, vel lobortis justo hendrerit vel. In eu lacinia libero. In vitae porta nisi, a ultrices eros. Integer nunc justo, scelerisque tristique augue at, porttitor condimentum nisi. Proin et ligula quis mi posuere fermentum egestas id magna. Vestibulum vehicula justo a nunc dictum, in semper tortor eleifend. Donec molestie laoreet arcu ac sollicitudin.</p>
+
+            <form class="btn-group-vertical" style="display:inline-block" action="@Url.Action("AllowCookies", "Site", new { ReturnUrl = Request.RawUrl })" method="post">
+                <input type="submit" name="allow" class="btn btn-success" value="Akceptuj" />
+            </form>
+            <form class="btn-group-vertical" style="display:inline-block" action="@Url.Action("NoCookies", "Site", new { ReturnUrl = Request.RawUrl })" method="post" data-async="true" data-target="#cookie-alert">
+                <input type="submit" name="decline" class="btn btn-warning" value="Nie zgadzam się" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('form[data-async=true]').on('submit', function (event) {
+        var $form = $(this);
+        var $target = $($form.attr('data-target'));
+
+        $.ajax({
+            type: $form.attr('method'),
+            url: $form.attr('action'),
+            data: $form.serialize(),
+
+            success: function (data, status) {
+                $target.html(data);
+            }
+        });
+
+        event.preventDefault();
+    });
+</script>

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EwiPraca.Attributes;
 using EwiPraca.Model;
 using EwiPraca.Models;
 using EwiPraca.Services.Interfaces;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 namespace EwiPraca.Controllers
 {
     [Authorize]
+    [CookieConsent]
     public class ContractController : Controller
     {
         private readonly IContractService _contractService;

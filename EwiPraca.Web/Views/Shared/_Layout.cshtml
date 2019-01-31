@@ -50,6 +50,12 @@
     <section id="content" class="container clearfix">
 
         @RenderBody()
+
+        @if (EwiPraca.Attributes.CookieConsent.AskCookieConsent(ViewContext))
+        {
+            @Html.Partial("_CookieConsentMessage")
+        }
+
     </section><!-- end #content -->
     <footer id="footer" class="clearfix">
 

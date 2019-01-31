@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EwiPraca.App_Start.Identity;
+using EwiPraca.Attributes;
 using EwiPraca.Models;
 using EwiPraca.Services.Services;
 using Microsoft.AspNet.Identity;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 namespace EwiPraca.Controllers
 {
     [Authorize]
+    [CookieConsent]
     public class CompanyController : Controller
     {
         private readonly UserCompanyService _userCompanyService;

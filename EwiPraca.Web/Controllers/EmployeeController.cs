@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Ewipraca.ImportProcessors;
 using EwiPraca.App_Start.Identity;
+using EwiPraca.Attributes;
 using EwiPraca.Enumerations;
 using EwiPraca.Exporters;
 using EwiPraca.Importers;
@@ -19,6 +20,7 @@ using System.Web.Mvc;
 namespace EwiPraca.Controllers
 {
     [Authorize]
+    [CookieConsent]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;

@@ -4,9 +4,11 @@ using System.Web.Mvc;
 using EwiPraca.Model;
 using EwiPraca.Encryptor;
 using NLog;
+using EwiPraca.Attributes;
 
 namespace EwiPraca.Controllers
 {
+    [CookieConsent]
     public class EmailController : Controller
     {
         private readonly IEmailMessageService _emailMessageService;

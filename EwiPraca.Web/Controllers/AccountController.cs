@@ -1,4 +1,5 @@
 ﻿using EwiPraca.App_Start.Identity;
+using EwiPraca.Attributes;
 using EwiPraca.Data;
 using EwiPraca.Encryptor;
 using EwiPraca.Model;
@@ -17,6 +18,7 @@ using System.Web.Mvc;
 namespace EwiPraca.Controllers
 {
     [Authorize]
+    [CookieConsent]
     public class AccountController : Controller
     {
         private readonly ApplicationUserManager _userManager;
