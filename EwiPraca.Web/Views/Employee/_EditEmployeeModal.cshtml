@@ -1390,10 +1390,6 @@
         uploadExtraData: ""
     });
 
-    $('#input-contract-files').on('fileuploaded', function(event, data, previewId, index) {
-        console.log('File uploaded triggered');
-    });
-
     $("#input-medical-report-files").fileinput({
         uploadUrl:"@Html.Raw(Url.Action("UploadFile", "Employee", new { employeeId = Model.Id, fileType = (int)EwiPraca.Enumerations.FileType.MedicalReportFile }))",
         uploadAsync: true,

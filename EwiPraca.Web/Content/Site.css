@@ -3762,6 +3762,10 @@ x:-o-prefocus, .not-ie #footer:before {
         width: 90%;
     }
 
+    .employee-photo{
+        width:90%;
+    }
+
     .ss-slider .slides-container {
         display: none;
     }
@@ -5046,4 +5050,9 @@ input[type=button] {
     #cookie-alert-content {
         width: 50%; /* Could be more or less, depending on screen size */
     }
+
+    .employee-photo{
+        width: 30%;
+    }
 }
+

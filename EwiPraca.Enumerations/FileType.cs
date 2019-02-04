@@ -6,6 +6,7 @@
         MedicalReportFile = 2,
         OSHTrainingFile = 3,
         SickLeaveFile = 4,
-        OtherFile = 5
+        OtherFile = 5,
+        EmployeeProfilePhoto = 6
     }
 }

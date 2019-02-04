@@ -5,6 +5,28 @@
 
 @Html.HiddenFor(x => x.CreatedDate)
 @Html.HiddenFor(x => x.UpdatedDate)
+<div class="row modal-row" id="employee-photo-row">
+    @Html.LabelFor(m => m.PhotoURL, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @if (Model == null || string.IsNullOrEmpty(Model.PhotoURL))
+        {
+            <img src="~/Content/img/default-person.png" class="employee-photo" />
+        }
+        else
+        {
+            <img src="@Url.Content(Model.PhotoURL)" class="employee-photo" />
+        }
+    </div>
+</div>
+
+<div class="row modal-row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-10">
+        <span id="change-photo-container"><input id="input-employee-photo-file" name="input-employee-photo-file" type="file" class="file" data-browse-on-zone-click="true" accept="image/*"></span>
+        <span id="show-edit-employee-photo-modal" class="button">Zmień zdjęcie</span>
+    </div>
+</div>
 
 <div class="row modal-row">
     @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
@@ -61,7 +83,7 @@ else
     <div class="row modal-row">
         @Html.LabelFor(m => m.PositionDictionaryValueId, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            <p>Brak słownika stanowisk.</p>          
+            <p>Brak słownika stanowisk.</p>
         </div>
     </div>
 }
@@ -73,9 +95,56 @@ else
         </div>
     </div>
 </div>
-
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
         $("#BirthDate").attr('readonly', 'readonly');
+
+        $("#input-employee-photo-file").fileinput({
+            uploadUrl: "@Html.Raw(Url.Action("UploadFile", "Employee", new { employeeId = Model.Id, fileType = (int)EwiPraca.Enumerations.FileType.EmployeeProfilePhoto }))",
+            uploadAsync: true,
+            minFileCount: 1,
+            maxFileCount: 1,
+            overwriteInitial: false,
+            initialPreview: "",
+            initialPreviewConfig: "",
+            uploadExtraData: ""
+        });
+
+        $('#change-photo-container').hide();
+    });
+
+
+
+    $("#show-edit-employee-photo-modal").click(function () {
+        $('#change-photo-container').show();
+        this.hide();
+    });
+
+    $('#input-employee-photo-file').on('fileuploaded', function (event, data, previewId, index) {
+        $('#change-photo-container').hide();
+
+        showLoader();
+        var options = { keyboard: true };
+        var data = { employeeId: @Model.Id }
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("EditEmployeeView", "Employee")",
+            contentType: "application/json",
+            data: data,
+            datatype: "json",
+            success: function (data) {
+                $('#edit-employee-modal-content').html(data);
+                $('#edit-employee-modal').modal(options);
+                hideLoader();
+            },
+            error: function () {
+                hideLoader();
+                alert("Dynamic content load failed.");
+            }
+        });
+    });
+
+    $("#closbtn").click(function () {
+        $('#add-employee-modal').modal('hide');
     });
 </script>

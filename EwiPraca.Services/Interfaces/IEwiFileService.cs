@@ -8,5 +8,6 @@ namespace EwiPraca.Services.Interfaces
     {
         IEnumerable<EwiFile> GetFilesForEmployeeByFileType(int employeeId, FileType fileType);
         IEnumerable<EwiFile> GetFilesForEmployee(int employeeId);
+        string GetEmployeePhoto(int employeeId);
     }
 }

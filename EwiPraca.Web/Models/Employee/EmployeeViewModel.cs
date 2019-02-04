@@ -29,6 +29,9 @@ namespace EwiPraca.Models
         [DisplayName("PESEL")]
         public string PESEL { get; set; }
 
+        [DisplayName("Zdjęcie")]
+        public string PhotoURL { get; set; }
+
         [DisplayName("Płeć")]
         public Sex Sex { get; set; }
 

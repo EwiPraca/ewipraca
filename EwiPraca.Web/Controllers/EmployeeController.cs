@@ -86,21 +86,22 @@ namespace EwiPraca.Controllers
                 case EmployeeListTypes.MedicalResults:
                     viewName = "MedicalResults";
                     break;
+
                 case EmployeeListTypes.OSHTrainings:
                     viewName = "OSHTrainings";
                     break;
+
                 case EmployeeListTypes.SickLeaves:
                     viewName = "SickLeaves";
                     break;
+
                 case EmployeeListTypes.Default:
                     viewName = "Index";
                     break;
-
             }
 
             return View(viewName, model);
         }
-
 
         [HttpGet]
         public ActionResult MoveEmployeeView(int employeeId)
@@ -235,6 +236,13 @@ namespace EwiPraca.Controllers
 
             employeeViewModel.Files = Mapper.Map<List<EwiFileViewModel>>(_fileService.GetFilesForEmployee(employee.Id));
 
+            string filename = _fileService.GetEmployeePhoto(employeeId);
+
+            if(!string.IsNullOrEmpty(filename))
+            {
+                employeeViewModel.PhotoURL = filename.Replace(Request.ServerVariables["APPL_PHYSICAL_PATH"], string.Empty).Replace("\\", "/").Insert(0, "~/");
+            }
+
             return PartialView("_EditEmployeeModal", employeeViewModel);
         }
 
@@ -344,7 +352,6 @@ namespace EwiPraca.Controllers
                     positionValue.PositionDictionary.UpdatedDate = DateTime.Now;
 
                     _positionDictionaryService.UpdateDictionaryValue(positionValue);
-
                 }
                 catch (Exception e)
                 {
@@ -468,7 +475,6 @@ namespace EwiPraca.Controllers
                     positionValue.JobPartDictionary.UpdatedDate = DateTime.Now;
 
                     _jobPartDictionaryService.UpdateDictionaryValue(positionValue);
-
                 }
                 catch (Exception e)
                 {
@@ -561,7 +567,6 @@ namespace EwiPraca.Controllers
             return PartialView("_ImportEmployeesFromExcelModal", new ImportEmployeesFromExcelViewModel() { CompanyId = companyId });
         }
 
-
         [HttpGet]
         public ActionResult ExportToExcelConfirmationView(int companyId)
         {
@@ -601,7 +606,6 @@ namespace EwiPraca.Controllers
                         logger.Error(e, e.Message);
                         result = new { Success = "false", Message = WebResources.ErrorMessage, FileGuid = string.Empty, FileName = string.Empty };
                     }
-
                 }
                 else
                 {
@@ -786,7 +790,16 @@ namespace EwiPraca.Controllers
                     try
                     {
                         string fileName = file.FileName;
-                        string uploadPath = "C:/MediaFiles/";
+                        string uploadPath = string.Empty;
+
+                        if (fileType == (int)FileType.EmployeeProfilePhoto)
+                        {
+                            uploadPath = Server.MapPath("~/Content/ProfilePhotos/");
+                        }
+                        else
+                        {
+                            uploadPath = "C:/MediaFiles/";
+                        }
 
                         if (!Directory.Exists(uploadPath))
                         {
@@ -825,6 +838,5 @@ namespace EwiPraca.Controllers
 
             return Json("");
         }
-
     }
 }

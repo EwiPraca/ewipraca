@@ -38,6 +38,11 @@ namespace EwiPraca.Services.Services
             return _fileRepository.Query(x => x.Id == id).FirstOrDefault();
         }
 
+        public string GetEmployeePhoto(int employeeId)
+        {
+            return _fileRepository.Query(x => x.ParentObjectId == employeeId && x.FileType == FileType.EmployeeProfilePhoto).OrderByDescending(x => x.Id).FirstOrDefault()?.FileName;
+        }
+
         public IEnumerable<EwiFile> GetFilesForEmployee(int employeeId)
         {
             return _fileRepository.Query(x => !x.IsDeleted && x.ParentObjectId == employeeId).AsEnumerable();
