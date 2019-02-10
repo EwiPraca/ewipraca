@@ -121,8 +121,9 @@ namespace EwiPraca.Controllers
                 }
                 else
                 {
-                    logger.Warn(string.Format("{0} {1} {2}", res.Errors.FirstOrDefault(), "UserId", userId));
-                    return Json(new { Success = "false", Message = "Zmiana hasła nie powiodła się." }, JsonRequestBehavior.AllowGet);
+                    string message = res.Errors.FirstOrDefault();
+                    logger.Warn(string.Format("{0} {1} {2}", message, "UserId", userId));
+                    return Json(new { Success = "false", Message = message }, JsonRequestBehavior.AllowGet);
                 }
             }
             else
