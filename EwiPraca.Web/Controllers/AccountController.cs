@@ -229,6 +229,15 @@ namespace EwiPraca.Controllers
             {
                 try
                 {
+                    var userExists = _userManager.FindByEmail(EncryptionService.EncryptEmail(model.Email));
+
+                    if(userExists != null)
+                    {
+                        ModelState.AddModelError("Użytkownik już istnieje", "Użytkownik z podanym adresem email już istnieje.");
+
+                        return View(model);
+                    }
+
                     var user = new ApplicationUser
                     {
                         UserName = EncryptionService.EncryptEmail(model.Email),
