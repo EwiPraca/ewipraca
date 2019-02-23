@@ -107,7 +107,8 @@ else
             overwriteInitial: false,
             initialPreview: "",
             initialPreviewConfig: "",
-            uploadExtraData: ""
+            uploadExtraData: "",
+            maxFileSize: 1024
         });
 
         $('#change-photo-container').hide();
@@ -117,7 +118,7 @@ else
 
     $("#show-edit-employee-photo-modal").click(function () {
         $('#change-photo-container').show();
-        this.hide();
+        $(this).hide();
     });
 
     $('#input-employee-photo-file').on('fileuploaded', function (event, data, previewId, index) {

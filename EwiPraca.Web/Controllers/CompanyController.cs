@@ -2,10 +2,11 @@
 using EwiPraca.App_Start.Identity;
 using EwiPraca.Attributes;
 using EwiPraca.Models;
-using EwiPraca.Services.Services;
+using EwiPraca.Services.Interfaces;
 using Microsoft.AspNet.Identity;
 using NLog;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace EwiPraca.Controllers
@@ -14,14 +15,14 @@ namespace EwiPraca.Controllers
     [CookieConsent]
     public class CompanyController : Controller
     {
-        private readonly UserCompanyService _userCompanyService;
-        private readonly AddressService _addressService;
+        private readonly IUserCompanyService _userCompanyService;
+        private readonly IAddressService _addressService;
         private readonly ApplicationUserManager _applicationUserManager;
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public CompanyController(ApplicationUserManager applicationUserManager,
-            UserCompanyService userCompanyService,
-            AddressService addressService)
+            IUserCompanyService userCompanyService,
+            IAddressService addressService)
         {
             _userCompanyService = userCompanyService;
             _addressService = addressService;
@@ -50,6 +51,21 @@ namespace EwiPraca.Controllers
             }
 
             return View(Mapper.Map<UserCompanyViewModel>(company));
+        }
+
+        [HttpGet]
+        public ActionResult GetUserCompanies(string userId)
+        {
+            var companies = _userCompanyService.GetUserCompanies(userId);
+
+            Dictionary<string, int> dictionary = new Dictionary<string, int>();
+
+            foreach(var company in companies)
+            {
+                dictionary.Add(company.CompanyName, company.Id);
+            }
+
+            return PartialView("UserCompaniesMenu", dictionary);
         }
 
         [HttpPost]

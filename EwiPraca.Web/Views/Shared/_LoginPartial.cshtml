@@ -18,15 +18,10 @@
                 </li>
                 <li>
                     <a href="#">Moje firmy</a>
-                    @if(user.UserCompanies != null)
+                    @if(user != null)
                     {
                         <ul>
-                            @foreach (var company in user.UserCompanies)
-                            {
-                                <li>
-                                    @Html.ActionLink(company.CompanyName, "DisplayCompany", "Company", routeValues: new { id = company.Id }, htmlAttributes: new { title = company.CompanyName })
-                                </li>
-                            }
+                           @Html.Action("GetUserCompanies", "Company", new { userId = user.Id })
                         </ul>
                     }
                 </li>

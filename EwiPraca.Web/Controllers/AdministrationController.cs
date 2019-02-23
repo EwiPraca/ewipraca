@@ -3,6 +3,8 @@ using EwiPraca.App_Start.Identity;
 using EwiPraca.Attributes;
 using EwiPraca.Constants;
 using EwiPraca.Models;
+using EwiPraca.Services.Interfaces;
+using EwiPraca.Services.Services;
 using Microsoft.AspNet.Identity;
 using NLog;
 using System;
@@ -20,10 +22,17 @@ namespace EwiPraca.Controllers
     {
         private readonly ApplicationUserManager _applicationUserManager;
         private static Logger logger = LogManager.GetCurrentClassLogger();
+        private const string gdpr_forget_data_hash = "RODO";
+        private readonly IUserCompanyService _userCompanyService;
+        private readonly IEmployeeService _employeeService;
 
-        public AdministrationController(ApplicationUserManager applicationUserManager)
+        public AdministrationController(ApplicationUserManager applicationUserManager,
+            IUserCompanyService userCompanyService,
+            IEmployeeService employeeService)
         {
             _applicationUserManager = applicationUserManager;
+            _userCompanyService = userCompanyService;
+            _employeeService = employeeService;
         }
 
         public ActionResult Index()
@@ -117,6 +126,62 @@ namespace EwiPraca.Controllers
                 {
                     result = new { Success = false, Message = identityResult.Errors.First() };
                 }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, ex.Message);
+                result = new { Success = false, ex.Message };
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [OutputCache(Duration = 0)]
+        public async Task<JsonResult> AnonymiseUser(string userId)
+        {
+            var result = new { Success = true, Message = "Success" };
+
+            try
+            {
+                var email = Encryptor.EncryptionService.EncryptEmail(userId);
+                var user = await _applicationUserManager.FindByEmailAsync(email);
+
+                user.Email = Encryptor.EncryptionService.EncryptEmail("rodo@rodo.pl");
+                user.FirstName = gdpr_forget_data_hash;
+                user.Surname = gdpr_forget_data_hash;
+                user.UserName = gdpr_forget_data_hash;
+                user.IsActive = false;
+
+                var userCompanies = _userCompanyService.GetUserCompanies(user.Id);
+               
+                foreach(var company in userCompanies)
+                {
+                    company.CompanyName = gdpr_forget_data_hash;
+                    company.Address.PlaceNumber = gdpr_forget_data_hash;
+                    company.Address.StreetName = gdpr_forget_data_hash;
+                    company.Address.ZIPCode = gdpr_forget_data_hash;
+                    company.Address.StreetNumber = gdpr_forget_data_hash;
+
+                    _userCompanyService.Update(company);
+
+                    foreach(var employee in company.Employees)
+                    {
+                        employee.FirstName = gdpr_forget_data_hash;
+                        employee.Surname = gdpr_forget_data_hash;
+                        employee.PESEL = gdpr_forget_data_hash;
+                        employee.Address.PlaceNumber = gdpr_forget_data_hash;
+                        employee.Address.StreetName = gdpr_forget_data_hash;
+                        employee.Address.ZIPCode = gdpr_forget_data_hash;
+                        employee.Address.StreetNumber = gdpr_forget_data_hash;
+
+                        _employeeService.Update(employee);
+                    }
+
+                }
+
+                _applicationUserManager.Update(user);
+
             }
             catch (Exception ex)
             {

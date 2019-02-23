@@ -373,6 +373,7 @@
     <Content Include="Views\Manage\_ChangeUserPassword.cshtml" />
     <Content Include="Views\Manage\ChangePasswordViewModal.cshtml" />
     <Content Include="Views\Shared\_CookieConsentMessage.cshtml" />
+    <Content Include="Views\Shared\UserCompaniesMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-dialog.css" />

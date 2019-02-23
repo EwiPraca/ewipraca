@@ -28,6 +28,11 @@
 
     $(document).ready(function () {
         $('#employee-photo-row').hide();
+        $('#show-edit-employee-photo-modal').hide();
+        
+        $("#PESEL").keyup(function () {
+            ParsePesel("PESEL");
+        });
     });
 
     $("#closbtn").click(function () {

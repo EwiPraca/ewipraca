@@ -1027,3 +1027,56 @@ jQuery(document).ready(function ($) {
 
     /* end UItoTop (Back to Top) */
 });
+
+function ParsePesel(id) {
+    var s = document.getElementById(id).value;
+
+    if (SetError(s.length != 11))
+        return;
+
+    var aInt = new Array();
+    for (i = 0; i < 11; i++) {
+        aInt[i] = parseInt(s.substring(i, i + 1));
+        if (isNaN(aInt[i])) {
+            return;
+        }
+    }
+
+    var wagi = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3, 1];
+    var sum = 0;
+    for (i = 0; i < 11; i++)
+        sum += wagi[i] * aInt[i];
+    if (SetError((sum % 10) != 0))
+        return;
+
+    var rok = 1900 + aInt[0] * 10 + aInt[1];
+    if (aInt[2] >= 2 && aInt[2] < 8)
+        rok += Math.floor(aInt[2] / 2) * 100;
+    if (aInt[2] >= 8)
+        rok -= 100;
+
+    var miesiac = (aInt[2] % 2) * 10 + aInt[3];
+    var dzien = aInt[4] * 10 + aInt[5];
+
+    if (SetError(!checkDate(dzien, miesiac, rok)))
+        return;
+    var sex = (aInt[9] % 2 == 1) ? "@((int)Sex.Male)" : "@((int)Sex.Female)";
+
+    var miesiac = ("0" + miesiac).slice(-2);
+    var dzien = ("0" + dzien).slice(-2);
+
+    var birthDay = rok + "-" + (miesiac) + "-" + (dzien);
+
+    debugger;
+
+    $('#BirthDate').val(birthDay);
+}
+function SetError(c) {
+    return c;
+}
+function checkDate(d, m, y) {
+    var dt = new Date(y, m - 1, d);
+    return dt.getDate() == d &&
+          dt.getMonth() == m - 1 &&
+          dt.getFullYear() == y;
+}

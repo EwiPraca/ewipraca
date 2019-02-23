@@ -60,7 +60,7 @@ else
 <div class="row modal-row">
     @Html.LabelFor(m => m.Salary, new { @class = "col-md-2 control-label" })
     <div class="col-md-10">
-        @Html.TextBoxFor(m => m.Salary, new { @class = "form-control", @type = "number" })
+        @Html.TextBoxFor(m => m.Salary, new { @class = "form-control", @type = "number", @min = "0", @step = "0.01", @onkeypress = "return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" })
         @Html.ValidationMessageFor(m => m.Salary)
     </div>
 </div>

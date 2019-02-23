@@ -1,0 +1,11 @@
+﻿@model Dictionary<string, int>
+
+@if (Model != null)
+{
+    foreach (KeyValuePair<string, int> entry in Model)
+    {
+        <li>
+            @Html.ActionLink(entry.Key, "DisplayCompany", "Company", routeValues: new { id = entry.Value }, htmlAttributes: new { title = entry.Key })
+        </li>
+    }
+}
