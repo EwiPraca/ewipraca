@@ -56,7 +56,7 @@ namespace EwiPraca.Models
         public List<EwiFileViewModel> Files { get; set; }
         public List<MedicalReportViewModel> MedicalReports { get; set; }
         public List<OSHTrainingViewModel> OSHTrainings { get; set; }
-        public List<SickLeaveViewModel> SickLeaves { get; set; }
+        public List<LeaveViewModel> Leaves { get; set; }
 
         public OSHTrainingViewModel LastOSHTraining
         {

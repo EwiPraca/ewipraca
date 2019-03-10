@@ -32,8 +32,8 @@ namespace EwiPraca
                  opt => opt.MapFrom(x => x.OSHTrainings.Where(s => !s.IsDeleted).ToList()))
                  .ForMember(d => d.Contracts,
                  opt => opt.MapFrom(x => x.Contracts.Where(s => !s.IsDeleted).ToList()))
-                 .ForMember(d => d.SickLeaves,
-                 opt => opt.MapFrom(x => x.SickLeaves.Where(s => !s.IsDeleted).ToList()));
+                 .ForMember(d => d.Leaves,
+                 opt => opt.MapFrom(x => x.Leaves.Where(s => !s.IsDeleted).ToList()));
 
                 cfg.CreateMap<EmployeeImportRow, Employee>()
                 .ForMember(d => d.BirthDate,
@@ -60,8 +60,8 @@ namespace EwiPraca
                 cfg.CreateMap<JobPartDictionaryViewModel, JobPartDictionary>();
                 cfg.CreateMap<JobPartDictionaryValue, JobPartDictionaryValueViewModel>();
                 cfg.CreateMap<JobPartDictionaryValueViewModel, JobPartDictionaryValue>();
-                cfg.CreateMap<SickLeave, SickLeaveViewModel>();
-                cfg.CreateMap<SickLeaveViewModel, SickLeave>();
+                cfg.CreateMap<Leave, LeaveViewModel>();
+                cfg.CreateMap<LeaveViewModel, Leave>();
 
                 cfg.CreateMap<EmployeeImportRow, EmployeeViewModel>();
                 cfg.CreateMap<UserSetting, UserSettingViewModel>()

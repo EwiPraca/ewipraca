@@ -94,7 +94,9 @@ namespace EwiPraca.Controllers
                 case EmployeeListTypes.SickLeaves:
                     viewName = "SickLeaves";
                     break;
-
+                case EmployeeListTypes.Leaves:
+                    viewName = "Leaves";
+                    break;
                 case EmployeeListTypes.Default:
                     viewName = "Index";
                     break;

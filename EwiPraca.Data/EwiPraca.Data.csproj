@@ -140,6 +140,10 @@
     <Compile Include="Migrations\201901251940249_UpdateIsActiveFieldForUser.Designer.cs">
       <DependentUpon>201901251940249_UpdateIsActiveFieldForUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903031149200_LeavesChanges.cs" />
+    <Compile Include="Migrations\201903031149200_LeavesChanges.Designer.cs">
+      <DependentUpon>201903031149200_LeavesChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="RepositoryTransaction.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="EwiPracaDbContext.cs" />
@@ -238,6 +242,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901251940249_UpdateIsActiveFieldForUser.resx">
       <DependentUpon>201901251940249_UpdateIsActiveFieldForUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903031149200_LeavesChanges.resx">
+      <DependentUpon>201903031149200_LeavesChanges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,56 @@
+﻿@model int
+<script type="text/javascript">
+    $("#open-add-employee-sick-leave-modal").click(function () {
+        showLoader();
+        var options = { keyboard: true };
+        var data = { employeeId: @Model }
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("AddLeaveView", "Leave", new { leaveType = (int)EwiPraca.Enumerations.LeaveType.SickLeave })",
+            contentType: "application/json",
+            data: data,
+            datatype: "json",
+            success: function (data) {
+                $('#edit-employee-modal').modal('hide');
+                $('#add-leave-modal-content').html(data);
+                $('#add-leave-modal').modal(options);
+                $('#add-leave-modal').modal('show');
+                hideLoader();
+            },
+            error: function (e) {
+                debugger;
+                hideLoader();
+                alert("Dynamic content load failed.");
+            }
+        });
+    });
+
+    $("#open-add-employee-leave-modal").click(function () {
+        showLoader();
+        var options = { keyboard: true };
+        var data = { employeeId: @Model }
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("AddLeaveView", "Leave", new { leaveType = (int)EwiPraca.Enumerations.LeaveType.Vacation })",
+            contentType: "application/json",
+        data: data,
+        datatype: "json",
+        success: function (data) {
+            $('#edit-employee-modal').modal('hide');
+            $('#add-leave-modal-content').html(data);
+            $('#add-leave-modal').modal(options);
+            $('#add-leave-modal').modal('show');
+            hideLoader();
+        },
+        error: function (e) {
+            debugger;
+            hideLoader();
+            alert("Dynamic content load failed.");
+        }
+    });
+    });
+
+    $("#closbtn").click(function () {
+        $('#add-leave-modal').modal('hide');
+    });
+</script>

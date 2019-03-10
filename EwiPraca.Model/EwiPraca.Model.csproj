@@ -63,7 +63,7 @@
     <Compile Include="EmployeeArea\Employee.cs" />
     <Compile Include="EmployeeArea\Dictionaries\JobPartDictionary.cs" />
     <Compile Include="EmployeeArea\Dictionaries\JobPartDictionaryValue.cs" />
-    <Compile Include="EmployeeArea\SickLeave.cs" />
+    <Compile Include="EmployeeArea\Leave.cs" />
     <Compile Include="EmployeeArea\MedicalReport.cs" />
     <Compile Include="EmployeeArea\OSHTraining.cs" />
     <Compile Include="EmployeeArea\Dictionaries\PositionDictionary.cs" />

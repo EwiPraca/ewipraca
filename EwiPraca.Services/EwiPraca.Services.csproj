@@ -46,6 +46,7 @@
     <Compile Include="Interfaces\IContractService.cs" />
     <Compile Include="Interfaces\IEmailMessageService.cs" />
     <Compile Include="Interfaces\IEmployeeService.cs" />
+    <Compile Include="Interfaces\ILeaveService.cs" />
     <Compile Include="Interfaces\IResetPasswordService.cs" />
     <Compile Include="Interfaces\ISharedLinkService.cs" />
     <Compile Include="Interfaces\IUserFileService.cs" />
@@ -56,7 +57,6 @@
     <Compile Include="Interfaces\IPositionDictionaryService.cs" />
     <Compile Include="Interfaces\IService.cs" />
     <Compile Include="Interfaces\ISettingService.cs" />
-    <Compile Include="Interfaces\ISickLeaveService.cs" />
     <Compile Include="Interfaces\IUserCompanyService.cs" />
     <Compile Include="Interfaces\SendResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -64,6 +64,7 @@
     <Compile Include="Services\ContractService.cs" />
     <Compile Include="Services\EmailMessageService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
+    <Compile Include="Services\LeaveService.cs" />
     <Compile Include="Services\ResetPasswordService.cs" />
     <Compile Include="Services\SharedLinkService.cs" />
     <Compile Include="Services\UserFileService.cs" />
@@ -73,7 +74,6 @@
     <Compile Include="Services\JobPartDictionaryService.cs" />
     <Compile Include="Services\PositionDictionaryService.cs" />
     <Compile Include="Services\SettingService.cs" />
-    <Compile Include="Services\SickLeaveService.cs" />
     <Compile Include="Services\UserCompanyService.cs" />
   </ItemGroup>
   <ItemGroup>

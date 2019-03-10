@@ -202,10 +202,10 @@
     </div>
 </div>
 
-<div id='add-sick-leave-modal' class='modal fade'>
+<div id='add-leave-modal' class='modal fade'>
     <div class="modal-dialog popup-modal">
         <div class="modal-content">
-            <div id='add-sick-leave-modal-content'></div>
+            <div id='add-leave-modal-content'></div>
         </div>
     </div>
 </div>
@@ -465,15 +465,4 @@
             showErrorMessage(e.Message);
         }
     }
-    $(document).ready(function () {
-        var table = $('#employees-data-table').DataTable();
-
-        $('#employees-data-table tbody').on('click', 'tr', function () {
-            var tss = this;
-
-            debugger;
-            var data = table.row(this).data();
-            alert('You clicked on ' + data[1] + '\'s row');
-        });
-    });
 </script>

@@ -3231,6 +3231,7 @@ a:hover > .post-format {
     right: 0;
     bottom: 0;
     left: 0;
+    z-index: 1000;
 }
 
 .not-ie #footer:before {
@@ -5056,3 +5057,6 @@ input[type=button] {
     }
 }
 
+.fc-content{
+    color: #fff !important;
+}

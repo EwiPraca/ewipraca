@@ -5,6 +5,7 @@
         Default,
         OSHTrainings,
         MedicalResults,
-        SickLeaves
+        SickLeaves,
+        Leaves
     }
 }

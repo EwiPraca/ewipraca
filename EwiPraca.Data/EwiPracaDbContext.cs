@@ -23,7 +23,7 @@ namespace EwiPraca.Data
         public IDbSet<OSHTraining> OSHTrainings { get; set; }
         public IDbSet<PositionDictionary> PositionDictionaries { get; set; }
         public IDbSet<JobPartDictionary> JobPartDictionaries { get; set; }
-        public IDbSet<SickLeave> SickLeaves { get; set; }
+        public IDbSet<Leave> Leaves { get; set; }
         public IDbSet<EmailMessage> EmailMessages { get; set; }
         public IDbSet<Setting> Settings { get; set; }
         public IDbSet<UserSetting> UserSettings { get; set; }
