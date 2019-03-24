@@ -36,6 +36,11 @@ namespace EwiPraca.Services.Services
             _oshTrainingRepository.Update(entity);
         }
 
+        public List<OSHTraining> GetByCompanyId(int companyId)
+        {
+            return _oshTrainingRepository.Query(x => x.Employee.UserCompanyId == companyId && !x.IsDeleted).ToList();
+        }
+
         public OSHTraining GetById(int id)
         {
             return _oshTrainingRepository.Query(x => x.Id == id).FirstOrDefault();

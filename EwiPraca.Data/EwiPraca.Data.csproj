@@ -144,6 +144,14 @@
     <Compile Include="Migrations\201903031149200_LeavesChanges.Designer.cs">
       <DependentUpon>201903031149200_LeavesChanges.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903241504536_CustomEvents.cs" />
+    <Compile Include="Migrations\201903241504536_CustomEvents.Designer.cs">
+      <DependentUpon>201903241504536_CustomEvents.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903241517279_CustomEvents2.cs" />
+    <Compile Include="Migrations\201903241517279_CustomEvents2.Designer.cs">
+      <DependentUpon>201903241517279_CustomEvents2.cs</DependentUpon>
+    </Compile>
     <Compile Include="RepositoryTransaction.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="EwiPracaDbContext.cs" />
@@ -245,6 +253,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903031149200_LeavesChanges.resx">
       <DependentUpon>201903031149200_LeavesChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903241504536_CustomEvents.resx">
+      <DependentUpon>201903241504536_CustomEvents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903241517279_CustomEvents2.resx">
+      <DependentUpon>201903241517279_CustomEvents2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

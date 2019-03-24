@@ -8,6 +8,7 @@
 }
 
 @section scripts{
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" media="screen" />
     <link href="~/Content/fullcalendar.print.min.css" rel="stylesheet" media="print" />
     <link href="~/Content/fullcalendar.min.css" rel="stylesheet" />
     <link href="~/Scripts/qTip/jquery.qtip.min.css" rel="stylesheet" />
@@ -21,6 +22,12 @@
 <header class="page-header">
     <h1 class="page-title align-center">@ViewBag.Title</h1>
 </header>
+@Html.Partial("_TopBarCompanyNavigation", Model.CompanyId)
+
+<h2 class="slogan align-center">
+    Podgląd wydarzeń
+</h2>
+
 <div id="calendar"></div>
 
 <div class="row last-row">
@@ -29,9 +36,39 @@
     </p>
 </div>
 
+<div id='add-event-modal' class='modal fade'>
+    <div class="modal-dialog popup-modal">
+        <div class="modal-content">
+            <div id='add-event-modal-content'></div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function () {
         $('#calendar').fullCalendar({
+            dayClick: function(date, jsEvent, view) {
+                showLoader();
+                var options = { keyboard: true };
+                var data = { companyId: @Model.CompanyId, startDate: date.format() }
+                $.ajax({
+                    type: "GET",
+                    url: "@Url.Action("GetCustomEventView", "Calendar")",
+                    contentType: "application/json",
+                    data: data,
+                    datatype: "json",
+                    success: function (data) {
+                        $('#add-event-modal-content').html(data);
+                        $('#add-event-modal').modal(options);
+                        $('#add-event-modal').modal('show');
+                        hideLoader();
+                    },
+                    error: function () {
+                        hideLoader();
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            },
             locale: 'pl',
             header:
             {
@@ -63,8 +100,8 @@
                                description: data.Desc,
                                start: moment(data.StartDate).format('YYYY-MM-DD'),
                                end: moment(data.EndDate).format('YYYY-MM-DD'),
-                               backgroundColor: "#f15a23",
-                               borderColor: "#f15a23",
+                               backgroundColor: data.Color,
+                               borderColor: data.Color,
                            });
                         });
 

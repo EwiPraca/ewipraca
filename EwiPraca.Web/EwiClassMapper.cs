@@ -2,8 +2,10 @@
 using EwiPraca.Data;
 using EwiPraca.Importers.Importers;
 using EwiPraca.Model;
+using EwiPraca.Model.EmployeeArea;
 using EwiPraca.Model.UserArea;
 using EwiPraca.Models;
+using EwiPraca.Models.Calendar;
 using System;
 using System.Linq;
 
@@ -51,17 +53,20 @@ namespace EwiPraca
 
                 cfg.CreateMap<EmployeeImportRow, EmployeeViewModel>();
 
-                cfg.CreateMap<PositionDictionary, PositionDictionaryViewModel>();
-                cfg.CreateMap<PositionDictionaryViewModel, PositionDictionary>();
-                cfg.CreateMap<PositionDictionaryValue, PositionDictionaryValueViewModel>();
-                cfg.CreateMap<PositionDictionaryValueViewModel, PositionDictionaryValue>();
+                cfg.CreateMap<PositionDictionary, PositionDictionaryViewModel>()
+                .ReverseMap();
+                cfg.CreateMap<PositionDictionaryValue, PositionDictionaryValueViewModel>()
+                .ReverseMap();
 
-                cfg.CreateMap<JobPartDictionary, JobPartDictionaryViewModel>();
-                cfg.CreateMap<JobPartDictionaryViewModel, JobPartDictionary>();
-                cfg.CreateMap<JobPartDictionaryValue, JobPartDictionaryValueViewModel>();
-                cfg.CreateMap<JobPartDictionaryValueViewModel, JobPartDictionaryValue>();
-                cfg.CreateMap<Leave, LeaveViewModel>();
-                cfg.CreateMap<LeaveViewModel, Leave>();
+                cfg.CreateMap<JobPartDictionary, JobPartDictionaryViewModel>()
+                .ReverseMap();
+                cfg.CreateMap<JobPartDictionaryValue, JobPartDictionaryValueViewModel>()
+                .ReverseMap();
+                cfg.CreateMap<Leave, LeaveViewModel>()
+                .ReverseMap();
+
+                cfg.CreateMap<CustomEvent, CustomEventViewModel>()
+                .ReverseMap();
 
                 cfg.CreateMap<EmployeeImportRow, EmployeeViewModel>();
                 cfg.CreateMap<UserSetting, UserSettingViewModel>()

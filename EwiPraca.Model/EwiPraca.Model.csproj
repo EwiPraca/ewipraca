@@ -60,6 +60,7 @@
     <Compile Include="Base\BaseModel.cs" />
     <Compile Include="Email\EmailMessage.cs" />
     <Compile Include="EmployeeArea\Contract.cs" />
+    <Compile Include="EmployeeArea\CustomEvent.cs" />
     <Compile Include="EmployeeArea\Employee.cs" />
     <Compile Include="EmployeeArea\Dictionaries\JobPartDictionary.cs" />
     <Compile Include="EmployeeArea\Dictionaries\JobPartDictionaryValue.cs" />

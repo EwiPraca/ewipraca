@@ -1,5 +1,6 @@
 ﻿using EwiPraca.Data.Interfaces;
 using EwiPraca.Model;
+using EwiPraca.Model.EmployeeArea;
 using EwiPraca.Model.UserArea;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
@@ -31,6 +32,7 @@ namespace EwiPraca.Data
         public IDbSet<UserFile> UserFiles { get; set; }
         public IDbSet<SharedFileLink> SharedFileLinks { get; set; }
         public IDbSet<ResetPasswordRequest> PasswordResetLinks { get; set; }
+        public IDbSet<CustomEvent> CustomEvents { get; set; }
 
 
         public static EwiPracaDbContext Create()

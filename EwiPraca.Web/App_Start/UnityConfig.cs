@@ -5,6 +5,7 @@ using EwiPraca.Data.Interfaces;
 using EwiPraca.Exporters;
 using EwiPraca.Importers;
 using EwiPraca.Model;
+using EwiPraca.Model.EmployeeArea;
 using EwiPraca.Model.UserArea;
 using EwiPraca.Services.Interfaces;
 using EwiPraca.Services.Services;
@@ -60,6 +61,7 @@ namespace EwiPraca
             container.RegisterType<IRepository<UserFile>, Repository<UserFile>>();
             container.RegisterType<IRepository<SharedFileLink>, Repository<SharedFileLink>>();
             container.RegisterType<IRepository<ResetPasswordRequest>, Repository<ResetPasswordRequest>>();
+            container.RegisterType<IRepository<CustomEvent>, Repository<CustomEvent>>();
 
             container.RegisterType<IUserCompanyService, UserCompanyService>();
             container.RegisterType<IAddressService, AddressService>();
@@ -76,6 +78,7 @@ namespace EwiPraca
             container.RegisterType<IUserFileService, UserFileService>();
             container.RegisterType<ISharedLinkService, SharedLinkService>();
             container.RegisterType<IResetPasswordService, ResetPasswordService>();
+            container.RegisterType<ICustomEventService, CustomEventService>();
 
             container.RegisterType<IEwiImporter, CompanyEmployeeImporter>();
 

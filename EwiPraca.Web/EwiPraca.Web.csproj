@@ -280,7 +280,9 @@
     </Compile>
     <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Account\ResetPasswordViewModel.cs" />
+    <Compile Include="Models\Calendar\CalendarEventColors.cs" />
     <Compile Include="Models\Calendar\CalendarItem.cs" />
+    <Compile Include="Models\Calendar\CustomEventViewModel.cs" />
     <Compile Include="Models\Contract\ContractViewModel.cs" />
     <Compile Include="Models\Employee\CompanyEmployeesViewModel.cs" />
     <Compile Include="Models\Employee\EmployeeViewModel.cs" />
@@ -492,6 +494,7 @@
     <Content Include="Views\Leave\EditorTemplates\LeaveViewModel.cshtml" />
     <Content Include="Views\Leave\_AddLeaveModal.cshtml" />
     <Content Include="Views\Leave\_AddEmployeeLeaveModal.cshtml" />
+    <Content Include="Views\Shared\CustomEventView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-dialog.css" />

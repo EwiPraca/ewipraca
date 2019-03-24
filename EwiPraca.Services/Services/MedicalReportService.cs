@@ -34,6 +34,11 @@ namespace EwiPraca.Services.Services
             _medicalReportsRepository.Update(entity);
         }
 
+        public List<MedicalReport> GetByCompanyId(int companyId)
+        {
+            return _medicalReportsRepository.Query(x => x.Employee.UserCompanyId == companyId && !x.IsDeleted).ToList();
+        }
+
         public MedicalReport GetById(int id)
         {
             return _medicalReportsRepository.Query(x => x.Id == id).FirstOrDefault();
