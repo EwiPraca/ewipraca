@@ -61,6 +61,15 @@ namespace EwiPraca {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Witaj, jutro masz następujące zdarzenie z Twojego kalendarza: {0}. Pozdrawiamy, zespół EwiPraca..
+        /// </summary>
+        internal static string CustomEventReminderMessageBody {
+            get {
+                return ResourceManager.GetString("CustomEventReminderMessageBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wystąpił błąd, spróbuj ponownie lub skontaktuj się z Administratorem aplikacji..
         /// </summary>
         internal static string ErrorMessage {
@@ -112,6 +121,15 @@ namespace EwiPraca {
         internal static string IncorrectREGONMessage {
             get {
                 return ResourceManager.GetString("IncorrectREGONMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Witaj, jutro Twój pracownik {0} idzie na urlop od {1} do {2}. Pozdrawiamy, zespół EwiPraca..
+        /// </summary>
+        internal static string LeaveReminderMessageBody {
+            get {
+                return ResourceManager.GetString("LeaveReminderMessageBody", resourceCulture);
             }
         }
         

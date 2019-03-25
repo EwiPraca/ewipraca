@@ -7,5 +7,6 @@ namespace EwiPraca.Services.Interfaces
     {
         List<Leave> GetByEmployeeId(int employeeId);
         List<Leave> GetByCompanyId(int companyId);
+        List<Leave> GetLeavesToRemind();
     }
 }

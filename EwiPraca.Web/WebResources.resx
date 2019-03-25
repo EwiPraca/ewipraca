@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CustomEventReminderMessageBody" xml:space="preserve">
+    <value>Witaj, jutro masz następujące zdarzenie z Twojego kalendarza: {0}. Pozdrawiamy, zespół EwiPraca.</value>
+  </data>
   <data name="ErrorMessage" xml:space="preserve">
     <value>Wystąpił błąd, spróbuj ponownie lub skontaktuj się z Administratorem aplikacji.</value>
   </data>
@@ -135,6 +138,9 @@
   </data>
   <data name="IncorrectREGONMessage" xml:space="preserve">
     <value>Niepoprawny REGON.</value>
+  </data>
+  <data name="LeaveReminderMessageBody" xml:space="preserve">
+    <value>Witaj, jutro Twój pracownik {0} idzie na urlop od {1} do {2}. Pozdrawiamy, zespół EwiPraca.</value>
   </data>
   <data name="MedicalResultToExpireReminderEmailBody" xml:space="preserve">
     <value>Witaj, w dniu {0} upływa termin ważności badań lekarskich dla Twojego pracownika {1} w firmie {2}. Pozdrawiamy, zespół EwiPraca.</value>

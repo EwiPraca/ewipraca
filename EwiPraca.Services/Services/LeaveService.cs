@@ -49,6 +49,13 @@ namespace EwiPraca.Services.Services
             return _leaveRepository.Query(x => x.Id == id).FirstOrDefault();
         }
 
+        public List<Leave> GetLeavesToRemind()
+        {
+            DateTime now = DateTime.Now.Date;
+
+            return _leaveRepository.Query(x =>!x.IsDeleted && now == x.DateFrom.Date.AddDays(-1)).ToList();
+        }
+
         public void Update(Leave entity)
         {
             _leaveRepository.Update(entity);

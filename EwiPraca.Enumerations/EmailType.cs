@@ -4,6 +4,8 @@
     {
         OSHTrainingExpiredReminder,
         MedicalReportExpiredReminder,
-        PasswordResetRequest
+        PasswordResetRequest,
+        LeaveReminder,
+        CustomEventReminder
     }
 }
