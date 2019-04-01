@@ -28,6 +28,10 @@
     Podgląd wydarzeń
 </h2>
 
+<p class="align-center">
+
+    <a href="#" id="share-calendar" class="button"><span class="glyphicon"></span>Udostępnij</a>
+</p>
 <div id="calendar"></div>
 
 <div class="row last-row">
@@ -46,6 +50,31 @@
 
 <script>
     $(document).ready(function () {
+
+        $('#share-calendar').click(function () {
+            showLoader();
+            var data = { companyId: @Model.CompanyId };
+            $.ajax({
+                type: "GET",
+                data: data,
+                url: "@Url.Action("GetCalendarLink", "Calendar")",
+                contentType: "application/json",
+            datatype: "json",
+            success: function (data) {
+                hideLoader();
+                if(data.Success == "true"){
+                    alert("Kalendarz dostępny jest pod linkiem: " + data.Message);
+                }
+                else{
+                    showErrorMessage(data.Message);
+                }
+            },
+            error: function () {
+                hideLoader();
+            }
+        });
+    });
+
         $('#calendar').fullCalendar({
             //eventClick: function(info) {
             //    alert('Event: ' + info.event.title);

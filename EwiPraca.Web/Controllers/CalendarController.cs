@@ -22,24 +22,47 @@ namespace EwiPraca.Controllers
         private readonly IOSHTrainingService _oshTrainingService;
         private readonly IMedicalReportService _medicalReportService;
         private readonly ICustomEventService _customEventService;
+        private readonly IUserCompanyService _companyService;
         private static Logger logger = LogManager.GetCurrentClassLogger();
         private const string noDescription = "Brak opisu";
 
         public CalendarController(ILeaveService leaveService,
             IOSHTrainingService oshTrainingService,
             IMedicalReportService medicalReportService,
-            ICustomEventService customEventService)
+            ICustomEventService customEventService,
+            IUserCompanyService companyService)
         {
             _leaveService = leaveService;
             _medicalReportService = medicalReportService;
             _oshTrainingService = oshTrainingService;
             _customEventService = customEventService;
+            _companyService = companyService;
         }
 
         [HttpGet]
         public ActionResult Index(int companyId)
         {
             return View(new CompanyEmployeesViewModel() { CompanyId = companyId });
+        }
+
+        [HttpGet]
+        public ActionResult GetCalendarLink(int companyId)
+        {
+            var company = _companyService.GetById(companyId);
+
+            if(company != null)
+            {
+                if(company.CalendarGuid == null)
+                {
+                    company.CalendarGuid = Guid.NewGuid();
+
+                    _companyService.Update(company);
+                }
+
+                return Json(new { Success = "true", Message = Url.Action("ShowCalendar", "Manage", new { guid = company.CalendarGuid }, Request.Url.Scheme) }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { Success = "false", Message = "An error occured." });
         }
 
         [HttpGet]
