@@ -40,9 +40,11 @@ namespace EwiPraca.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index(int companyId)
+        public ActionResult Index(int companyId, bool isReadOnly = false)
         {
-            return View(new CompanyEmployeesViewModel() { CompanyId = companyId });
+            var company = _companyService.GetById(companyId);
+
+            return View(new CalendarViewModel() { CompanyId = companyId, IsReadOnly = isReadOnly, CompanyName = company.CompanyName });
         }
 
         [HttpGet]
@@ -59,10 +61,23 @@ namespace EwiPraca.Controllers
                     _companyService.Update(company);
                 }
 
-                return Json(new { Success = "true", Message = Url.Action("ShowCalendar", "Manage", new { guid = company.CalendarGuid }, Request.Url.Scheme) }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = "true", Message = Url.Action("ShowCalendar", "Calendar", new { guid = company.CalendarGuid }, Request.Url.Scheme) }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new { Success = "false", Message = "An error occured." });
+        }
+
+        [HttpGet]
+        public ActionResult ShowCalendar(Guid guid)
+        {
+            var company = _companyService.GetByGuid(guid);
+
+            if (company != null)
+            {
+                return RedirectToAction("Index", "Calendar", new { companyId = company.Id, isReadOnly = true });
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]

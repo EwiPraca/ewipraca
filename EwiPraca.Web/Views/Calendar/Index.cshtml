@@ -1,6 +1,6 @@
-﻿@model EwiPraca.Models.CompanyEmployeesViewModel
+﻿@model EwiPraca.Models.CalendarViewModel
 @{
-    ViewBag.Title = "Kalendarz";
+    ViewBag.Title = "Kalendarz - " + Model.CompanyName;
 }
 
 @section navigation{
@@ -12,12 +12,13 @@
     <link href="~/Content/fullcalendar.print.min.css" rel="stylesheet" media="print" />
     <link href="~/Content/fullcalendar.min.css" rel="stylesheet" />
     <link href="~/Scripts/qTip/jquery.qtip.min.css" rel="stylesheet" />
-    <script src="~/Scripts/moment.min.js"></script>
-    <script src="~/Scripts/moment-with-locales.min.js"></script>
-    <script src="~/Scripts/fullcalendar.min.js"></script>
-    <script src="~/Scripts/fullcalendar.helper.min.js"></script>
-    <script src='~/Scripts/locale-all.js'></script>
-    <script src="~/Scripts/qTip/jquery.qtip.min.js"></script>
+
+<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<!-- qTip -->
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js"></script>
+<!-- Full Calendar -->
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.9.1/fullcalendar.min.js"></script>
+
 }
 <header class="page-header">
     <h1 class="page-title align-center">@ViewBag.Title</h1>
@@ -35,9 +36,12 @@
 <div id="calendar"></div>
 
 <div class="row last-row">
-    <p class="align-center">
-        <a href="@Url.Action("DisplayCompany", "Company", new { id = Model.CompanyId })" class="button"><span class="glyphicon"></span>Powrót</a>
-    </p>
+    @if (!Model.IsReadOnly)
+    {
+        <p class="align-center">
+            <a href="@Url.Action("DisplayCompany", "Company", new { id = Model.CompanyId })" class="button"><span class="glyphicon"></span>Powrót</a>
+        </p>
+    }
 </div>
 
 <div id='add-event-modal' class='modal fade'>
@@ -47,6 +51,17 @@
         </div>
     </div>
 </div>
+
+@if (Model.IsReadOnly)
+{
+    <script>
+        $(document).ready(function() {
+            $("#header").remove();
+            $("#company-navigation").remove();
+        });
+</script>
+}
+
 
 <script>
     $(document).ready(function () {
@@ -59,31 +74,31 @@
                 data: data,
                 url: "@Url.Action("GetCalendarLink", "Calendar")",
                 contentType: "application/json",
-            datatype: "json",
-            success: function (data) {
-                hideLoader();
-                if(data.Success == "true"){
-                    alert("Kalendarz dostępny jest pod linkiem: " + data.Message);
+                datatype: "json",
+                success: function (data) {
+                    hideLoader();
+                    if(data.Success == "true"){
+                        alert("Kalendarz dostępny jest pod linkiem: " + data.Message);
+                    }
+                    else{
+                        showErrorMessage(data.Message);
+                    }
+                },
+                error: function () {
+                    hideLoader();
                 }
-                else{
-                    showErrorMessage(data.Message);
-                }
-            },
-            error: function () {
-                hideLoader();
-            }
+            });
         });
-    });
 
         $('#calendar').fullCalendar({
-            //eventClick: function(info) {
-            //    alert('Event: ' + info.event.title);
-            //    alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-            //    alert('View: ' + info.view.type);
+            eventClick: function(info) {
+                alert('Event: ' + info.id);
+                alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+                alert('View: ' + info.view.type);
 
-            //    // change the border color just for fun
-            //    info.el.style.borderColor = 'red';
-            //},
+                // change the border color just for fun
+                info.el.style.borderColor = 'red';
+            },
             dayClick: function(date, jsEvent, view) {
                 showLoader();
                 var options = { keyboard: true };
@@ -133,6 +148,7 @@
                         $.each(result, function (i, data) {
                             events.push(
                            {
+                               id: data.Id,
                                title: data.Title,
                                description: data.Desc,
                                start: moment(data.StartDate).format('YYYY-MM-DD'),
@@ -152,9 +168,7 @@
                 {
                     content: event.description
                 });
-            },
-
-            editable: false
+            }
         });
     });
 </script>

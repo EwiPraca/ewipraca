@@ -1,62 +1,63 @@
 ﻿@using EwiPraca.Enumerations
 @model int
+<div id="company-navigation">
+    <h6 class="section-title align-center">Nawigacja</h6>
 
-<h6 class="section-title align-center">Nawigacja</h6>
+    <ul class="projects-carousel clearfix">
 
-<ul class="projects-carousel clearfix">
+        <li>
+            <a href="@Url.Action("MyProfile", "Manage")">
+                @*<img src="img/placeholders/portfolio-project-4th-1.jpg" alt="">*@
+                <h5 class="title">Mój profil</h5>
+                <span class="categories">Moje dane</span>
+            </a>
+        </li>
 
-    <li>
-        <a href="@Url.Action("MyProfile", "Manage")">
-            @*<img src="img/placeholders/portfolio-project-4th-1.jpg" alt="">*@
-            <h5 class="title">Mój profil</h5>
-            <span class="categories">Moje dane</span>
-        </a>
-    </li>
+        <li>
+            <a href="@Url.Action("Index", "Employee", new { id = Model, viewType = EmployeeListTypes.Default } )">
+                @*<img src="img/placeholders/portfolio-project-4th-1.jpg" alt="">*@
+                <h5 class="title">Pracownicy</h5>
+                <span class="categories">Ewidencja pracowników</span>
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "Calendar", new { companyId = Model })">
+                @*<img src="img/placeholders/portfolio-project-4th-1.jpg" alt="">*@
+                <h5 class="title">Kalendarz</h5>
+                <span class="categories">Wyświetl kalendarz</span>
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "Employee", new { id = Model, viewType = EmployeeListTypes.Leaves } )">
+                @*<img src="img/placeholders/portfolio-project-4th-1.jpg" alt="">*@
+                <h5 class="title">Urlopy</h5>
+                <span class="categories">Zarządzaj urlopami</span>
+            </a>
+        </li>
 
-    <li>
-        <a href="@Url.Action("Index", "Employee", new { id = Model, viewType = EmployeeListTypes.Default } )">
-            @*<img src="img/placeholders/portfolio-project-4th-1.jpg" alt="">*@
-            <h5 class="title">Pracownicy</h5>
-            <span class="categories">Ewidencja pracowników</span>
-        </a>
-    </li>
-    <li>
-        <a href="@Url.Action("Index", "Calendar", new { companyId = Model })">
-            @*<img src="img/placeholders/portfolio-project-4th-1.jpg" alt="">*@
-            <h5 class="title">Kalendarz</h5>
-            <span class="categories">Wyświetl kalendarz</span>
-        </a>
-    </li>
-    <li>
-        <a href="@Url.Action("Index", "Employee", new { id = Model, viewType = EmployeeListTypes.Leaves } )">
-            @*<img src="img/placeholders/portfolio-project-4th-1.jpg" alt="">*@
-            <h5 class="title">Urlopy</h5>
-            <span class="categories">Zarządzaj urlopami</span>
-        </a>
-    </li>
+        <li>
+            <a href="@Url.Action("Index", "Employee", new { id = Model, viewType = EmployeeListTypes.MedicalResults } )">
+                @*<img src="img/placeholders/portfolio-project-4th-2.jpg" alt="">*@
+                <h5 class="title">Badania lekarskie</h5>
+                <span class="categories">Ewidencja badań lekarskich</span>
+            </a>
+        </li>
 
-    <li>
-        <a href="@Url.Action("Index", "Employee", new { id = Model, viewType = EmployeeListTypes.MedicalResults } )">
-            @*<img src="img/placeholders/portfolio-project-4th-2.jpg" alt="">*@
-            <h5 class="title">Badania lekarskie</h5>
-            <span class="categories">Ewidencja badań lekarskich</span>
-        </a>
-    </li>
+        <li>
+            <a href="@Url.Action("Index", "Employee", new { id = Model, viewType = EmployeeListTypes.OSHTrainings } )">
+                @*<img src="img/placeholders/portfolio-project-4th-3.jpg" alt="">*@
+                <h5 class="title">Szkolenia BHP</h5>
+                <span class="categories">Ewidencja szkoleń BHP</span>
+            </a>
+        </li>
 
-    <li>
-        <a href="@Url.Action("Index", "Employee", new { id = Model, viewType = EmployeeListTypes.OSHTrainings } )">
-            @*<img src="img/placeholders/portfolio-project-4th-3.jpg" alt="">*@
-            <h5 class="title">Szkolenia BHP</h5>
-            <span class="categories">Ewidencja szkoleń BHP</span>
-        </a>
-    </li>
+        <li>
+            <a href="@Url.Action("Index", "Employee", new { id = Model, viewType = EmployeeListTypes.SickLeaves } )">
+                @*<img src="img/placeholders/portfolio-project-4th-4.jpg" alt="">*@
+                <h5 class="title">Zwolnienia lekarskie</h5>
+                <span class="categories">Zarządzaj zwolnieniami lekarskimi</span>
+            </a>
+        </li>
 
-    <li>
-        <a href="@Url.Action("Index", "Employee", new { id = Model, viewType = EmployeeListTypes.SickLeaves } )">
-            @*<img src="img/placeholders/portfolio-project-4th-4.jpg" alt="">*@
-            <h5 class="title">Zwolnienia lekarskie</h5>
-            <span class="categories">Zarządzaj zwolnieniami lekarskimi</span>
-        </a>
-    </li>
-
-</ul><!-- end .projects-carousel -->
+    </ul><!-- end .projects-carousel -->
+</div>

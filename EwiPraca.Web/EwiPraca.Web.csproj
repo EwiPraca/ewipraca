@@ -284,6 +284,7 @@
     <Compile Include="Models\Calendar\CalendarItem.cs" />
     <Compile Include="Models\Calendar\CustomEventViewModel.cs" />
     <Compile Include="Models\Contract\ContractViewModel.cs" />
+    <Compile Include="Models\Employee\CalendarViewModel.cs" />
     <Compile Include="Models\Employee\CompanyEmployeesViewModel.cs" />
     <Compile Include="Models\Employee\EmployeeViewModel.cs" />
     <Compile Include="Models\Employee\ExportEmployeesConfirmationViewModel.cs" />

@@ -3,6 +3,7 @@ using EwiPraca.Model.UserArea;
 using EwiPraca.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace EwiPraca.Services.Services
 {
@@ -50,6 +51,11 @@ namespace EwiPraca.Services.Services
         public List<UserCompany> GetUserCompanies(string userId)
         {
             return _userCompanyRepository.Query(x => x.ApplicationUserID == userId).ToList();
+        }
+
+        public UserCompany GetByGuid(Guid guid)
+        {
+            return _userCompanyRepository.Query(x => x.CalendarGuid == guid).FirstOrDefault();
         }
     }
 }
