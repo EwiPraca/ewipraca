@@ -17,5 +17,8 @@ namespace EwiPraca.Model.EmployeeArea
         public DateTime EndDate { get; set; }
         [Required]
         public string Description { get; set; }
+
+
+        public bool Reminder { get; set; }
     }
 }

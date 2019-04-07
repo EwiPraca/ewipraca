@@ -1,0 +1,32 @@
+﻿@model EwiPraca.Models.Calendar.CustomEventViewModel
+
+@{
+    var title = "Dodaj zdarzenie";
+}
+
+<div class="modal-wrapper">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="closbtnsleave">×</button>
+        <h4 class="modal-title" id="myModalLabel">@title</h4>
+    </div>
+    @using (Ajax.BeginForm("AddEvent", "Calendar", new AjaxOptions() { HttpMethod = "POST", OnSuccess = "onEventAddSuccess", OnFailure = "onFailureModalEdit" })) // { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.EditorFor(x => x)
+    }
+</div>
+
+
+<script type="text/javascript">
+    function onEventAddSuccess(e) {
+        if (e.Success == "true") {
+            $('#add-event-modal').modal('hide');
+            $('#calendar').fullCalendar('refetchEvents');
+        }
+        else {
+            BootstrapDialog.show({
+                title: 'Informacja',
+                message: e.Message
+            });
+        }
+    }
+</script>

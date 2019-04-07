@@ -81,9 +81,41 @@ namespace EwiPraca.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetCustomEventView(int companyId, DateTime startDate)
+        public ActionResult AddCustomEventView(int companyId, DateTime startDate)
         {
-            return PartialView("CustomEventView", new CustomEventViewModel() { CompanyId = companyId, StartDate = startDate });
+            return PartialView("AddCustomEventView", new CustomEventViewModel() { CompanyId = companyId, StartDate = startDate, EndDate = startDate });
+        }
+
+        [HttpGet]
+        public ActionResult EditCustomEventView(int customEventId)
+        {
+            var customEvent = _customEventService.GetById(customEventId);
+
+            var model = Mapper.Map<CustomEventViewModel>(customEvent);
+
+            return PartialView("EditCustomEventView", model);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteCustomEvent(int id)
+        {
+            var result = new { Success = "true", Message = "Success" };
+
+            try
+            {
+                var customEvent = _customEventService.GetById(id);
+
+                if (customEvent != null)
+                {
+                    _customEventService.Delete(customEvent);
+                }
+            }
+            catch (Exception e)
+            {
+                logger.Error(e, e.Message);
+                result = new { Success = "false", Message = WebResources.ErrorMessage };
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -93,7 +125,7 @@ namespace EwiPraca.Controllers
 
             if (ModelState.IsValid)
             {
-                if ( model.StartDate >= model.EndDate)
+                if ( model.StartDate > model.EndDate)
                 {
                     result = new { Success = "false", Message = "Data końca musi być późniejsza niż data rozpoczęcia." };
 
@@ -126,6 +158,47 @@ namespace EwiPraca.Controllers
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpPost]
+        public ActionResult EditEvent(CustomEventViewModel model)
+        {
+            var result = new { Success = "true", Message = "Success" };
+
+            if (ModelState.IsValid)
+            {
+                if (model.StartDate > model.EndDate)
+                {
+                    result = new { Success = "false", Message = "Data końca musi być późniejsza niż data rozpoczęcia." };
+
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+
+                try
+                {
+                    var customEvent = Mapper.Map<CustomEvent>(model);
+                    
+                    customEvent.UpdatedDate = customEvent.CreatedDate;
+
+                    _customEventService.Update(customEvent);
+                }
+                catch (Exception e)
+                {
+                    logger.Error(e, e.Message);
+                    result = new { Success = "false", Message = WebResources.ErrorMessage };
+                }
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var error = ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault().ErrorMessage;
+
+                result = new { Success = "false", Message = error };
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+        }
+
 
         [HttpGet]
         public ActionResult GetCalendarData(int companyId)
@@ -169,8 +242,8 @@ namespace EwiPraca.Controllers
                     Id = customEvent.Id,
                     Desc = customEvent.Description ?? noDescription,
                     Title = customEvent.Title,
-                    StartDate = customEvent.StartDate.ToString(),
-                    EndDate = customEvent.EndDate.ToString(),
+                    StartDate = customEvent.StartDate.ToString("o"),
+                    EndDate = customEvent.EndDate.ToString("o"),
                     Color = CalendarEventColors.CustomEvent
                 });
             }
@@ -187,8 +260,8 @@ namespace EwiPraca.Controllers
                     Id = training.Id,
                     Desc = training.Notes ?? noDescription,
                     Title = string.Format("Upływa termin szkolenia BHP - {0} {1}", training.Employee.FirstName, training.Employee.Surname),
-                    StartDate = training.NextCompletionDate.ToString(),
-                    EndDate = training.NextCompletionDate.ToString(),
+                    StartDate = training.NextCompletionDate.Value.ToString("o"),
+                    EndDate = training.NextCompletionDate.Value.ToString("o"),
                     Color = CalendarEventColors.OSHTraining
                 });
             }
@@ -205,8 +278,8 @@ namespace EwiPraca.Controllers
                     Id = medicalReport.Id,
                     Desc = medicalReport.Notes ?? noDescription,
                     Title = string.Format("Upływa termin badań lekarskich - {0} {1}", medicalReport.Employee.FirstName, medicalReport.Employee.Surname),
-                    StartDate = medicalReport.NextCompletionDate.ToString(),
-                    EndDate = medicalReport.NextCompletionDate.ToString(),
+                    StartDate = medicalReport.NextCompletionDate.Value.ToString("o"),
+                    EndDate = medicalReport.NextCompletionDate.Value.ToString("o"),
                     Color = CalendarEventColors.MedicalReport
                 });
             }
@@ -223,8 +296,8 @@ namespace EwiPraca.Controllers
                     Id = leave.Id,
                     Desc = leave.Notes ?? noDescription,
                     Title = CreateLeaveTitle(leave),
-                    StartDate = leave.DateFrom.ToString(),
-                    EndDate = leave.DateTo.ToString(),
+                    StartDate = leave.DateFrom.ToString("o"),
+                    EndDate = leave.DateTo.ToString("o"),
                     Color = leave.LeaveType == Enumerations.LeaveType.SickLeave ? CalendarEventColors.SickLeave : CalendarEventColors.Leave
                 });
             }

@@ -48,7 +48,7 @@ namespace EwiPraca.Services.Services
         {
             DateTime now = DateTime.Now.Date;
 
-            return _customEventRepository.Query(x => !x.IsDeleted && x.StartDate.Date.AddDays(-1) == now).ToList();
+            return _customEventRepository.Query(x => !x.IsDeleted && x.StartDate.Date.AddDays(-1) == now && x.Reminder).ToList();
         }
 
         public void Update(CustomEvent entity)

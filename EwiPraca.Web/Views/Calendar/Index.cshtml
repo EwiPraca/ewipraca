@@ -12,12 +12,13 @@
     <link href="~/Content/fullcalendar.print.min.css" rel="stylesheet" media="print" />
     <link href="~/Content/fullcalendar.min.css" rel="stylesheet" />
     <link href="~/Scripts/qTip/jquery.qtip.min.css" rel="stylesheet" />
-
+    
 <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <!-- qTip -->
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js"></script>
+<script type="text/javascript" src="~/Scripts/qTip/jquery.qtip.min.js"></script>
 <!-- Full Calendar -->
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.9.1/fullcalendar.min.js"></script>
+<script type="text/javascript" src="~/Scripts/fullcalendar.min.js"></script>
+<script type="text/javascript" src="~/Scripts/locale/pl.js"></script>
 
 }
 <header class="page-header">
@@ -32,6 +33,8 @@
 <p class="align-center">
 
     <a href="#" id="share-calendar" class="button"><span class="glyphicon"></span>Udostępnij</a>
+    <p class="align-center">Kliknij na dzień by dodaj zdarzenie.</p>
+    <p class="align-center">Kliknij na zdarzenie by je edytować.</p>
 </p>
 <div id="calendar"></div>
 
@@ -90,14 +93,29 @@
             });
         });
 
-        $('#calendar').fullCalendar({
+        var calendar = $('#calendar').fullCalendar({
             eventClick: function(info) {
-                alert('Event: ' + info.id);
-                alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-                alert('View: ' + info.view.type);
 
-                // change the border color just for fun
-                info.el.style.borderColor = 'red';
+                showLoader();
+                var options = { keyboard: true };
+                var data = { customEventId: info.id }
+                $.ajax({
+                    type: "GET",
+                    url: "@Url.Action("EditCustomEventView", "Calendar")",
+                    contentType: "application/json",
+                data: data,
+                datatype: "json",
+                success: function (data) {
+                    $('#add-event-modal-content').html(data);
+                    $('#add-event-modal').modal(options);
+                    $('#add-event-modal').modal('show');
+                    hideLoader();
+                },
+                error: function () {
+                    hideLoader();
+                    alert("Dynamic content load failed.");
+                }
+            });
             },
             dayClick: function(date, jsEvent, view) {
                 showLoader();
@@ -105,7 +123,7 @@
                 var data = { companyId: @Model.CompanyId, startDate: date.format() }
                 $.ajax({
                     type: "GET",
-                    url: "@Url.Action("GetCustomEventView", "Calendar")",
+                    url: "@Url.Action("AddCustomEventView", "Calendar")",
                     contentType: "application/json",
                     data: data,
                     datatype: "json",
@@ -121,7 +139,6 @@
                     }
                 });
             },
-            locale: 'pl',
             header:
             {
                 left: 'prev,next today',
@@ -135,7 +152,7 @@
                 day: 'Dzień'
             },
             eventTextColor: "#ffffff",
-
+            lang: 'pl',
             events: function (start, end, timezone, callback) {
                 $.ajax({
                     url: '@Url.Action("GetCalendarData", "Calendar", new { companyId = Model.CompanyId })',
@@ -151,8 +168,8 @@
                                id: data.Id,
                                title: data.Title,
                                description: data.Desc,
-                               start: moment(data.StartDate).format('YYYY-MM-DD'),
-                               end: moment(data.EndDate).format('YYYY-MM-DD'),
+                               start: moment(data.StartDate),
+                               end: moment(data.EndDate),
                                backgroundColor: data.Color,
                                borderColor: data.Color,
                            });

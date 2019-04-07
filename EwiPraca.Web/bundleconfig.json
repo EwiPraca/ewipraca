@@ -154,5 +154,23 @@
     "inputFiles": [
       "Scripts/jquery.easing.compatible.js"
     ]
+  },
+  {
+    "outputFileName": "Scripts/jquery.simple-dtpicker.min.js",
+    "inputFiles": [
+      "Scripts/jquery.simple-dtpicker.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/jquery.simple-dtpicker.min.css",
+    "inputFiles": [
+      "Content/jquery.simple-dtpicker.css"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/locale-all.min.js",
+    "inputFiles": [
+      "Scripts/locale-all.js"
+    ]
   }
 ]

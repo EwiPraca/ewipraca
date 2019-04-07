@@ -5059,4 +5059,9 @@ input[type=button] {
 
 .fc-content{
     color: #fff !important;
+    cursor: pointer !important;
+}
+
+.delete-event-button{
+    margin-left: 10px;
 }
