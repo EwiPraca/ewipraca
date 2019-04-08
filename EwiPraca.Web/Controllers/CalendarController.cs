@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EwiPraca.Attributes;
+using EwiPraca.Enumerations;
 using EwiPraca.Model;
 using EwiPraca.Model.EmployeeArea;
 using EwiPraca.Models;
@@ -52,9 +53,9 @@ namespace EwiPraca.Controllers
         {
             var company = _companyService.GetById(companyId);
 
-            if(company != null)
+            if (company != null)
             {
-                if(company.CalendarGuid == null)
+                if (company.CalendarGuid == null)
                 {
                     company.CalendarGuid = Guid.NewGuid();
 
@@ -125,9 +126,16 @@ namespace EwiPraca.Controllers
 
             if (ModelState.IsValid)
             {
-                if ( model.StartDate > model.EndDate)
+                if (model.StartDate > model.EndDate)
                 {
                     result = new { Success = "false", Message = "Data końca musi być późniejsza niż data rozpoczęcia." };
+
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+
+                if (model.OccurencyIntervalNumber > 0 && model.OccurenceType == null)
+                {
+                    result = new { Success = "false", Message = "Wymagane podanie typu cykliczności." };
 
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
@@ -173,10 +181,17 @@ namespace EwiPraca.Controllers
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
 
+                if (model.OccurencyIntervalNumber > 0 && model.OccurenceType == null)
+                {
+                    result = new { Success = "false", Message = "Wymagane podanie typu cykliczności." };
+
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+
                 try
                 {
                     var customEvent = Mapper.Map<CustomEvent>(model);
-                    
+
                     customEvent.UpdatedDate = customEvent.CreatedDate;
 
                     _customEventService.Update(customEvent);
@@ -237,15 +252,37 @@ namespace EwiPraca.Controllers
 
             foreach (var customEvent in customEvents)
             {
-                items.Add(new CalendarItem()
+                if (customEvent.IsOccurency)
                 {
-                    Id = customEvent.Id,
-                    Desc = customEvent.Description ?? noDescription,
-                    Title = customEvent.Title,
-                    StartDate = customEvent.StartDate.ToString("o"),
-                    EndDate = customEvent.EndDate.ToString("o"),
-                    Color = CalendarEventColors.CustomEvent
-                });
+                    int multiplier = 0;
+
+                    for (int i = 0; i < customEvent.OccurencyIntervalNumber; i++)
+                    {
+                        multiplier = i * (int)customEvent.OccurenceType;
+
+                        items.Add(new CalendarItem()
+                        {
+                            Id = customEvent.Id,
+                            Desc = customEvent.Description ?? noDescription,
+                            Title = customEvent.Title,
+                            StartDate = customEvent.StartDate.AddDays(multiplier).ToString("o"),
+                            EndDate = customEvent.EndDate.AddDays(multiplier).ToString("o"),
+                            Color = CalendarEventColors.CustomEvent
+                        });
+                    }
+                }
+                else
+                {
+                    items.Add(new CalendarItem()
+                    {
+                        Id = customEvent.Id,
+                        Desc = customEvent.Description ?? noDescription,
+                        Title = customEvent.Title,
+                        StartDate = customEvent.StartDate.ToString("o"),
+                        EndDate = customEvent.EndDate.ToString("o"),
+                        Color = CalendarEventColors.CustomEvent
+                    });
+                }
             }
         }
 

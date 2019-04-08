@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EwiPraca.Enumerations;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -28,5 +29,13 @@ namespace EwiPraca.Models.Calendar
 
         [DisplayName("Czy wysłać przypomnienie")]
         public bool Reminder { get; set; }
+
+        [DisplayName("Czy zdarzenie jest cykliczne")]
+        public bool IsOccurency { get; set; }
+
+        [DisplayName("Typ cykliczności")]
+        public OccurencyType? OccurenceType { get; set; }
+        [DisplayName("Liczba powtórzeń")]
+        public int? OccurencyIntervalNumber { get; set; }
     }
 }

@@ -160,6 +160,14 @@
     <Compile Include="Migrations\201904071829351_CalendarReminder.Designer.cs">
       <DependentUpon>201904071829351_CalendarReminder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904081828542_CalendarOccurency.cs" />
+    <Compile Include="Migrations\201904081828542_CalendarOccurency.Designer.cs">
+      <DependentUpon>201904081828542_CalendarOccurency.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904081841237_CalendarOccurency2.cs" />
+    <Compile Include="Migrations\201904081841237_CalendarOccurency2.Designer.cs">
+      <DependentUpon>201904081841237_CalendarOccurency2.cs</DependentUpon>
+    </Compile>
     <Compile Include="RepositoryTransaction.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="EwiPracaDbContext.cs" />
@@ -273,6 +281,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904071829351_CalendarReminder.resx">
       <DependentUpon>201904071829351_CalendarReminder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904081828542_CalendarOccurency.resx">
+      <DependentUpon>201904081828542_CalendarOccurency.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904081841237_CalendarOccurency2.resx">
+      <DependentUpon>201904081841237_CalendarOccurency2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

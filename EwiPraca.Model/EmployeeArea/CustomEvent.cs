@@ -1,4 +1,5 @@
-﻿using EwiPraca.Model.Base;
+﻿using EwiPraca.Enumerations;
+using EwiPraca.Model.Base;
 using EwiPraca.Model.UserArea;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -18,7 +19,10 @@ namespace EwiPraca.Model.EmployeeArea
         [Required]
         public string Description { get; set; }
 
+        public bool IsOccurency { get; set; }
+        public int? OccurencyIntervalNumber { get; set; }
 
+        public OccurencyType? OccurenceType { get; set; }
         public bool Reminder { get; set; }
     }
 }
