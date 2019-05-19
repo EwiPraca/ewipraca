@@ -1,6 +1,5 @@
 C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Importers\bin\Debug\EwiPraca.Importers.dll
 C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Importers\bin\Debug\EwiPraca.Importers.pdb
-C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Importers\obj\Debug\EwiPraca.Importers.csprojResolveAssemblyReference.cache
 C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Importers\obj\Debug\EwiPraca.Importers.dll
 C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Importers\obj\Debug\EwiPraca.Importers.pdb
 C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Importers\bin\Debug\Ewipraca.ImportProcessors.dll
@@ -25,3 +24,9 @@ C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiP
 C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Importers\bin\Debug\EwiPraca.Encryptor.pdb
 C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Importers\bin\Debug\EwiPraca.Validators.dll
 C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Importers\bin\Debug\EwiPraca.Validators.pdb
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Importers\bin\Debug\EwiPraca.Model.dll.config
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Importers\bin\Debug\EwiPraca.Services.dll.config
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Importers\bin\Debug\EwiPraca.Data.dll.config
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Importers\obj\Debug\EwiPraca.Importers.csprojAssemblyReference.cache
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Importers\obj\Debug\EwiPraca.Importers.csproj.CoreCompileInputs.cache
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\EwiPraca.Importers\obj\Debug\EwiPraca.Importers.csproj.CopyComplete

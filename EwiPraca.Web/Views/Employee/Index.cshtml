@@ -33,7 +33,7 @@
 
     <a href="#" id="download-import-from-excel-template" class="button"><span class="glyphicon"></span>Pobierz szablon excel do importu</a>
     <a href="#" id="import-from-excel" class="button"><span class="glyphicon"></span>Importuj z pliku excel</a>
-    @*<a href="#" id="export-to-excel" class="button"><span class="glyphicon"></span>Eksportuj do  pliku excel</a>*@
+    <a href="#" id="export-to-excel" class="button"><span class="glyphicon"></span>Eksportuj do  pliku excel</a>
     <a href="#" id="open-add-position-dictionary-modal" class="button"><span class="glyphicon"></span>Zarządzaj słownikiem stanowisk pracowników</a>
     <a href="#" id="open-add-job-part-dictionary-modal" class="button"><span class="glyphicon"></span>Zarządzaj słownikiem etatów</a>
     <a href="#" id="open-add-employee-modal" class="button"><span class="glyphicon glyphicon-plus"></span>Dodaj pracownika</a>
@@ -304,14 +304,6 @@
                 "sLengthMenu": "Pokaż na stronę: _MENU_",
             },
             buttons: [
-            {
-                extend: 'excelHtml5',
-                text: 'Eksportuj do pliku Excel',
-                exportOptions: {
-                    columns: ':visible',
-                    text: 'Eksportuj do pliku excel'
-                }
-            },
             {
                 extend: 'pdfHtml5',
                 text: 'Eksportuj do PDF',

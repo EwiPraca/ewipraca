@@ -8,5 +8,5 @@
     @Html.Partial("_Menu", new MenuViewModel() { MyProfileSelected = true })
 }
 
-<h1 class="text-danger">Error.</h1>
+<h1 class="text-danger">Error. @Model.Exception.Message  @Model.Exception.StackTrace</h1>
 <h2 class="text-danger">Wystąpił błąd. Spróbuj ponownie lub skontaktuj się z Administratorem.</h2>

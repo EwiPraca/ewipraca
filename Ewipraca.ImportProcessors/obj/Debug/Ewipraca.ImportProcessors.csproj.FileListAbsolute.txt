@@ -18,6 +18,11 @@ C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\Ewip
 C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\Ewipraca.ImportProcessors\bin\Debug\EntityFramework.xml
 C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\Ewipraca.ImportProcessors\bin\Debug\Z.EntityFramework.Plus.EF6.xml
 C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\Ewipraca.ImportProcessors\bin\Debug\EwiPraca.Encryptor.pdb
-C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\Ewipraca.ImportProcessors\obj\Debug\Ewipraca.ImportProcessors.csprojResolveAssemblyReference.cache
 C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\Ewipraca.ImportProcessors\obj\Debug\Ewipraca.ImportProcessors.dll
 C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\Ewipraca.ImportProcessors\obj\Debug\Ewipraca.ImportProcessors.pdb
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\Ewipraca.ImportProcessors\bin\Debug\EwiPraca.Model.dll.config
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\Ewipraca.ImportProcessors\bin\Debug\EwiPraca.Services.dll.config
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\Ewipraca.ImportProcessors\bin\Debug\EwiPraca.Data.dll.config
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\Ewipraca.ImportProcessors\obj\Debug\Ewipraca.ImportProcessors.csprojAssemblyReference.cache
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\Ewipraca.ImportProcessors\obj\Debug\Ewipraca.ImportProcessors.csproj.CoreCompileInputs.cache
+C:\Users\WitkowskiM\Documents\Visual Studio 2015\Projects\EwiPraca\ewipraca\Ewipraca.ImportProcessors\obj\Debug\Ewipraca.ImportProcessors.csproj.CopyComplete

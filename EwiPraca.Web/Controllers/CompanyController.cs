@@ -52,8 +52,7 @@ namespace EwiPraca.Controllers
 
             return View(Mapper.Map<UserCompanyViewModel>(company));
         }
-
-        [HttpGet]
+        
         public ActionResult GetUserCompanies(string userId)
         {
             var companies = _userCompanyService.GetUserCompanies(userId);
@@ -92,6 +91,7 @@ namespace EwiPraca.Controllers
                         company.Address.StreetNumber = model.UserCompanyAddress.StreetNumber;
                         company.Address.PlaceNumber = model.UserCompanyAddress.PlaceNumber;
                         company.Address.ZIPCode = model.UserCompanyAddress.ZIPCode;
+                        company.Notes = model.Notes;
 
                         company.UpdatedDate = DateTime.Now;
                         _userCompanyService.Update(company);

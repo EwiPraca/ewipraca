@@ -672,7 +672,7 @@ namespace EwiPraca.Controllers
                 catch (Exception e)
                 {
                     logger.Error(e, e.Message);
-                    result = new { Success = "false", Message = WebResources.ErrorMessage };
+                    result = new { Success = "false", Message = e.Message };
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
             }

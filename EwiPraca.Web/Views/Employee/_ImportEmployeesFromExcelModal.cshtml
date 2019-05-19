@@ -67,6 +67,7 @@
                 processData: false,
                 success: function (r) {
                     if (r.Success == "false") {
+                        hideLoader();
                         BootstrapDialog.show({
                             title: 'Informacja',
                             message: r.Message
@@ -77,6 +78,7 @@
                     }
                 },
                 error: function (xhr) {
+                    hideLoader();
                     if (xhr.responseJSON.Message) {
                         BootstrapDialog.show({
                             title: 'Informacja',
@@ -87,7 +89,7 @@
                     event.preventDefault();
                 },
                 complete: function (e) {
-
+                    hideLoader();
                 }
             });
 

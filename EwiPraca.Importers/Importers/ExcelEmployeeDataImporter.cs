@@ -19,6 +19,7 @@ namespace EwiPraca.Importers.Importers
 
             List<EmployeeImportRow> rows = new List<EmployeeImportRow>();
 
+
             for (int i = 2; i <= rowCount; i++)
             {
                 EmployeeImportRow row = new EmployeeImportRow();
@@ -27,11 +28,17 @@ namespace EwiPraca.Importers.Importers
                 row.FirstName = xlRange.Cells[i, 1].Value2?.ToString();
                 row.Surname = xlRange.Cells[i, 2].Value2?.ToString();
                 row.PESEL = xlRange.Cells[i, 3].Value2?.ToString();
-                row.BirthDate = xlRange.Cells[i, 4].Value2?.ToString();
+                row.BirthDate = xlRange.Cells[i, 4].Value2?.ToString().Replace("/", "");
 
-                double date = double.Parse(row.BirthDate);
-
-                row.BirthDate = DateTime.FromOADate(date).ToString("MMMM dd, yyyy");
+                try
+                {
+                    double date = double.Parse(row.BirthDate);
+                    row.BirthDate = DateTime.FromOADate(date).ToString("MMMM dd, yyyy");
+                }
+                catch(Exception e)
+                {
+                    throw new Exception(string.Format("Nieprawidłowy format daty urodzin dla: {0} {1}. Wymagany format: rrrr-mm-dd", row.FirstName, row.Surname));
+                }
 
                 row.City = xlRange.Cells[i, 5].Value2?.ToString();
                 row.StreetName = xlRange.Cells[i, 6].Value2?.ToString();
