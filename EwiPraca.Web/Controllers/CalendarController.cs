@@ -88,13 +88,61 @@ namespace EwiPraca.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditCustomEventView(int customEventId)
+        public ActionResult EditCustomEventView(int customEventId, string color)
         {
-            var customEvent = _customEventService.GetById(customEventId);
+            switch (color)
+            {
+                case CalendarEventColors.CustomEvent:
+                    var customEvent = _customEventService.GetById(customEventId);
 
-            var model = Mapper.Map<CustomEventViewModel>(customEvent);
+                    var customEventModel = Mapper.Map<CustomEventViewModel>(customEvent);
 
-            return PartialView("EditCustomEventView", model);
+                    return PartialView("EditCustomEventView", customEventModel);
+
+                case CalendarEventColors.MedicalReport:
+                    var medicalEx = _medicalReportService.GetById(customEventId);
+
+                    CalendarEventViewModel medicalExModel = new CalendarEventViewModel
+                    {
+                        Description = medicalEx.Notes,
+                        Title = "Koniec badań lekarskich",
+                        StartDate = medicalEx.CompletionDate,
+                        EndDate = medicalEx.NextCompletionDate,
+                        EmployeeName = medicalEx.Employee.FullName
+                    };
+
+
+                    return PartialView("CalendarEventView", medicalExModel);
+                case CalendarEventColors.Leave:
+                case CalendarEventColors.SickLeave:
+                    var leave = _leaveService.GetById(customEventId);
+
+                    CalendarEventViewModel leaveModel = new CalendarEventViewModel
+                    {
+                        Description = leave.Notes,
+                        Title = CreateLeaveTitle(leave),
+                        StartDate = leave.DateFrom,
+                        EndDate = leave.DateTo,
+                        EmployeeName = leave.Employee.FullName
+                    };
+
+                    return PartialView("CalendarEventView", leaveModel);
+                case CalendarEventColors.OSHTraining:
+                    var oshTraining = _oshTrainingService.GetById(customEventId);
+
+                    CalendarEventViewModel model = new CalendarEventViewModel
+                    {
+                        Description = oshTraining.Notes,
+                        Title = "Koniec szkolenia BHP",
+                        StartDate = oshTraining.CreatedDate,
+                        EndDate = oshTraining.NextCompletionDate,
+                        EmployeeName = oshTraining.Employee.FullName
+                    };
+
+                    return PartialView("CalendarEventView", model);
+            };
+
+            throw new Exception("Brak widoku do wyświetlenia!");
         }
 
         [HttpPost]
@@ -267,7 +315,8 @@ namespace EwiPraca.Controllers
                             Title = customEvent.Title,
                             StartDate = customEvent.StartDate.AddDays(multiplier).ToString("o"),
                             EndDate = customEvent.EndDate.AddDays(multiplier).ToString("o"),
-                            Color = CalendarEventColors.CustomEvent
+                            Color = CalendarEventColors.CustomEvent,
+                            Type = CalendarEventType.CustomEvent
                         });
                     }
                 }
@@ -299,7 +348,8 @@ namespace EwiPraca.Controllers
                     Title = string.Format("Upływa termin szkolenia BHP - {0} {1}", training.Employee.FirstName, training.Employee.Surname),
                     StartDate = training.NextCompletionDate.Value.ToString("o"),
                     EndDate = training.NextCompletionDate.Value.ToString("o"),
-                    Color = CalendarEventColors.OSHTraining
+                    Color = CalendarEventColors.OSHTraining,
+                    Type = CalendarEventType.OSHTraining
                 });
             }
         }
@@ -317,7 +367,8 @@ namespace EwiPraca.Controllers
                     Title = string.Format("Upływa termin badań lekarskich - {0} {1}", medicalReport.Employee.FirstName, medicalReport.Employee.Surname),
                     StartDate = medicalReport.NextCompletionDate.Value.ToString("o"),
                     EndDate = medicalReport.NextCompletionDate.Value.ToString("o"),
-                    Color = CalendarEventColors.MedicalReport
+                    Color = CalendarEventColors.MedicalReport,
+                    Type = CalendarEventType.MedicalReport
                 });
             }
         }
@@ -335,7 +386,8 @@ namespace EwiPraca.Controllers
                     Title = CreateLeaveTitle(leave),
                     StartDate = leave.DateFrom.ToString("o"),
                     EndDate = leave.DateTo.ToString("o"),
-                    Color = leave.LeaveType == Enumerations.LeaveType.SickLeave ? CalendarEventColors.SickLeave : CalendarEventColors.Leave
+                    Color = leave.LeaveType == Enumerations.LeaveType.SickLeave ? CalendarEventColors.SickLeave : CalendarEventColors.Leave,
+                    Type = CalendarEventType.Leave
                 });
             }
         }

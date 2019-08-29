@@ -31,7 +31,7 @@ namespace EwiPraca.Controllers
         private readonly IUserFileService _userFileService;
         private static Logger logger = LogManager.GetCurrentClassLogger();
         private readonly int _defaultNumberOfDays = SettingsHandler.DaysBeforeIntervalReminder;
-        private readonly string filePath = "C:/MediaFiles";
+        private readonly string filePath = "MediaFiles";
 
         public ManageController(ApplicationUserManager applicationUserManager,
             IUserCompanyService userCompanyService,
@@ -465,7 +465,8 @@ namespace EwiPraca.Controllers
                     }
                     catch (Exception e)
                     {
-                        logger.Error(e, e.Message);
+                        throw e;
+                        //logger.Error(e, e.Message);
                     }
                 }
             }

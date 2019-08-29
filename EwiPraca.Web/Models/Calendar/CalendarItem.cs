@@ -1,4 +1,6 @@
-﻿namespace EwiPraca.Models.Calendar
+﻿using EwiPraca.Enumerations;
+
+namespace EwiPraca.Models.Calendar
 {
     public class CalendarItem
     {
@@ -8,5 +10,6 @@
         public string StartDate { get; set; }
         public string EndDate { get; set; }
         public string Color { get; set; }
+        public CalendarEventType Type { get; set; }
     }
 }

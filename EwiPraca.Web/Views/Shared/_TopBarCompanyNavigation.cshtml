@@ -9,7 +9,6 @@
             <a href="@Url.Action("MyProfile", "Manage")">
                 @*<img src="img/placeholders/portfolio-project-4th-1.jpg" alt="">*@
                 <h5 class="title">Mój profil</h5>
-                <span class="categories">Moje dane</span>
             </a>
         </li>
 
@@ -17,29 +16,25 @@
             <a href="@Url.Action("Index", "Employee", new { id = Model, viewType = EmployeeListTypes.Default } )">
                 @*<img src="img/placeholders/portfolio-project-4th-1.jpg" alt="">*@
                 <h5 class="title">Pracownicy</h5>
-                <span class="categories">Ewidencja pracowników</span>
             </a>
         </li>
         <li>
             <a href="@Url.Action("Index", "Calendar", new { companyId = Model })">
                 @*<img src="img/placeholders/portfolio-project-4th-1.jpg" alt="">*@
                 <h5 class="title">Kalendarz</h5>
-                <span class="categories">Wyświetl kalendarz</span>
             </a>
         </li>
         <li>
             <a href="@Url.Action("Index", "Employee", new { id = Model, viewType = EmployeeListTypes.Leaves } )">
                 @*<img src="img/placeholders/portfolio-project-4th-1.jpg" alt="">*@
                 <h5 class="title">Urlopy</h5>
-                <span class="categories">Zarządzaj urlopami</span>
             </a>
         </li>
 
         <li>
             <a href="@Url.Action("Index", "Employee", new { id = Model, viewType = EmployeeListTypes.MedicalResults } )">
                 @*<img src="img/placeholders/portfolio-project-4th-2.jpg" alt="">*@
-                <h5 class="title">Badania lekarskie</h5>
-                <span class="categories">Ewidencja badań lekarskich</span>
+                <h5 class="title">Badania lek.</h5>
             </a>
         </li>
 
@@ -47,15 +42,13 @@
             <a href="@Url.Action("Index", "Employee", new { id = Model, viewType = EmployeeListTypes.OSHTrainings } )">
                 @*<img src="img/placeholders/portfolio-project-4th-3.jpg" alt="">*@
                 <h5 class="title">Szkolenia BHP</h5>
-                <span class="categories">Ewidencja szkoleń BHP</span>
             </a>
         </li>
 
         <li>
             <a href="@Url.Action("Index", "Employee", new { id = Model, viewType = EmployeeListTypes.SickLeaves } )">
                 @*<img src="img/placeholders/portfolio-project-4th-4.jpg" alt="">*@
-                <h5 class="title">Zwolnienia lekarskie</h5>
-                <span class="categories">Zarządzaj zwolnieniami lekarskimi</span>
+                <h5 class="title">Zwolnienia lek.</h5>
             </a>
         </li>
 

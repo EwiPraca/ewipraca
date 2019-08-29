@@ -50,8 +50,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Imię</th>
-                            <th>Nazwisko</th>
+                            <th>Nazwisko i imię</th>
                             <th>PESEL</th>
                             <th>Płeć</th>
                             <th>Stanowisko</th>
@@ -65,8 +64,7 @@
                             {
                                 <tr>
                                     <td>@employee.Id</td>
-                                    <td>@employee.FirstName</td>
-                                    <td>@employee.Surname</td>
+                                    <td>@employee.Surname @employee.FirstName</td>
                                     <td>@employee.PESEL</td>
                                     @{
                                         var sex = employee.Sex.GetAttribute<DisplayAttribute>().Name;
@@ -281,11 +279,8 @@
              {
                  "targets": [4]
              },
-             {
-                 "targets": [5]
-             },
               {
-                  "targets": [6],
+                  "targets": [5],
                   mRender: function (data, type, row) {
 
                       return '<a class="button grid-button move-employee-button" data-id="' + row[0] + '">Przenieś</a><a class="button grid-button edit-button" data-id="' + row[0] + '">Edytuj</a><a class="button grid-button delete-button" data-id="' + row[0] + '">Usuń</a>'

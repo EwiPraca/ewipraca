@@ -42,5 +42,14 @@ namespace EwiPraca.Model
         public virtual List<Leave> Leaves { get; set; }
 
         public Sex Sex { get; set; }
+
+        public string FullName
+        {
+            get
+            {
+                return string.Format("{0} {1}", FirstName, Surname);
+
+            }
+        }
     }
 }

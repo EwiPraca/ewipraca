@@ -601,7 +601,7 @@ namespace EwiPraca.Controllers
 
                         TempData[handle] = ms.ToArray();
 
-                        result = new { Success = "true", Message = "Success", FileGuid = handle, FileName = "EwiPracaExportPracownikow.xlsx" };
+                        result = new { Success = "true", Message = "Success", FileGuid = handle, FileName = "ExportPracownikow.xlsx" };
                     }
                     catch (Exception e)
                     {
@@ -800,7 +800,7 @@ namespace EwiPraca.Controllers
                         }
                         else
                         {
-                            uploadPath = "C:/MediaFiles/";
+                            uploadPath = "MediaFiles/";
                         }
 
                         if (!Directory.Exists(uploadPath))

@@ -98,7 +98,7 @@
 
                 showLoader();
                 var options = { keyboard: true };
-                var data = { customEventId: info.id }
+                var data = { customEventId: info.id, color: info.backgroundColor }
                 $.ajax({
                     type: "GET",
                     url: "@Url.Action("EditCustomEventView", "Calendar")",

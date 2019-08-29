@@ -83,7 +83,7 @@
                     <div class="row">
                         @Html.LabelFor(m => m.NIP, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.EditorFor(m => m.NIP, new { @class = "form-control" })
+                            @Html.TextBoxFor(m => m.NIP, new { @class = "form-control", @type = "number", @min = "0", @step = "1", @onkeypress = "return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" })
                             @Html.ValidationMessageFor(x => x.NIP)
                         </div>
                     </div>

@@ -24,7 +24,7 @@ namespace EwiPraca
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       // "~/Content/bootstrap.min.css",
-                      "~/Content/Site.min.css"));
+                      "~/Content/Site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
                       "~/Scripts/DataTables/jquery.dataTables.min.js",
